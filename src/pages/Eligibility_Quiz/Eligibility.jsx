@@ -1,7 +1,9 @@
 import { lazy } from "react";
+import { Link } from "react-router-dom";
 
-const Header = lazy(() => import("../components/DonorHeader"));
-const Alert = lazy(() => import("../components/Alerts"));
+const Header = lazy(() => import("../../components/DonorHeader"));
+const Alert = lazy(() => import("../../components/Alerts"));
+const Button = lazy(() => import("../../components/Button"));
 
 const Eligibility = () => {
   return (
@@ -28,6 +30,7 @@ const Eligibility = () => {
             safe for patients to receive your donation.
           </p>
         </div>
+
         <div className="">
           <h1 className="font-display text-heading font-display text-4xl text-center">
             Before you start
@@ -46,6 +49,9 @@ const Eligibility = () => {
             day, when you attend your appointment.
           </p>
         </div>
+        <Link to={"/quiz/heart"}>
+          <Button className={"mt-12"}>Start Now</Button>
+        </Link>
       </main>
     </div>
   );

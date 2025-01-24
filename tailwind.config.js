@@ -26,7 +26,7 @@ export default {
       base: '5px'
     },
     boxShadow: {
-      light: '5px 5px 0px 0px #000',
+      light: '3px 3px 0px 0px #000',
       dark: '5px 5px 0px 0px #000',
     },
     translate: {
@@ -41,7 +41,7 @@ export default {
     },
   },
     fontFamily: {
-      'display': ['"Stretch Pro"'],
+      'display': ['False'],
       'body': ['SF Compact Display'],
     }
 },
