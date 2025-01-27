@@ -1,4 +1,4 @@
-const Radios = ({ options }) => {
+const Radios = ({ options, onClick }) => {
   return (
     <div className="space-y-4">
       {options.map((option) => (
@@ -8,6 +8,7 @@ const Radios = ({ options }) => {
             id={option.value}
             name="radioGroup"
             value={option.value}
+            onClick={onClick}
             className="w-5 h-5 border-[2px]  border-stone-500 rounded-full checked:bg-white checked:border-black checked:border-[3px] appearance-none cursor-pointer"
           />
           <label

@@ -1,41 +1,65 @@
 import { ChevronLeft } from "lucide-react";
-import { lazy, useEffect, useState } from "react";
+import { lazy, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Header = lazy(() => import("./DonorHeader"));
 const Radios = lazy(() => import("./Radio"));
 const Button = lazy(() => import("./Button"));
+const Alert = lazy(() => import("./Alerts"));
 
-const Quiz = ({ question, onClick }) => {
+const Quiz = ({ question }) => {
   const navigate = useNavigate();
   const options = [
     { value: "yes", label: "Yes" },
     { value: "no", label: "No" },
   ];
 
-  const [answer,setAnswer] = useState(true);
+  const [unfilled, setUnfilled] = useState(false);
 
-  useEffect(()=>{
-  })
-    return (
+  return (
     <>
       <Header />
       <div className="">
-        <Link to={".."}>
-          <Button className={"flex ml-32"}>
-            <span className="flex font-display text-2xl">
-              <ChevronLeft /> Go Back
-            </span>
-          </Button>
-        </Link>
+        <div className="flex flex-row">
+          <Link to={".."} className="grow">
+            <Button className={"flex ml-32"}>
+              <span className="flex font-display text-2xl">
+                <ChevronLeft /> Go Back
+              </span>
+            </Button>
+          </Link>
+
+          {unfilled && (
+            <Alert
+              message={
+                "You haven't selected an option. You must select and option before proceeding."
+              }
+              className={"grow w-12 py-5 mr-5"}
+            />
+          )}
+        </div>
         <div className="flex justify-center mb-12 mt-12">
           <div className="bg-white p-12 shadow-dark w-1/2 rounded-base">
             <h1 className="font-bold font-body text-2xl mb-5">{question}</h1>
-            <Radios options={options} />
+            <Radios
+              options={options}
+              onClick={(e) => {
+                if (e.target.value == "yes") {
+                  navigate("/");
+                }
+              }}
+            />
           </div>
         </div>
         <div className="flex justify-center">
-          <Button className={"bg-green-600 text-white w-1/3 h-12"} onClick={onClick}>
+          <Button
+            className={"bg-green-600 text-white w-1/3 h-12"}
+            onClick={(e) => {
+              if (e.target.value == "") {
+                setUnfilled(true);
+              }
+            }}
+          >
             <div className="flex align-center justify-center w-full h-full">
               <p className="text-center font-display text-base">Submit</p>
             </div>

@@ -57,6 +57,7 @@ const ManageAppointments = () => {
   };
   const onClick = async () => {
     await cancelAppointment(user.token, id);
+    navigate("/");
   };
   const onChange = (e) => {
     const selectedDate = e.target.value;
@@ -72,7 +73,7 @@ const ManageAppointments = () => {
   useEffect(() => {
     getTimes();
     setMinDateHandler();
-  }, [date, centre.ID]);
+  }, []);
 
   useEffect(() => {
     if (!user) {
@@ -143,7 +144,7 @@ const ManageAppointments = () => {
                 setActive={setIsModal1Active}
                 onClick={onClick}
               >
-                <h1 className="text-text font-body text-xl text-center">
+                <h1 className="text-text font-body text-3xl text-center">
                   Attention! You're about to cancel an appointment, this action
                   is irreversible
                 </h1>
@@ -153,9 +154,7 @@ const ManageAppointments = () => {
                 active={isModal2Active}
                 setActive={setIsModal1Active}
                 onClick={onClick}
-              >
-
-              </Modal>
+              ></Modal>
             </div>
           </div>
         </div>
