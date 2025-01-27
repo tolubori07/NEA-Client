@@ -15,6 +15,8 @@ const Quiz = ({ question }) => {
   ];
 
   const [unfilled, setUnfilled] = useState(false);
+  const [answer, setAnswer] = useState("");
+  const next = "/quiz/acupuncture";
 
   return (
     <>
@@ -45,7 +47,9 @@ const Quiz = ({ question }) => {
               options={options}
               onClick={(e) => {
                 if (e.target.value == "yes") {
-                  navigate("/");
+                  setAnswer(e.target.value);
+                } else {
+                  setAnswer(e.target.value);
                 }
               }}
             />
@@ -55,8 +59,13 @@ const Quiz = ({ question }) => {
           <Button
             className={"bg-green-600 text-white w-1/3 h-12"}
             onClick={(e) => {
-              if (e.target.value == "") {
+              e.preventDefault();
+              if (answer == "") {
                 setUnfilled(true);
+              } else if (answer == "yes") {
+                navigate("/");
+              } else if (answer == "no") {
+                navigate(next);
               }
             }}
           >

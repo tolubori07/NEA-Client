@@ -75,7 +75,7 @@ const App = () => {
             <Route path="/quiz" element={<Eligibility />} />
             <Route path="/quiz/complete" element={<Completed />} />
             <Route path="/quiz/heart" element={<Heart />} />
-            <Route path="/quiz/Acupuncture" element={<Acupuncture />} />
+            <Route path="/quiz/acupuncture" element={<Acupuncture />} />
             <Route path="/quiz/coldsore" element={<Coldsore />} />
             <Route path="/quiz/cold" element={<ColdSymptoms />} />
             <Route path="/quiz/dental" element={<Dental />} />
