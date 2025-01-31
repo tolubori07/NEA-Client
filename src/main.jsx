@@ -1,13 +1,14 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
-import { AuthContext } from './api/Authcontext.js'
+// src/main.jsx
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App.jsx";
+import "./index.css";
+import { AuthProvider } from "./api/Authcontext";
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <AuthContext.Provider value={localStorage.getItem('user')}>
+    <AuthProvider>
       <App />
-    </AuthContext.Provider>
+    </AuthProvider>
   </StrictMode>,
-)
+);

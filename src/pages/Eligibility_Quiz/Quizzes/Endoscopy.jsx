@@ -7,6 +7,7 @@ const Heart = () => {
       question={
         "Have you had a flexible endoscopy or colonoscopy in the last 4 months?"
       }
+      next={"/quiz/infection"}
     />
   );
 };

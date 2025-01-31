@@ -7,6 +7,7 @@ const Heart = () => {
       question={
         "Have you donated either blood, plasma or platelets in the last 16 weeks?"
       }
+      next={"/quiz/endoscopy"}
     />
   );
 };

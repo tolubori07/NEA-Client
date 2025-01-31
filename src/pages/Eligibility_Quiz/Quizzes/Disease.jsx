@@ -7,6 +7,7 @@ const Heart = () => {
       question={
         "Have you been in contact with anyone with an infectious disease within the last 4 weeks?"
       }
+      next={"/quiz/donated"}
     />
   );
 };

@@ -1,47 +1,62 @@
-import axios from "axios"
+// src/api/authservice.js
+import axios from "axios";
 
-const API_URL = "http://localhost:3000"
+const API_URL = "http://localhost:3000";
 
 export const login = async (userData) => {
   try {
-    const response = await axios.post(`${API_URL}/dlogin`, userData,{crossDomain:true});
+    const response = await axios.post(`${API_URL}/dlogin`, userData);
     if (response.data) {
-      // Store user data in localStorage
-      localStorage.setItem('user', JSON.stringify(response.data));
-      // Set the value of the user atom
+      localStorage.setItem("user", JSON.stringify(response.data));
     }
     return response.data;
   } catch (err) {
-    console.error(err);
+    throw new Error(err.response?.data?.message || "Login failed");
   }
 };
 
-
 export const logout = () => {
-  localStorage.removeItem('user');
+  localStorage.removeItem("user");
 };
-
 
 export const register = async (userData) => {
   try {
-    const response = await axios.post(API_URL, userData);
+    const response = await axios.post(`${API_URL}/register`, userData);
     if (response.data) {
-
-      localStorage.setItem('user', JSON.stringify(response.data));
+      localStorage.setItem("user", JSON.stringify(response.data));
     }
     return response.data;
-
   } catch (error) {
-    console.error(error)
+    throw new Error(error.response?.data?.message || "Registration failed");
   }
 };
 
+// src/api/authservice.js
 
-const authServices = {
+export const updatePassword = async (token, newPassword) => {
+  try {
+    const response = await axios.put(
+      `${API_URL}/update-password`,
+      { password: newPassword },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message || "Failed to update password",
+    );
+  }
+};
+
+const authService = {
   login,
   logout,
-  register
-}
-export default authServices
+  register,
+  updatePassword
+};
 
-
+export default authService;

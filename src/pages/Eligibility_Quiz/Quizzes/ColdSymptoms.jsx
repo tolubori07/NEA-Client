@@ -7,6 +7,7 @@ const Heart = () => {
       question={
         "Have you had a cough, sore throat or any cold-related symptoms in the last 7 days?"
       }
+      next={"/quiz/dental"}
     />
   );
 };

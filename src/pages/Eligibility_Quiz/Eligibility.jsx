@@ -1,11 +1,12 @@
 import { lazy } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = lazy(() => import("../../components/DonorHeader"));
 const Alert = lazy(() => import("../../components/Alerts"));
 const Button = lazy(() => import("../../components/Button"));
 
 const Eligibility = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <Header />
@@ -49,9 +50,9 @@ const Eligibility = () => {
             day, when you attend your appointment.
           </p>
         </div>
-        <Link to={"/quiz/heart"}>
-          <Button className={"mt-12"}>Start Now</Button>
-        </Link>
+        <Button className={"mt-12"} onClick={() => navigate("/quiz/heart")}>
+          Start Now
+        </Button>
       </main>
     </div>
   );

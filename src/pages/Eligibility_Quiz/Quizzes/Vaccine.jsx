@@ -7,6 +7,7 @@ const Heart = () => {
       question={
         "Have you had any immunisations, vaccinations, or jabs in the last 8 weeks?"
       }
+      next={"/quiz/complete"}
     />
   );
 };

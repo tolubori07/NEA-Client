@@ -1,7 +1,8 @@
 import { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import ErrorPage from "./error-page";
-import Loading from "./Loading";
+import ErrorPage from "./components/error-page";
+import Loading from "./components/Loading";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const Donordashboard = lazy(() => import("./pages/profiles/donordashboard"));
 const Manageappointments = lazy(
@@ -54,24 +55,76 @@ const Vaccine = lazy(() => import("./pages/Eligibility_Quiz/Quizzes/Vaccine"));
 const Pregnancy = lazy(
   () => import("./pages/Eligibility_Quiz/Quizzes/PregnancyCheck"),
 );
+const Dsignup = lazy(() => import("./pages/Auth/Dsignup"));
 const App = () => {
   return (
     <Router>
       <main className="min-h-screen bg-bg pb-12">
         <Suspense fallback={<Loading />}>
           <Routes>
-            <Route path="/" element={<Donordashboard />} />
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <Donordashboard />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path="/manageappointment/:id"
               element={<Manageappointments />}
             />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/bookappointment" element={<SearchAppointment />} />
-            <Route path="/appointments" element={<Allappointments />} />
-            <Route path="*" element={<ErrorPage />} />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/bookappointment"
+              element={
+                <ProtectedRoute>
+                  <SearchAppointment />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/appointments"
+              element={
+                <ProtectedRoute>
+                  <Allappointments />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <ProtectedRoute>
+                  <ErrorPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/book/:id"
+              element={
+                <ProtectedRoute>
+                  <BookAppointments />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/confirm/:centre/:date/:time"
+              element={
+                <ProtectedRoute>
+                  <Confirm />
+                </ProtectedRoute>
+              }
+            />
             <Route path="/dlogin" element={<Dlogin />} />
-            <Route path="/book/:id" element={<BookAppointments />} />
-            <Route path="/confirm/:centre/:date/:time" element={<Confirm />} />
+            <Route path="/dsignup" element={<Dsignup />} />
+            {/*      QUIZ ROUTES      */}
             <Route path="/quiz" element={<Eligibility />} />
             <Route path="/quiz/complete" element={<Completed />} />
             <Route path="/quiz/heart" element={<Heart />} />

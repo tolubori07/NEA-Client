@@ -7,6 +7,7 @@ const Heart = () => {
       question={
         "Have you had, or are you undergoing any dental treatment currently?"
       }
+      next={"/quiz/disease"}
     />
   );
 };

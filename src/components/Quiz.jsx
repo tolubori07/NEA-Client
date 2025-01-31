@@ -7,7 +7,7 @@ const Radios = lazy(() => import("./Radio"));
 const Button = lazy(() => import("./Button"));
 const Alert = lazy(() => import("./Alerts"));
 
-const Quiz = ({ question }) => {
+const Quiz = ({ question, next }) => {
   const navigate = useNavigate();
   const options = [
     { value: "yes", label: "Yes" },
@@ -16,7 +16,6 @@ const Quiz = ({ question }) => {
 
   const [unfilled, setUnfilled] = useState(false);
   const [answer, setAnswer] = useState("");
-  const next = "/quiz/acupuncture";
 
   return (
     <>

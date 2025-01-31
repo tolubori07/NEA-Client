@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Suspense, useEffect, useState } from "react";
-import DonorHeader from "./components/DonorHeader";
+import DonorHeader from "../components/DonorHeader";
 
 export default function ErrorPage() {
   const [task, setTask] = useState("")

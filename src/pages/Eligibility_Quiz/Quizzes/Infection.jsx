@@ -7,6 +7,7 @@ const Heart = () => {
       question={
         "Have you had an infection in the last 2 weeks, or taken antibiotics in the last 7 days?"
       }
+      next={"/quiz/partner"}
     />
   );
 };

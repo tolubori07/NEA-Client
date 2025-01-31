@@ -7,6 +7,7 @@ const Heart = () => {
       question={
         "In the last 4 months, have you had a tattoo or any cosmetic treatments that involved piercing the skin?"
       }
+      next={"/quiz/travel"}
     />
   );
 };
