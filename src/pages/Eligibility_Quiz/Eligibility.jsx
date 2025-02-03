@@ -36,19 +36,26 @@ const Eligibility = () => {
           <h1 className="font-display text-heading font-display text-4xl text-center">
             Before you start
           </h1>
-          <p className=" font-base font-body mt-5">
-            Any timings in the questions are from the date of your appointment,
-            not from today's date.
-          </p>
-          <p className="font-base font-body mt-5">
-            Your responses are anonymous and will not be saved in your donor
-            record.
-          </p>
-
-          <p className="font-base font-body mt-5">
-            Our staff make the final decision on whether you can donate on the
-            day, when you attend your appointment.
-          </p>
+          <ul>
+            <li>
+              <p className=" font-base font-body mt-5">
+                Any timings in the questions are from the date of your
+                appointment, not from today's date.
+              </p>
+            </li>
+            <li>
+              <p className="font-base font-body mt-5">
+                Your responses are anonymous and will not be saved in your donor
+                record.
+              </p>
+            </li>
+            <li>
+              <p className="font-base font-body mt-5">
+                Our staff make the final decision on whether you can donate on
+                the day, when you attend your appointment.
+              </p>
+            </li>
+          </ul>
         </div>
         <Button className={"mt-12"} onClick={() => navigate("/quiz/heart")}>
           Start Now

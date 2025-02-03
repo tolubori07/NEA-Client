@@ -1,4 +1,9 @@
-import { lazy, useState } from "react";
+import { lazy, useContext, useState } from "react";
+import { AuthContext } from "../../api/Authcontext";
+import regmatch from "../../utils/regexmatcher";
+import checkPasswordRequirements from "../../utils/checkpass";
+import { dsignup } from "../../api/authservice";
+import { useNavigate } from "react-router-dom";
 
 const Header = lazy(() => import("../../components/DonorHeader"));
 const Input = lazy(() => import("../../components/Input"));
@@ -6,19 +11,102 @@ const Button = lazy(() => import("../../components/Button"));
 const Select = lazy(() => import("../../components/Select2"));
 
 const Dsignup = () => {
-  const [firstName, setfirstName] = useState("");
-  const [lastName, setlastName] = useState("");
-  const [DOB, setDOB] = useState("");
-  const [title, setTitle] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [city, setCity] = useState("");
-  const [postCode, setPost] = useState("");
-  const [blood, setBlood] = useState("");
-  const [genotype, setGenotype] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirm] = useState("");
+  const navigate = useNavigate();
+  const [formData, setFormdata] = useState({
+    email: "",
+    password: "",
+    confirmPassword: "",
+    occupation: "",
+    firstname: "",
+    lastname: "",
+    DOB: "",
+    title: "",
+    phoneNumber: "",
+    city: "",
+    postcode: "",
+    bloodgroup: "",
+    genotype: "",
+  });
+  const [missing, setMissing] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const {
+    email,
+    firstname,
+    lastname,
+    password,
+    confirmPassword,
+    occupation,
+    title,
+    bloodgroup,
+    genotype,
+    postcode,
+    city,
+    phoneNumber,
+    DOB,
+  } = formData;
+
+  const { setUser } = useContext(AuthContext);
   const genotypes = ["AA", "AS", "SS"];
+  const titles = ["Mr", "Ms", "Mrs"];
+  const bloodGroups = ["A", "AB", "B", "O"];
+
+  const onChange = (e) => {
+    setFormdata((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSelectGenotype = (selectedGenotype) => {
+    setFormdata((prevState) => ({
+      ...prevState,
+      genotype: selectedGenotype,
+    }));
+  };
+  const handleSelectTitle = (selectedTitle) => {
+    setFormdata((prevState) => ({
+      ...prevState,
+      title: selectedTitle,
+    }));
+  };
+  const handleSelectGroup = (selectedGroup) => {
+    setFormdata((prevState) => ({
+      ...prevState,
+      bloodgroup: selectedGroup,
+    }));
+  };
+
+  const validatePass = () => {
+    const password = formData.password;
+    const confirm = formData.confirmPassword;
+    if (password != confirm) {
+      return false;
+    } else {
+      setMissing(checkPasswordRequirements(password));
+      if (missing.length > 0) {
+        missing.forEach((missed) => console.log("-" + missed));
+        return false;
+      } else {
+        return true;
+      }
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    validatePass();
+    if (validatePass()) {
+      try {
+        const response = await dsignup(formData);
+        setUser(response);
+        navigate("/");
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  };
+
   return (
     <div>
       <Header />
@@ -27,58 +115,151 @@ const Dsignup = () => {
         sharing life through voluntary blood donations and medical outreach.
       </h3>
       <div className="w-full flex justify-center">
-        <form action="" className="flex flex-col gap-12 w-full">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-12 w-full">
           <div className="flex justify-center w-full px-12">
-            <Input placeholder={"First Name"} className={"w-full"} />
-          </div>
-          <div className="flex justify-center w-full px-12">
-            <Input placeholder={"Last Name"} className={"w-full"} />
+            <Input
+              name="firstname"
+              placeholder={"First Name"}
+              className={"w-full"}
+              value={firstname}
+              onChange={onChange}
+            />
           </div>
           <div className="flex justify-center w-full px-12">
             <Input
+              name="lastname"
+              placeholder={"Last Name"}
+              className={"w-full"}
+              value={lastname}
+              onChange={onChange}
+            />
+          </div>
+          <div className="flex justify-center w-full px-12">
+            <Input
+              name="DOB"
               type={"date"}
               placeholder={"Date of Birth"}
               className={"w-full"}
+              value={DOB}
+              onChange={onChange}
             />
           </div>
           <div className="flex justify-center w-full px-12">
-            <Input placeholder={"Title"} className={"w-full"} />
-          </div>
-          <div className="flex justify-center w-full px-12">
-            <Input placeholder={"Email"} className={"w-full"} />
-          </div>
-          <div className="flex justify-center w-full px-12">
-            <Input placeholder={"Phone number"} className={"w-full"} />
-          </div>
-          <div className="flex justify-center w-full px-12">
-            <Input placeholder={"City/Town"} className={"w-full"} />
-          </div>
-          <div className="flex justify-center w-full px-12">
-            <Input placeholder={"Post Code"} className={"w-full"} />
-          </div>
-          <div className="flex justify-center w-full px-12">
-            <Input placeholder={"Blood Group"} className={"w-full"} />
-          </div>
-          <div className="flex justify-center w-full px-12">
-            <Input placeholder={"Genotype"} className={"w-full"} />
-            <Select placeholder={"genotype"} items={genotypes} />
+            <Select
+              placeholder={"Select your title"}
+              items={titles}
+              className={"w-full"}
+              onSelect={handleSelectTitle}
+            />
           </div>
           <div className="flex justify-center w-full px-12">
             <Input
+              name="email"
+              placeholder={"Email"}
+              className={"w-full"}
+              value={email}
+              onChange={onChange}
+            />
+          </div>
+          <div className="flex justify-center w-full px-12">
+            <Input
+              name="phoneNumber"
+              placeholder={"Phone number"}
+              className={"w-full"}
+              value={phoneNumber}
+              onChange={onChange}
+              type="tel"
+            />
+          </div>
+          <div className="flex justify-center w-full px-12">
+            <Input
+              name="city"
+              placeholder={"City/Town"}
+              className={"w-full"}
+              value={city}
+              onChange={onChange}
+            />
+          </div>
+          <div className="flex justify-center w-full px-12">
+            <Input
+              name="postcode"
+              placeholder={"Post Code"}
+              className={"w-full"}
+              value={postcode}
+              onChange={onChange}
+            />
+          </div>
+          <div className="flex justify-center w-full px-12">
+            <Input
+              name="occupation"
+              placeholder={"Occupation"}
+              className={"w-full"}
+              value={occupation}
+              onChange={onChange}
+            />
+          </div>
+
+          <div className="flex justify-center w-full px-12">
+            <Select
+              items={bloodGroups}
+              placeholder={"Select your bloodgroup"}
+              className={"w-full"}
+              onSelect={handleSelectGroup}
+            />
+          </div>
+          <div className="flex justify-center w-full px-12">
+            <Select
+              placeholder={"Select your genotype"}
+              items={genotypes}
+              className={"w-full"}
+              onSelect={handleSelectGenotype}
+            />
+          </div>
+          <div className="flex justify-center w-full px-12">
+            <Input
+              name="password"
               type="password"
               placeholder={"Password"}
               className={"w-full"}
+              value={password}
+              onChange={onChange}
             />
           </div>
           <div className="flex justify-center w-full px-12">
             <Input
+              name="confirmPassword"
               type="password"
               placeholder={"Confirm Password"}
               className={"w-full"}
+              value={confirmPassword}
+              onChange={onChange}
             />
           </div>
-          <div className="flex justify-center w-2/5">
-            <Button className={"text-center"}>Submit</Button>
+          <div>
+            <ul>
+              {missing.length > 0 ? (
+                missing.map((missings) => (
+                  <li
+                    className="text-lg text-main font-bold font-display ml-5"
+                    key={missing.indexOf(missings)}
+                  >
+                    {missings}
+                  </li>
+                ))
+              ) : (
+                <ul className="ml-5 font-bold text-text font-body">
+                  <li>Password must be 8 or more characters long</li>
+                  <li>Password must have an upper case letter</li>
+                  <li>Password must have a lower case letter</li>
+                  <li>Password must have a special character</li>
+                </ul>
+              )}
+            </ul>
+            <div className="flex justify-center">
+              <Button type="submit" className={"text-center"}>
+                Sign Up
+              </Button>
+            </div>
           </div>
         </form>
       </div>

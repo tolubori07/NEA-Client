@@ -36,7 +36,7 @@ const Select = ({ items, className, onSelect, placeholder}) => {
       <button
         type="button" // Add button type
         onClick={toggleDropdown}
-        className="flex min-w-[160px] w-max cursor-pointer items-center rounded-base 
+        className="flex min-w-[160px] w-full cursor-pointer items-center rounded-base 
           border-2 border-border dark:border-darkBorder bg-main px-10 py-3 
           font-base shadow-light dark:shadow-dark transition-all 
           hover:translate-x-boxShadowX hover:translate-y-boxShadowY 
@@ -53,7 +53,7 @@ const Select = ({ items, className, onSelect, placeholder}) => {
 
       {isOpen && (
         <ul
-          className="absolute left-0 z-50 min-w-[160px] w-max max-h-40
+          className="absolute left-0 z-50 min-w-[160px] w-full max-h-40
             rounded-base border-2 border-border dark:border-darkBorder 
             font-base shadow-light dark:shadow-dark overflow-y-auto bg-main"
         >

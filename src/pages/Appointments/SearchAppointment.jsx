@@ -8,18 +8,18 @@ const Loading = lazy(() => import("../../components/Loading"));
 
 const SearchAppointment = () => {
   const [centres, setCentres] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false); // Changed to false initially
   const [city, setCity] = useState("");
   const [searched, setSearched] = useState(false);
-  const [error, setError] = useState(null); // State for error messages
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const searchCentre = async () => {
-    if (!city.trim()) return; // Prevent searching with an empty city string
+    if (!city.trim()) return;
 
     try {
       setLoading(true);
-      setError(null); // Reset previous errors
+      setError(null);
       const res = await getCentres(city);
       setCentres(res);
     } catch (error) {
@@ -33,10 +33,10 @@ const SearchAppointment = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     setSearched(true);
-    searchCentre();
+    await searchCentre();
   };
 
-
+  // Only show loading component when actually loading data
   if (loading) {
     return <Loading />;
   }
@@ -67,7 +67,7 @@ const SearchAppointment = () => {
                 className="bg-white shadow-dark w-full max-w-lg border-2 border-black text-center rounded-lg p-5"
               >
                 <h1
-                  className="text-main text-2xl font-display"
+                  className="text-main text-2xl font-display cursor-pointer"
                   onClick={() => navigate(`/book/${centre.ID}`)}
                 >
                   {centre.Name}
@@ -81,7 +81,9 @@ const SearchAppointment = () => {
                 <hr className="h-px my-2 bg-gray-200 border-0" />
                 <h1 className="text-main text-2xl font-heading">
                   <a
-                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(centre.Name)}`}
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                      centre.Name,
+                    )}`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >

@@ -5,14 +5,13 @@ import { useEffect, useState } from "react";
 export default function Modal({ active, setActive, children, onClick }) {
   const [isVisible, setIsVisible] = useState(false);
 
-  const closeModal = () => {
-    onClick()
+  const closeModal = (e) => {
+    e.stopPropagation(); // Prevent the click event from bubbling up
     setIsVisible(false);
     setTimeout(() => {
       setActive(false);
     }, 300);
   };
-
   useEffect(() => {
     if (active) {
       setIsVisible(true);
@@ -42,12 +41,13 @@ export default function Modal({ active, setActive, children, onClick }) {
           <X className="absolute right-3 top-3 h-6 w-6" />
         </button>
         {children}
-        <button
+        {/*<button
           className="mt-5 cursor-pointer rounded-base border-2 border-border dark:border-darkBorder bg-white px-4 py-1.5 font-base shadow-light dark:shadow-dark transition-all hover:translate-x-boxShadowX hover:translate-y-boxShadowY hover:shadow-none dark:hover:shadow-none"
           onClick={closeModal}
         >
           Ok
         </button>
+        */}
       </div>
     </div>,
     modalRoot,

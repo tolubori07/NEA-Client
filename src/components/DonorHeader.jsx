@@ -15,17 +15,33 @@ const DonorHeader = () => {
       href: "/quiz",
     },
   ];
+  const profiles = [
+    {
+      label: "Your Dashboard",
+      onclick: "",
+      ariaLabel: "Click to navigate to your donor dashboard",
+      href: "/",
+    },
+    {
+      label: "About you",
+      onclick: "",
+      ariaLabel: "Click to navigate to your donor profile",
+      href: "/profile",
+    },
+  ];
   return (
     <header className="bg-white h-24 border-b-4 border-b-black flex flex-row justify-between items-center mb-3 gap-[20rem]">
       <Link to={"/"}>
         <img src="/logo.png" alt="" className="w-24 ml-8 h-24 cursor-pointer" />
       </Link>
       <div className="navlinks flex gap-[6rem] mr-3">
-        <Button
-          children={"About You"}
-          className="text-white font-bold"
-          onClick={() => navigate("/profile")}
+        <Dropdown
+          items={profiles}
+          label="Profile"
+          icon={Map}
+          className="sm:hidden lg:inline xl:inline"
         />
+
         <Dropdown
           items={items}
           label="Guidance"

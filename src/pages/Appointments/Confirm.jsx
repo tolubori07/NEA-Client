@@ -10,7 +10,7 @@ const Alert = lazy(() => import("../../components/Alerts"));
 const Confirm = () => {
   const { centre, date, time } = useParams(); // Extract centre, date, and time from the URL parameters
   const [Centre, setCentre] = useState({});
-  const user = JSON.parse(useContext(AuthContext)); // Directly using useContext without parsing
+  const {user} = useContext(AuthContext); // Directly using useContext without parsing
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const navigate = useNavigate();

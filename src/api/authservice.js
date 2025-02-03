@@ -19,9 +19,9 @@ export const logout = () => {
   localStorage.removeItem("user");
 };
 
-export const register = async (userData) => {
+export const dsignup = async (userData) => {
   try {
-    const response = await axios.post(`${API_URL}/register`, userData);
+    const response = await axios.post(`${API_URL}/dsignup`, userData);
     if (response.data) {
       localStorage.setItem("user", JSON.stringify(response.data));
     }
@@ -30,8 +30,6 @@ export const register = async (userData) => {
     throw new Error(error.response?.data?.message || "Registration failed");
   }
 };
-
-// src/api/authservice.js
 
 export const updatePassword = async (token, newPassword) => {
   try {
@@ -55,8 +53,8 @@ export const updatePassword = async (token, newPassword) => {
 const authService = {
   login,
   logout,
-  register,
-  updatePassword
+  dsignup,
+  updatePassword,
 };
 
 export default authService;

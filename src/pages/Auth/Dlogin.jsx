@@ -1,7 +1,7 @@
 // src/pages/Auth/Dlogin.jsx
 import { Eye, EyeOff } from "lucide-react";
 import { lazy, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../api/authservice";
 import { AuthContext } from "../../api/Authcontext";
 
@@ -98,6 +98,14 @@ const Dlogin = () => {
           </Button>
         </div>
       </form>
+      <p className="text-text text-center text-lg font-bold font-body">
+        Don't have an account?
+        <Link to={"/dsignup"}>
+          <span className="text-main font-bold font-body cursor-pointer">
+            Sign Up
+          </span>
+        </Link>
+      </p>
     </div>
   );
 };
