@@ -1,15 +1,15 @@
 import { lazy, useState, useContext, useEffect } from "react";
-import { AuthContext } from "../../api/Authcontext";
-import { updatePassword } from "../../api/authservice";
+import { AuthContext } from "../../../api/Authcontext";
+import { updatePassword } from "../../../api/authservice";
 import { useNavigate } from "react-router-dom";
-import Loading from "../../components/Loading";
+import Loading from "../../../components/Loading";
 import { LogOut } from "lucide-react";
-import { logout } from "../../api/authservice";
+import { logout } from "../../../api/authservice";
 
-const Input = lazy(() => import("../../components/Input"));
-const Modal = lazy(() => import("../../components/Modal"));
-const Header = lazy(() => import("../../components/DonorHeader"));
-const Button = lazy(() => import("../../components/Button"));
+const Input = lazy(() => import("../../../components/Input"));
+const Modal = lazy(() => import("../../../components/Modal"));
+const Header = lazy(() => import("../../../components/DonorHeader"));
+const Button = lazy(() => import("../../../components/Button"));
 
 const Profile = () => {
   // Context and Navigation

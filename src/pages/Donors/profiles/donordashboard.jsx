@@ -1,11 +1,11 @@
 import { lazy, useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../api/Authcontext";
-import { getNextAppointment } from "../../api/appointmentService";
-import Loading from "../../components/Loading";
+import { AuthContext } from "../../../api/Authcontext";
+import { getNextAppointment } from "../../../api/appointmentService";
+import Loading from "../../../components/Loading";
 import { useNavigate } from "react-router-dom";
 
-const Header = lazy(() => import("../../components/DonorHeader"));
-const Appointment = lazy(() => import("../../components/Appointment"));
+const Header = lazy(() => import("../../../components/DonorHeader"));
+const Appointment = lazy(() => import("../../../components/Appointment"));
 
 const DonorDashboard = () => {
   // Correct way to use AuthContext

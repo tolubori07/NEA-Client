@@ -4,56 +4,56 @@ import ErrorPage from "./components/error-page";
 import Loading from "./components/Loading";
 import ProtectedRoute from "./components/ProtectedRoute";
 
-const Donordashboard = lazy(() => import("./pages/profiles/donordashboard"));
+const Donordashboard = lazy(() => import("./pages/Donors/profiles/donordashboard"));
 const Manageappointments = lazy(
-  () => import("./pages/Appointments/manageAppointments"),
+  () => import("./pages/Donors/Appointments/manageAppointments"),
 );
-const Profile = lazy(() => import("./pages/profiles/Profile"));
+const Profile = lazy(() => import("./pages/Donors/profiles/Profile"));
 const SearchAppointment = lazy(
-  () => import("./pages/Appointments/SearchAppointment"),
+  () => import("./pages/Donors/Appointments/SearchAppointment"),
 );
 const Dlogin = lazy(() => import("./pages/Auth/Dlogin"));
 const Allappointments = lazy(
-  () => import("./pages/Appointments/Allappointments"),
+  () => import("./pages/Donors/Appointments/Allappointments"),
 );
 const BookAppointments = lazy(
-  () => import("./pages/Appointments/BookAppointments"),
+  () => import("./pages/Donors/Appointments/BookAppointments"),
 );
-const Confirm = lazy(() => import("./pages/Appointments/Confirm"));
-const Eligibility = lazy(() => import("./pages/Eligibility_Quiz/Eligibility"));
-const Completed = lazy(() => import("./pages/Eligibility_Quiz/Complete"));
-const Heart = lazy(() => import("./pages/Eligibility_Quiz/Quizzes/Heart"));
+const Confirm = lazy(() => import("./pages/Donors/Appointments/Confirm"));
+const Eligibility = lazy(() => import("./pages/Donors/Eligibility_Quiz/Eligibility"));
+const Completed = lazy(() => import("./pages/Donors/Eligibility_Quiz/Complete"));
+const Heart = lazy(() => import("./pages/Donors/Eligibility_Quiz/Quizzes/Heart"));
 const Acupuncture = lazy(
-  () => import("./pages/Eligibility_Quiz/Quizzes/Acupuncture"),
+  () => import("./pages/Donors/Eligibility_Quiz/Quizzes/Acupuncture"),
 );
 const Coldsore = lazy(
-  () => import("./pages/Eligibility_Quiz/Quizzes/ColdSore"),
+  () => import("./pages/Donors/Eligibility_Quiz/Quizzes/ColdSore"),
 );
 const ColdSymptoms = lazy(
-  () => import("./pages/Eligibility_Quiz/Quizzes/ColdSymptoms"),
+  () => import("./pages/Donors/Eligibility_Quiz/Quizzes/ColdSymptoms"),
 );
-const Dental = lazy(() => import("./pages/Eligibility_Quiz/Quizzes/Dental"));
-const Disease = lazy(() => import("./pages/Eligibility_Quiz/Quizzes/Disease"));
+const Dental = lazy(() => import("./pages/Donors/Eligibility_Quiz/Quizzes/Dental"));
+const Disease = lazy(() => import("./pages/Donors/Eligibility_Quiz/Quizzes/Disease"));
 const Donated = lazy(
-  () => import("./pages/Eligibility_Quiz/Quizzes/DonatedinLast4"),
+  () => import("./pages/Donors/Eligibility_Quiz/Quizzes/DonatedinLast4"),
 );
 const Endoscopy = lazy(
-  () => import("./pages/Eligibility_Quiz/Quizzes/Endoscopy"),
+  () => import("./pages/Donors/Eligibility_Quiz/Quizzes/Endoscopy"),
 );
 const Infection = lazy(
-  () => import("./pages/Eligibility_Quiz/Quizzes/Infection"),
+  () => import("./pages/Donors/Eligibility_Quiz/Quizzes/Infection"),
 );
-const Travel = lazy(() => import("./pages/Eligibility_Quiz/Quizzes/Travel"));
+const Travel = lazy(() => import("./pages/Donors/Eligibility_Quiz/Quizzes/Travel"));
 const Partner = lazy(
-  () => import("./pages/Eligibility_Quiz/Quizzes/PartnerCheck"),
+  () => import("./pages/Donors/Eligibility_Quiz/Quizzes/PartnerCheck"),
 );
 const Piercing = lazy(
-  () => import("./pages/Eligibility_Quiz/Quizzes/Piercings"),
+  () => import("./pages/Donors/Eligibility_Quiz/Quizzes/Piercings"),
 );
-const Tattoos = lazy(() => import("./pages/Eligibility_Quiz/Quizzes/Tattoos"));
-const Vaccine = lazy(() => import("./pages/Eligibility_Quiz/Quizzes/Vaccine"));
+const Tattoos = lazy(() => import("./pages/Donors/Eligibility_Quiz/Quizzes/Tattoos"));
+const Vaccine = lazy(() => import("./pages/Donors/Eligibility_Quiz/Quizzes/Vaccine"));
 const Pregnancy = lazy(
-  () => import("./pages/Eligibility_Quiz/Quizzes/PregnancyCheck"),
+  () => import("./pages/Donors/Eligibility_Quiz/Quizzes/PregnancyCheck"),
 );
 const Dsignup = lazy(() => import("./pages/Auth/Dsignup"));
 const App = () => {
