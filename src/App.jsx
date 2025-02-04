@@ -4,7 +4,9 @@ import ErrorPage from "./components/error-page";
 import Loading from "./components/Loading";
 import ProtectedRoute from "./components/ProtectedRoute";
 
-const Donordashboard = lazy(() => import("./pages/Donors/profiles/donordashboard"));
+const Donordashboard = lazy(
+  () => import("./pages/Donors/profiles/donordashboard"),
+);
 const Manageappointments = lazy(
   () => import("./pages/Donors/Appointments/manageAppointments"),
 );
@@ -20,9 +22,15 @@ const BookAppointments = lazy(
   () => import("./pages/Donors/Appointments/BookAppointments"),
 );
 const Confirm = lazy(() => import("./pages/Donors/Appointments/Confirm"));
-const Eligibility = lazy(() => import("./pages/Donors/Eligibility_Quiz/Eligibility"));
-const Completed = lazy(() => import("./pages/Donors/Eligibility_Quiz/Complete"));
-const Heart = lazy(() => import("./pages/Donors/Eligibility_Quiz/Quizzes/Heart"));
+const Eligibility = lazy(
+  () => import("./pages/Donors/Eligibility_Quiz/Eligibility"),
+);
+const Completed = lazy(
+  () => import("./pages/Donors/Eligibility_Quiz/Complete"),
+);
+const Heart = lazy(
+  () => import("./pages/Donors/Eligibility_Quiz/Quizzes/Heart"),
+);
 const Acupuncture = lazy(
   () => import("./pages/Donors/Eligibility_Quiz/Quizzes/Acupuncture"),
 );
@@ -32,8 +40,12 @@ const Coldsore = lazy(
 const ColdSymptoms = lazy(
   () => import("./pages/Donors/Eligibility_Quiz/Quizzes/ColdSymptoms"),
 );
-const Dental = lazy(() => import("./pages/Donors/Eligibility_Quiz/Quizzes/Dental"));
-const Disease = lazy(() => import("./pages/Donors/Eligibility_Quiz/Quizzes/Disease"));
+const Dental = lazy(
+  () => import("./pages/Donors/Eligibility_Quiz/Quizzes/Dental"),
+);
+const Disease = lazy(
+  () => import("./pages/Donors/Eligibility_Quiz/Quizzes/Disease"),
+);
 const Donated = lazy(
   () => import("./pages/Donors/Eligibility_Quiz/Quizzes/DonatedinLast4"),
 );
@@ -43,19 +55,26 @@ const Endoscopy = lazy(
 const Infection = lazy(
   () => import("./pages/Donors/Eligibility_Quiz/Quizzes/Infection"),
 );
-const Travel = lazy(() => import("./pages/Donors/Eligibility_Quiz/Quizzes/Travel"));
+const Travel = lazy(
+  () => import("./pages/Donors/Eligibility_Quiz/Quizzes/Travel"),
+);
 const Partner = lazy(
   () => import("./pages/Donors/Eligibility_Quiz/Quizzes/PartnerCheck"),
 );
 const Piercing = lazy(
   () => import("./pages/Donors/Eligibility_Quiz/Quizzes/Piercings"),
 );
-const Tattoos = lazy(() => import("./pages/Donors/Eligibility_Quiz/Quizzes/Tattoos"));
-const Vaccine = lazy(() => import("./pages/Donors/Eligibility_Quiz/Quizzes/Vaccine"));
+const Tattoos = lazy(
+  () => import("./pages/Donors/Eligibility_Quiz/Quizzes/Tattoos"),
+);
+const Vaccine = lazy(
+  () => import("./pages/Donors/Eligibility_Quiz/Quizzes/Vaccine"),
+);
 const Pregnancy = lazy(
   () => import("./pages/Donors/Eligibility_Quiz/Quizzes/PregnancyCheck"),
 );
 const Dsignup = lazy(() => import("./pages/Auth/Dsignup"));
+const Welcome = lazy(() => import("./pages/Welcome"));
 const App = () => {
   return (
     <Router>
@@ -63,7 +82,7 @@ const App = () => {
         <Suspense fallback={<Loading />}>
           <Routes>
             <Route
-              path="/"
+              path="/donor/dashboard"
               element={
                 <ProtectedRoute>
                   <Donordashboard />
@@ -71,11 +90,15 @@ const App = () => {
               }
             />
             <Route
-              path="/manageappointment/:id"
-              element={<Manageappointments />}
+              path="donor/manageappointment/:id"
+              element={
+                <ProtectedRoute>
+                  <Manageappointments />
+                </ProtectedRoute>
+              }
             />
             <Route
-              path="/profile"
+              path="donor/profile"
               element={
                 <ProtectedRoute>
                   <Profile />
@@ -83,7 +106,7 @@ const App = () => {
               }
             />
             <Route
-              path="/bookappointment"
+              path="donor/bookappointment"
               element={
                 <ProtectedRoute>
                   <SearchAppointment />
@@ -91,7 +114,7 @@ const App = () => {
               }
             />
             <Route
-              path="/appointments"
+              path="donor/appointments"
               element={
                 <ProtectedRoute>
                   <Allappointments />
@@ -107,7 +130,7 @@ const App = () => {
               }
             />
             <Route
-              path="/book/:id"
+              path="donor/book/:id"
               element={
                 <ProtectedRoute>
                   <BookAppointments />
@@ -115,7 +138,7 @@ const App = () => {
               }
             />
             <Route
-              path="/confirm/:centre/:date/:time"
+              path="donor/confirm/:centre/:date/:time"
               element={
                 <ProtectedRoute>
                   <Confirm />
@@ -124,6 +147,7 @@ const App = () => {
             />
             <Route path="/dlogin" element={<Dlogin />} />
             <Route path="/dsignup" element={<Dsignup />} />
+            <Route path="/" element={<Welcome />} />
             {/*      QUIZ ROUTES      */}
             <Route path="/quiz" element={<Eligibility />} />
             <Route path="/quiz/complete" element={<Completed />} />

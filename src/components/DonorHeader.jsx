@@ -1,12 +1,15 @@
-import { Map } from "lucide-react";
+import { LogIn, Map } from "lucide-react";
 import { lazy } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
+import { AuthContext } from "../api/Authcontext";
 
 const Button = lazy(() => import("./Button"));
 const Dropdown = lazy(() => import("./Dropdown"));
 
 const DonorHeader = () => {
   const navigate = useNavigate();
+  const { user } = useAuth(AuthContext);
   const items = [
     {
       label: "Eligibility Quiz",
@@ -20,21 +23,32 @@ const DonorHeader = () => {
       label: "Your Dashboard",
       onclick: "",
       ariaLabel: "Click to navigate to your donor dashboard",
-      href: "/",
+      href: "/donor/dashboard",
     },
     {
       label: "About you",
       onclick: "",
       ariaLabel: "Click to navigate to your donor profile",
-      href: "/profile",
+      href: "/donor/profile",
     },
   ];
   return (
     <header className="bg-white h-24 border-b-4 border-b-black flex flex-row justify-between items-center mb-3 gap-[20rem]">
-      <Link to={"/"}>
+      <Link to={user ? "/donor/dashboard" : "/"}>
         <img src="/logo.png" alt="" className="w-24 ml-8 h-24 cursor-pointer" />
       </Link>
+
       <div className="navlinks flex gap-[6rem] mr-3">
+        {user ? (
+          <Link to={"/dlogin"}>
+            <Button className={"text-text font-display font-bold text-xl"}>
+              Login
+              <LogIn />
+            </Button>
+          </Link>
+        ) : (
+          ""
+        )}
         <Dropdown
           items={profiles}
           label="Profile"
@@ -50,8 +64,8 @@ const DonorHeader = () => {
         />
         <Button
           children={"Book an appointment"}
-          className="text-white font-bold"
-          onClick={() => navigate("/bookappointment")}
+          className="text-text font-bold"
+          onClick={() => navigate("donor/bookappointment")}
         />
       </div>
     </header>

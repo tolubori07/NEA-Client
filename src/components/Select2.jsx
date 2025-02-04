@@ -2,7 +2,7 @@ import { ChevronDown } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 
-const Select = ({ items, className, onSelect, placeholder}) => {
+const Select = ({ items, className, onSelect, placeholder }) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const selectRef = useRef(null);

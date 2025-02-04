@@ -1,6 +1,5 @@
 import { lazy, useContext, useState } from "react";
 import { AuthContext } from "../../api/Authcontext";
-import regmatch from "../../utils/regexmatcher";
 import checkPasswordRequirements from "../../utils/checkpass";
 import { dsignup } from "../../api/authservice";
 import { useNavigate } from "react-router-dom";
@@ -29,6 +28,7 @@ const Dsignup = () => {
   });
   const [missing, setMissing] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const {
     email,
@@ -80,29 +80,37 @@ const Dsignup = () => {
   const validatePass = () => {
     const password = formData.password;
     const confirm = formData.confirmPassword;
-    if (password != confirm) {
-      return false;
-    } else {
-      setMissing(checkPasswordRequirements(password));
-      if (missing.length > 0) {
-        missing.forEach((missed) => console.log("-" + missed));
-        return false;
-      } else {
-        return true;
-      }
+    let errors = [];
+
+    if (password !== confirm) {
+      errors.push("Passwords do not match.");
     }
+
+    const missingRequirements = checkPasswordRequirements(password);
+    if (missingRequirements.length > 0) {
+      errors = [...errors, ...missingRequirements];
+    }
+
+    setMissing(errors);
+    return errors.length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    validatePass();
+    setError(""); // Reset error message
+    setMissing([]); // Reset missing requirements
+
     if (validatePass()) {
+      setLoading(true);
       try {
         const response = await dsignup(formData);
         setUser(response);
         navigate("/");
       } catch (err) {
+        setError("Registration failed. Please try again.");
         console.error(err);
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -235,13 +243,16 @@ const Dsignup = () => {
               onChange={onChange}
             />
           </div>
+          {error && (
+            <div className="text-red-500 text-center">{error}</div>
+          )}
           <div>
             <ul>
               {missing.length > 0 ? (
-                missing.map((missings) => (
+                missing.map((missings, index) => (
                   <li
                     className="text-lg text-main font-bold font-display ml-5"
-                    key={missing.indexOf(missings)}
+                    key={index}
                   >
                     {missings}
                   </li>
@@ -256,8 +267,8 @@ const Dsignup = () => {
               )}
             </ul>
             <div className="flex justify-center">
-              <Button type="submit" className={"text-center"}>
-                Sign Up
+              <Button type="submit" className={"text-center"} disabled={loading}>
+                {loading ? "Signing Up..." : "Sign Up"}
               </Button>
             </div>
           </div>

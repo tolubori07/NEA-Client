@@ -31,7 +31,9 @@ const Loading = () => {
       <h2 className="text-main font-display text-lg mt-5 text-center">
         Loading...
       </h2>
-      <p className="text-text font-bold text-lg text-center">While you wait, here's a quick fact: Did you know that: {fact}</p>
+      <p className="text-text font-bold text-lg text-center">
+        While you wait, here's a quick fact: Did you know that: {fact}
+      </p>
     </div>
   );
 };

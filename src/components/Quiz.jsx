@@ -62,7 +62,7 @@ const Quiz = ({ question, next }) => {
               if (answer == "") {
                 setUnfilled(true);
               } else if (answer == "yes") {
-                navigate("/");
+                navigate("/donor/dashboard");
               } else if (answer == "no") {
                 navigate(next);
               }

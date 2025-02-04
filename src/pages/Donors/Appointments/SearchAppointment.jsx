@@ -1,10 +1,10 @@
 import { lazy, useState, useEffect } from "react";
-import { getCentres } from "../../api/appointmentService";
+import { getCentres } from "../../../api/appointmentService";
 import { useNavigate } from "react-router-dom";
 
-const SearchBar = lazy(() => import("../../components/SearchBar"));
-const Header = lazy(() => import("../../components/DonorHeader"));
-const Loading = lazy(() => import("../../components/Loading"));
+const SearchBar = lazy(() => import("../../../components/SearchBar"));
+const Header = lazy(() => import("../../../components/DonorHeader"));
+const Loading = lazy(() => import("../../../components/Loading"));
 
 const SearchAppointment = () => {
   const [centres, setCentres] = useState([]);
@@ -68,7 +68,7 @@ const SearchAppointment = () => {
               >
                 <h1
                   className="text-main text-2xl font-display cursor-pointer"
-                  onClick={() => navigate(`/book/${centre.ID}`)}
+                  onClick={() => navigate(`donor/book/${centre.ID}`)}
                 >
                   {centre.Name}
                 </h1>

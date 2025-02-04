@@ -53,7 +53,7 @@ const Confirm = () => {
       const response = await createAppointment(date, time, centre, user.token); // Pass user token directly
       if (response) {
         setSuccess(true);
-        navigate("/");
+        navigate("/donor/dashboard");
       }
     } catch (error) {
       setError(true);

@@ -1,16 +1,16 @@
 import { lazy } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const Header = lazy(() => import("../../components/DonorHeader"));
-const Alert = lazy(() => import("../../components/Alerts"));
-const Button = lazy(() => import("../../components/Button"));
+const Header = lazy(() => import("../../../components/DonorHeader"));
+const Alert = lazy(() => import("../../../components/Alerts"));
+const Button = lazy(() => import("../../../components/Button"));
 
 const Eligibility = () => {
   const navigate = useNavigate();
   return (
     <div>
       <Header />
-      <h1 className="font-display text-heading font-display text-4xl text-center">
+      <h1 className="font-display text-heading text-4xl text-center">
         Check You Can Donate
       </h1>
       <main className="px-72 text-text">
@@ -33,7 +33,7 @@ const Eligibility = () => {
         </div>
 
         <div className="">
-          <h1 className="font-display text-heading font-display text-4xl text-center">
+          <h1 className="text-heading font-display text-4xl text-center">
             Before you start
           </h1>
           <ul>

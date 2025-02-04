@@ -1,5 +1,5 @@
-import { ChevronDown } from 'lucide-react';
-import { useState } from 'react';
+import { ChevronDown } from "lucide-react";
+import { useState } from "react";
 
 const Select = ({ items, className, onSelect }) => {
   const [selectedItem, setSelectedItem] = useState(null);
@@ -9,13 +9,13 @@ const Select = ({ items, className, onSelect }) => {
     setSelectedItem(itemName);
     setIsActiveSelect(false);
     if (onSelect) {
-      onSelect(itemName);  // Invoke the callback with the selected item
+      onSelect(itemName); // Invoke the callback with the selected item
     }
   };
 
   return (
     <div
-      data-state={isActiveSelect ? 'open' : 'closed'}
+      data-state={isActiveSelect ? "open" : "closed"}
       className={`relative group text-text ${className}`}
       aria-expanded={isActiveSelect}
     >
@@ -31,10 +31,10 @@ const Select = ({ items, className, onSelect }) => {
         className="flex min-w-[160px] w-max cursor-pointer items-center rounded-base border-2 border-border dark:border-darkBorder bg-main px-10 py-3 font-base shadow-light dark:shadow-dark transition-all hover:translate-x-boxShadowX hover:translate-y-boxShadowY hover:shadow-none dark:hover:shadow-none"
       >
         <div className="mx-auto flex items-center">
-          {selectedItem === null ? 'Select' : selectedItem}
+          {selectedItem === null ? "Select" : selectedItem}
           <ChevronDown
             className={
-              'ml-2 h-5 w-5 transition-transform group-data-[state=open]:rotate-180 group-data-[state=closed]:rotate-0 ease-in-out'
+              "ml-2 h-5 w-5 transition-transform group-data-[state=open]:rotate-180 group-data-[state=closed]:rotate-0 ease-in-out"
             }
           />
         </div>

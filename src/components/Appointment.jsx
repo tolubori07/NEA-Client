@@ -47,7 +47,7 @@ const Appointment = ({ user, appointment, children, className, Message }) => {
                 <Button
                   children="Manage appointment"
                   className="p-3 text-white font-body font-bold"
-                  onClick={() => navigate(`/manageappointment/${appointment.ID}`)}
+                  onClick={() => navigate(`donor/manageappointment/${appointment.ID}`)}
                 />
             </div>
           </div>
