@@ -1,7 +1,7 @@
 // src/api/authservice.js
 import axios from "axios";
 
-const API_URL = "http://localhost:3000";
+const API_URL = "https://nea-backend-api.onrender.com";
 
 export const dlogin = async (userData) => {
   try {
@@ -26,7 +26,6 @@ export const vlogin = async (userData) => {
     throw new Error(err.response?.data?.message || "Login failed");
   }
 };
-
 
 export const logout = () => {
   localStorage.removeItem("user");
@@ -55,7 +54,6 @@ export const vsignup = async (userData) => {
     throw new Error(error.response?.data?.message || "Registration failed");
   }
 };
-
 
 export const updatePassword = async (token, newPassword) => {
   try {
