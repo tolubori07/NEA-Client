@@ -73,6 +73,9 @@ const Vaccine = lazy(
 const Pregnancy = lazy(
   () => import("./pages/Donors/Eligibility_Quiz/Quizzes/PregnancyCheck"),
 );
+
+const Vlogin = lazy(()=> import("./pages/Auth/Vlogin"));
+const Vsignup = lazy(()=> import("./pages/Auth/Vsignup"));
 const Dsignup = lazy(() => import("./pages/Auth/Dsignup"));
 const Welcome = lazy(() => import("./pages/Welcome"));
 const App = () => {
@@ -147,6 +150,8 @@ const App = () => {
             />
             <Route path="/dlogin" element={<Dlogin />} />
             <Route path="/dsignup" element={<Dsignup />} />
+            <Route path="/vlogin" element={<Vlogin />} />
+            <Route path="/vsignup" element={<Vsignup />} />
             <Route path="/" element={<Welcome />} />
             {/*      QUIZ ROUTES      */}
             <Route path="/quiz" element={<Eligibility />} />

@@ -57,7 +57,7 @@ const Eligibility = () => {
             </li>
           </ul>
         </div>
-        <Button className={"mt-12"} onClick={() => navigate("/quiz/heart")}>
+        <Button className={"mt-12 text-text font-bold font-xl"} onClick={() => navigate("/quiz/heart")}>
           Start Now
         </Button>
       </main>

@@ -1,11 +1,11 @@
 import { lazy, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { getAvailableTimes, getCentre } from '../../api/appointmentService';
+import { getAvailableTimes, getCentre } from '../../../api/appointmentService';
 
-const Header = lazy(() => import('../../components/DonorHeader'));
-const Input = lazy(() => import('../../components/Input'));
-const Select = lazy(() => import('../../components/Select'));
-const Button = lazy(() => import('../../components/Button'));
+const Header = lazy(() => import('../../../components/DonorHeader'));
+const Input = lazy(() => import('../../../components/Input'));
+const Select = lazy(() => import('../../../components/Select'));
+const Button = lazy(() => import('../../../components/Button'));
 
 const BookAppointments = () => {
   const { id } = useParams();

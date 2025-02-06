@@ -39,16 +39,15 @@ const DonorHeader = () => {
       </Link>
 
       <div className="navlinks flex gap-[6rem] mr-3">
-        {user ? (
-          <Link to={"/dlogin"}>
-            <Button className={"text-text font-display font-bold text-xl"}>
-              Login
-              <LogIn />
-            </Button>
-          </Link>
-        ) : (
-          ""
-        )}
+        <Link to={"/dlogin"}>
+          <Button
+            className={`${user ? "hidden" : ""} text-text font-display font-bold text-xl`}
+          >
+            Login
+            <LogIn />
+          </Button>
+        </Link>
+
         <Dropdown
           items={profiles}
           label="Profile"
@@ -62,11 +61,12 @@ const DonorHeader = () => {
           icon={Map}
           className="sm:hidden lg:inline xl:inline"
         />
-        <Button
-          children={"Book an appointment"}
-          className="text-text font-bold"
-          onClick={() => navigate("donor/bookappointment")}
-        />
+        <Link to={"/donor/bookappointment"}>
+          <Button
+            children={"Book an appointment"}
+            className="text-text font-bold"
+          />
+        </Link>
       </div>
     </header>
   );

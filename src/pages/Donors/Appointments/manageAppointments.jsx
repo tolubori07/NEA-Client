@@ -3,17 +3,17 @@ import {
   cancelAppointment,
   getAppointment,
   getAvailableTimes,
-} from "../../api/appointmentService";
-import { AuthContext } from "../../api/Authcontext";
-import Loading from "../../components/Loading";
+} from "../../../api/appointmentService";
+import { AuthContext } from "../../../api/Authcontext";
+import Loading from "../../../components/Loading";
 import { useParams, useNavigate } from "react-router-dom";
-import { days, months } from "../../utils/daysandmonths";
+import { days, months } from "../../../utils/daysandmonths";
 
-const Alert = lazy(() => import("../../components/Alerts"));
-const Header = lazy(() => import("../../components/DonorHeader"));
-const Button = lazy(() => import("../../components/Button"));
-const Modal = lazy(() => import("../../components/Modal"));
-const Input = lazy(() => import("../../components/Input"));
+const Alert = lazy(() => import("../../../components/Alerts"));
+const Header = lazy(() => import("../../../components/DonorHeader"));
+const Button = lazy(() => import("../../../components/Button"));
+const Modal = lazy(() => import("../../../components/Modal"));
+const Input = lazy(() => import("../../../components/Input"));
 
 const ManageAppointments = () => {
   // States

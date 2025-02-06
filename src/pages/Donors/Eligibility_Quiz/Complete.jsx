@@ -1,7 +1,7 @@
 import { lazy } from "react";
 import { Check } from "lucide-react";
 
-const Header = lazy(() => import("../../components/DonorHeader"));
+const Header = lazy(() => import("../../../components/DonorHeader"));
 const Complete = () => {
   return (
     <div>

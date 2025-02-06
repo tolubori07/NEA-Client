@@ -126,7 +126,7 @@ const Profile = () => {
             Last name: {user.lastname}
           </h3>
           <h3 className="text-text font-body font-bold text-xl mt-5">
-            Email:" {user.email}"
+            Email: {user.email}
           </h3>
           <h3 className="text-text font-body font-bold text-xl mt-5">
             Phone Number: {user.phone}

@@ -17,8 +17,8 @@ const DonorDashboard = () => {
 
   useEffect(() => {
     // If no user, redirect to login
-    if (!user) {
-      navigate("/dlogin");
+    if (!user || user.id.startsWith('V')) {
+      navigate("/");
       return;
     }
 

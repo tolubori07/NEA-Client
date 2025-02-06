@@ -1,11 +1,11 @@
 import { Suspense, lazy, useContext, useState, useEffect } from "react";
-import { getUserAppointments } from "../../api/appointmentService";
-import { AuthContext } from "../../api/Authcontext";
-import Loading from '../../components/Loading';
+import { getUserAppointments } from "../../../api/appointmentService";
+import { AuthContext } from "../../../api/Authcontext";
+import Loading from '../../../components/Loading';
 import { useNavigate } from "react-router-dom";
 
-const Appointment = lazy(() => import('../../components/Appointment'));
-const Header = lazy(() => import('../../components/DonorHeader'));
+const Appointment = lazy(() => import('../../../components/Appointment'));
+const Header = lazy(() => import('../../../components/DonorHeader'));
 
 const AllAppointments = () => {
   const {user} = useContext(AuthContext);

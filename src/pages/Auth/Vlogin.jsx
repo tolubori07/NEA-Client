@@ -2,14 +2,14 @@
 import { Eye, EyeOff } from "lucide-react";
 import { lazy, useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { dlogin } from "../../api/authservice";
+import { vlogin } from "../../api/authservice";
 import { AuthContext } from "../../api/Authcontext";
 
 const Input = lazy(() => import("../../components/Input"));
 const Header = lazy(() => import("../../components/DonorHeader"));
 const Button = lazy(() => import("../../components/Button"));
 
-const Dlogin = () => {
+const Vlogin = () => {
   const { setUser, user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
@@ -42,7 +42,7 @@ const Dlogin = () => {
 
     try {
       const userData = { email, password };
-      const response = await dlogin(userData);
+      const response = await vlogin(userData);
       setUser(response);
       navigate("/");
     } catch (err) {
@@ -54,7 +54,11 @@ const Dlogin = () => {
 
   useEffect(() => {
     if (user) {
-      navigate("/donor/dashboard");
+      if (user.id.startsWith("V")) {
+        navigate("/");
+      } else if (user.id.startsWith("D")) {
+        navigate("/donor/dashboard");
+      }
     }
   }, []);
 
@@ -63,7 +67,7 @@ const Dlogin = () => {
       <Header />
 
       <h1 className="text-text text-3xl font-heading font-body mb-12">
-        Enter your login detail
+        Enter your Volunteer Portal login detail
       </h1>
 
       {error && <div className="text-red-500 text-center mb-4">{error}</div>}
@@ -106,7 +110,7 @@ const Dlogin = () => {
       </form>
       <p className="text-text text-center text-lg font-bold font-body">
         Don't have an account?
-        <Link to={"/dsignup"}>
+        <Link to={"/vsignup"}>
           <span className="text-main font-bold font-body cursor-pointer">
             Sign Up
           </span>
@@ -116,4 +120,4 @@ const Dlogin = () => {
   );
 };
 
-export default Dlogin;
+export default Vlogin;
