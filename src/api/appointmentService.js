@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "https://onehealthapi.koyeb.app/";
+const url = "https://onehealthapi.koyeb.app";
 
 export const getUserAppointments = async (token) => {
   try {
