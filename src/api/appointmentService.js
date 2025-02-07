@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "http://localhost:3000";
+const url = "https://nea-backend-api.onrender.com";
 
 export const getUserAppointments = async (token) => {
   try {
@@ -34,11 +34,9 @@ export const getNextAppointment = async (token) => {
 
 export const getCentres = async (city) => {
   try {
-    const response = await axios.post(
-      `${url}/search`,
-      { city }, // Send the city as an object
-      { crossDomain: true },
-    );
+    const response = await axios.post(`${url}/getcentres`, {
+      crossDomain: true,
+    });
     return response.data;
   } catch (error) {
     console.error("Failed to fetch donation centres", error);
@@ -92,7 +90,6 @@ export const createAppointment = async (date, time, centre, token) => {
       config,
     );
 
-
     // Return the response data
     return response.data;
   } catch (error) {
@@ -122,14 +119,16 @@ export const getAppointment = async (token, ID) => {
 
 export const cancelAppointment = async (token, id) => {
   try {
-    console.log(id)
+    console.log(id);
     if (!token || !id) throw new Error("Missing required parameters");
     /*const config = {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     };*/
-    const response = await axios.delete(`${url}/cancelappointment?id=${id}`, /*config*/);
+    const response = await axios.delete(
+      `${url}/cancelappointment?id=${id}` /*config*/,
+    );
     return response.data;
   } catch (error) {
     console.error(error);
