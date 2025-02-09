@@ -3,6 +3,7 @@ import { AuthContext } from "../../api/Authcontext";
 import checkPasswordRequirements from "../../utils/checkpass";
 import { dsignup } from "../../api/authservice";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 const Header = lazy(() => import("../../components/DonorHeader"));
 const Input = lazy(() => import("../../components/Input"));
@@ -46,7 +47,7 @@ const Dsignup = () => {
     DOB,
   } = formData;
 
-  const { setUser } = useContext(AuthContext);
+  const { setUser } = useAuth();
   const genotypes = ["AA", "AS", "SS"];
   const titles = ["Mr", "Ms", "Mrs"];
   const bloodGroups = ["A", "AB", "B", "O"];
@@ -105,7 +106,7 @@ const Dsignup = () => {
       try {
         const response = await dsignup(formData);
         setUser(response);
-        navigate("/");
+        navigate("/donor/dashboard");
       } catch (err) {
         setError("Registration failed. Please try again.");
         console.error(err);

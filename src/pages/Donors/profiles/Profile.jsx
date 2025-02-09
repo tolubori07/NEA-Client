@@ -4,7 +4,7 @@ import { updatePassword } from "../../../api/authservice";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../../components/Loading";
 import { LogOut } from "lucide-react";
-import { logout } from "../../../api/authservice";
+import { useAuth } from "../../../hooks/useAuth";
 
 const Input = lazy(() => import("../../../components/Input"));
 const Modal = lazy(() => import("../../../components/Modal"));
@@ -13,7 +13,7 @@ const Button = lazy(() => import("../../../components/Button"));
 
 const Profile = () => {
   // Context and Navigation
-  const { user } = useContext(AuthContext);
+  const { user, logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   // States
@@ -28,8 +28,8 @@ const Profile = () => {
 
   // Check authentication
   useEffect(() => {
-    if (!user) {
-      navigate("/dlogin");
+    if (!isAuthenticated) {
+      navigate("/");
     }
   }, [user, navigate]);
 

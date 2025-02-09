@@ -98,7 +98,7 @@ const ManageAppointments = () => {
     try {
       setLoading(true);
       await cancelAppointment(user?.token, id);
-      navigate("/");
+      navigate("/donor/dashboard");
     } catch (err) {
       setError(err.message || "Failed to cancel appointment");
       console.error("Failed to cancel appointment:", err);

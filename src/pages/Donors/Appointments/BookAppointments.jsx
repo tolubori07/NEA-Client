@@ -85,7 +85,7 @@ const BookAppointments = () => {
             />
           </div>
           <div className='flex justify-center w-full'>
-            <Link to={`/confirm/${centre.ID}/${date}/${date.split('T')[0]+'T'+selectedTime+':00'+'Z'}`}>
+            <Link to={`/donor/confirm/${centre.ID}/${date}/${date.split('T')[0]+'T'+selectedTime+':00'+'Z'}`}>
               <Button disabled={!selectedTime || !date}>Confirm your appointment details</Button>
             </Link>
           </div>

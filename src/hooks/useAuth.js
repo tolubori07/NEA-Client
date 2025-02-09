@@ -10,7 +10,7 @@ export const useAuth = () => {
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
-    navigate("/dlogin");
+    navigate("/");
   };
 
   const isAuthenticated = () => {

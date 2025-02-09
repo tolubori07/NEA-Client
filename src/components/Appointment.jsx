@@ -44,11 +44,13 @@ const Appointment = ({ user, appointment, children, className, Message }) => {
             </h1>
             <div className="flex justify-between">
               {children}
-                <Button
-                  children="Manage appointment"
-                  className="p-3 text-white font-body font-bold"
-                  onClick={() => navigate(`donor/manageappointment/${appointment.ID}`)}
-                />
+              <Button
+                children="Manage appointment"
+                className="p-3 text-white font-body font-bold"
+                onClick={() =>
+                  navigate(`/donor/manageappointment/${appointment.ID}`)
+                }
+              />
             </div>
           </div>
           <h3 className="font-body text-text font-heading text-3xl mt-12 text-center">

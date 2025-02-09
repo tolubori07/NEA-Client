@@ -1,8 +1,8 @@
 // src/api/authservice.js
 import axios from "axios";
 
-const API_URL = "https://nea-backend-api.onrender.com";
-
+const API_URL = "https://onehealthapi.koyeb.app";
+//const API_URL = "http://localhost:3000";
 export const dlogin = async (userData) => {
   try {
     const response = await axios.post(`${API_URL}/dlogin`, userData);

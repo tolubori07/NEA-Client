@@ -74,10 +74,11 @@ const Pregnancy = lazy(
   () => import("./pages/Donors/Eligibility_Quiz/Quizzes/PregnancyCheck"),
 );
 
-const Vlogin = lazy(()=> import("./pages/Auth/Vlogin"));
-const Vsignup = lazy(()=> import("./pages/Auth/Vsignup"));
+const Vlogin = lazy(() => import("./pages/Auth/Vlogin"));
+const Vsignup = lazy(() => import("./pages/Auth/Vsignup"));
 const Dsignup = lazy(() => import("./pages/Auth/Dsignup"));
 const Welcome = lazy(() => import("./pages/Welcome"));
+const Yes = lazy(() => import("./pages/Donors/Eligibility_Quiz/Yes"));
 const App = () => {
   return (
     <Router>
@@ -141,7 +142,7 @@ const App = () => {
               }
             />
             <Route
-              path="donor/confirm/:centre/:date/:time"
+              path="/donor/confirm/:centre/:date/:time"
               element={
                 <ProtectedRoute>
                   <Confirm />
@@ -171,6 +172,7 @@ const App = () => {
             <Route path="/quiz/tattoos" element={<Tattoos />} />
             <Route path="/quiz/vaccine" element={<Vaccine />} />
             <Route path="/quiz/travel" element={<Travel />} />
+            <Route path="/quiz/yes" element={<Yes />} />
           </Routes>
         </Suspense>
       </main>
