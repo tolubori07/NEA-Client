@@ -35,7 +35,7 @@ export const getNextAppointment = async (token) => {
 
 export const getCentres = async (city) => {
   try {
-    const response = await axios.post(`${url}/getcentres`, {
+    const response = await axios.get(`${url}/getcentres`, {
       crossDomain: true,
     });
     return response.data;
