@@ -1,4 +1,4 @@
-import { LogIn, Map } from "lucide-react";
+import { Calendar, LogIn, Map } from "lucide-react";
 import { lazy } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
@@ -16,6 +16,21 @@ const DonorHeader = () => {
       onClick: "",
       ariaLabel: "Click to navigate to Eligibility Quiz",
       href: "/quiz",
+    },
+  ];
+
+  const appointmnets = [
+    {
+      label: "Book an appointmnet",
+      onclick: "",
+      ariaLabel: "Click to navigate to the appointment booking",
+      href: "/donor/bookappointment",
+    },
+    {
+      label: "My appointments",
+      onclick: "",
+      ariaLabel: "Click to navigate to view all your appointments",
+      href: "/donor/appointments",
     },
   ];
   const profiles = [
@@ -61,12 +76,19 @@ const DonorHeader = () => {
           icon={Map}
           className="sm:hidden lg:inline xl:inline"
         />
-        <Link to={"/donor/bookappointment"}>
+        <Dropdown
+          items={appointmnets}
+          label="Appointments"
+          icon={Calendar}
+          className={`${user ? "" : "hidden "} sm:hidden lg:inline xl:inline`}
+        />
+
+        {/*<Link to={"/donor/bookappointment"}>
           <Button
             children={"Book an appointment"}
             className="text-text font-bold"
           />
-        </Link>
+        </Link>*/}
       </div>
     </header>
   );
