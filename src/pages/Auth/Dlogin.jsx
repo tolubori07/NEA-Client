@@ -44,7 +44,7 @@ const Dlogin = () => {
       const userData = { email, password };
       const response = await dlogin(userData);
       setUser(response);
-      navigate("/");
+      navigate("/donor/dashboard");
     } catch (err) {
       setError(err.message);
     } finally {
