@@ -1,7 +1,9 @@
 // src/api/authservice.js
 import axios from "axios";
 
-const API_URL = "https://onehealthapi.koyeb.app";
+const API_URL = process.env.DEV
+  ? "http://localhost:3000"
+  : "https://onehealthapi.koyeb.app";
 //const API_URL = "http://localhost:3000";
 export const dlogin = async (userData) => {
   try {

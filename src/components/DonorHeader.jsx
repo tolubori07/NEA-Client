@@ -21,7 +21,7 @@ const DonorHeader = () => {
 
   const appointmnets = [
     {
-      label: "Book an appointmnet",
+      label: "Book an appointment",
       onclick: "",
       ariaLabel: "Click to navigate to the appointment booking",
       href: "/donor/bookappointment",

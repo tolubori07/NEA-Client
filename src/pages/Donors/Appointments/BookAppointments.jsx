@@ -74,7 +74,7 @@ const BookAppointments = () => {
         <div className='bg-white shadow-dark border-2 border-black w-[50%] p-5 h-[70%] rounded-base'>
           <div className="flex flex-col">
             <h1 className='text-text text-center font-body font-heading text-3xl mt-12'>Pick a date</h1>
-            <Input type={"date"} className={"mt-12"} onChange={onChange} min={minDate} max="2026-12-31" />
+            <Input type={"date"} className={"mt-12"} onChange={onChange} min={minDate} max="2027-12-31" />
           </div>
           <h1 className='text-text font-body font-heading text-3xl mt-12 text-center'>Pick a time</h1>
           <div className='flex justify-center mb-24'>

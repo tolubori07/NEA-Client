@@ -3,6 +3,7 @@ import {
   cancelAppointment,
   getAppointment,
   getAvailableTimes,
+  rescheduleAppointment,
 } from "../../../api/appointmentService";
 import { AuthContext } from "../../../api/Authcontext";
 import Loading from "../../../components/Loading";
@@ -31,6 +32,11 @@ const ManageAppointments = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+
+  // Log selectedTime whenever it changes
+  useEffect(() => {
+    console.log("Selected Time:", selectedTime);
+  }, [selectedTime]);
 
   // Set the minimum date to today
   useEffect(() => {
@@ -81,6 +87,44 @@ const ManageAppointments = () => {
     }
   };
 
+  const handleReschedule = async () => {
+    if (!selectedDate || !selectedTime) {
+      alert("Please select a date and time before rescheduling.");
+      return;
+    }
+
+    const fields = ["Date", "Time"]; // Fields to update
+    const values = [
+      `${selectedDate}T00:00:00Z`, // Format date correctly
+      `${selectedDate}T${selectedTime}:00Z`, // Format time correctly
+    ];
+    const appointmentId = appointment.ID; // Assuming the appointment object has an ID field
+
+    try {
+      setLoading(true);
+      const response = await rescheduleAppointment(
+        user?.token, // User's token
+        fields, // Array of fields to update
+        values, // Array of values for the fields
+        appointmentId, // Appointment ID
+      );
+
+      console.log("Appointment Rescheduled:", response.data);
+      alert("Appointment rescheduled successfully!");
+
+      // Optionally, navigate to a different page or update the UI
+      navigate("/donor/appointments");
+    } catch (error) {
+      console.error(
+        "Failed to reschedule appointment:",
+        error.response?.data || error.message,
+      );
+      alert("Failed to reschedule appointment. Please try again.");
+    } finally {
+      setLoading(false);
+      setIsModal2Active(false); // Close the reschedule modal
+    }
+  };
   // Handlers
   const handleDateChange = (e) => {
     const date = e.target.value;
@@ -91,7 +135,7 @@ const ManageAppointments = () => {
   };
 
   const handleTimeSelect = (time) => {
-    setSelectedTime(time);
+    setSelectedTime(time); // Update the selected time
   };
 
   const handleCancel = async () => {
@@ -142,9 +186,8 @@ const ManageAppointments = () => {
           <div className="bg-white shadow-dark rounded-base w-[70%] border-2 border-black p-5">
             <h2 className="text-text font-heading font-body text-2xl text-center mb-5">
               Date:{" "}
-              {`${days[appointmentDate.getDay()]}, ${appointmentDate.getDate()} ${
-                months[appointmentDate.getMonth()]
-              } ${appointmentDate.getFullYear()}`}
+              {`${days[appointmentDate.getDay()]}, ${appointmentDate.getDate()} ${months[appointmentDate.getMonth()]
+                } ${appointmentDate.getFullYear()}`}
             </h2>
 
             <h2 className="text-text font-heading font-body text-2xl text-center mb-5">
@@ -171,14 +214,12 @@ const ManageAppointments = () => {
               >
                 Reschedule this appointment
               </Button>
-
               <Button
                 onClick={() => setIsModal1Active(true)}
                 className="text-white text-center justify-center font-heading font-body w-[30rem] text-xl bg-mainAccent py-5"
               >
                 Cancel this appointment
               </Button>
-
               {/* Cancel Modal */}
               <Modal active={isModal1Active} setActive={setIsModal1Active}>
                 <h1 className="text-text font-body text-3xl text-center">
@@ -192,7 +233,6 @@ const ManageAppointments = () => {
                   Confirm Cancellation
                 </button>
               </Modal>
-
               {/* Reschedule Modal */}
               <Modal active={isModal2Active} setActive={setIsModal2Active}>
                 <h1 className="text-text font-body text-3xl text-center mb-4">
@@ -212,17 +252,25 @@ const ManageAppointments = () => {
                         <Button
                           key={time}
                           onClick={() => handleTimeSelect(time)}
-                          className={`p-2 ${
-                            selectedTime === time ? "bg-main" : "bg-gray-200"
-                          }`}
+                          className={`p-2 ${selectedTime === time
+                              ? "bg-slate-800 text-white"
+                              : " "
+                            }`}
                         >
                           {time}
                         </Button>
                       ))}
                     </div>
                   )}
+                  <Button
+                    onClick={handleReschedule}
+                    className="mt-4 w-full bg-main text-white py-2"
+                    disabled={!selectedDate || !selectedTime} // Disable if no date/time is selected
+                  >
+                    Confirm Reschedule
+                  </Button>
                 </div>
-              </Modal>
+              </Modal>{" "}
             </div>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const url = "https://onehealthapi.koyeb.app";
+const DEV = true;
+const url = DEV ? "http://localhost:3000" : "https://onehealthapi.koyeb.app";
 //const url = "http://localhost:3000";
 
 export const getUserAppointments = async (token) => {
@@ -133,5 +134,47 @@ export const cancelAppointment = async (token, id) => {
     return response.data;
   } catch (error) {
     console.error(error);
+  }
+};
+
+export const rescheduleAppointment = async (
+  token,
+  fields,
+  values,
+  appointment,
+) => {
+  try {
+    // Validate required parameters
+    if (!token || !fields || !values || !appointment) {
+      throw new Error("Missing required parameters");
+    }
+
+    // Set up the request headers
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    // Make the PUT request
+    const response = await axios.put(
+      `${url}/rescheduleappointment`,
+      {
+        fields, // Fields to update
+        values, // New values for the fields
+        appointment, // Appointment ID
+      },
+      config,
+    );
+
+    // Return the response data
+    return response.data;
+  } catch (error) {
+    // Log the error and rethrow it for the caller to handle
+    console.error(
+      "Error in rescheduleAppointment:",
+      error.response?.data || error.message,
+    );
+    throw error; // Rethrow the error so the caller can handle it
   }
 };
