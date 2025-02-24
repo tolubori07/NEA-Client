@@ -44,7 +44,7 @@ const Vlogin = () => {
       const userData = { email, password };
       const response = await vlogin(userData);
       setUser(response);
-      navigate("/");
+      navigate("/announcements");
     } catch (err) {
       setError(err.message);
     } finally {
@@ -57,7 +57,7 @@ const Vlogin = () => {
       if (user.id.startsWith("V")) {
         navigate("/");
       } else if (user.id.startsWith("D")) {
-        navigate("/donor/dashboard");
+        navigate("/announcements");
       }
     }
   }, []);

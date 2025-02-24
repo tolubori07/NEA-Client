@@ -1,4 +1,4 @@
-import { Calendar, LogIn, Map } from "lucide-react";
+import { Calendar, LogIn, Map, Menu } from "lucide-react";
 import { lazy } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
@@ -50,13 +50,17 @@ const DonorHeader = () => {
   return (
     <header className="bg-white h-24 border-b-4 border-b-black flex flex-row justify-between items-center mb-3 gap-[20rem]">
       <Link to={user ? "/donor/dashboard" : "/"}>
-        <img src="/logo.png" alt="" className="w-24 ml-8 h-24 cursor-pointer" />
+        <img
+          src="/logo.png"
+          alt=""
+          className="aspect-square ml-8 min-h-18 max-h-24  cursor-pointer"
+        />
       </Link>
 
-      <div className="navlinks flex gap-[6rem] mr-3">
+      <div className="navlinks flex gap-[6rem] mr-3 ">
         <Link to={"/dlogin"}>
           <Button
-            className={`${user ? "hidden" : ""} text-text font-display font-bold text-xl`}
+            className={`${user ? "hidden" : ""} text-text font-display font-bold text-xl sm:hidden lg:inline-flex xl:inline-flex md:hidden`}
           >
             Login
             <LogIn />
@@ -67,28 +71,22 @@ const DonorHeader = () => {
           items={profiles}
           label="Profile"
           icon={Map}
-          className="sm:hidden lg:inline xl:inline"
+          className="sm:hidden lg:inline xl:inline md:hidden"
         />
 
         <Dropdown
           items={items}
           label="Guidance"
           icon={Map}
-          className="sm:hidden lg:inline xl:inline"
+          className="lg:inline xl:inline md:hidden sm:hidden"
         />
         <Dropdown
           items={appointmnets}
           label="Appointments"
           icon={Calendar}
-          className={`${user ? "" : "hidden "} sm:hidden lg:inline xl:inline`}
+          className={`${user ? "" : "hidden "} sm:hidden lg:inline xl:inline md:hidden`}
         />
-
-        {/*<Link to={"/donor/bookappointment"}>
-          <Button
-            children={"Book an appointment"}
-            className="text-text font-bold"
-          />
-        </Link>*/}
+        <Menu className="h-10 w-10 xl:hidden lg:hidden sm:inline md:inlind bg-main shadow-dark rounded-base transition-all hover:translate-x-boxShadowX hover:translate-y-boxShadowY hover:shadow-none dark:hover:shadow-none border-border border-2" />
       </div>
     </header>
   );

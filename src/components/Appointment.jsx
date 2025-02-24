@@ -36,7 +36,7 @@ const Appointment = ({ user, appointment, children, className, Message }) => {
     <div>
       <div className="flex justify-center">
         <div
-          className={`nextappointment bg-white p-10 shadow-dark mt-12 w-[70%] rounded-base border-2 border-black ${className}`}
+          className={`nextappointment bg-white p-10  mt-12 w-[70%] rounded-base border-2 border-black ${className}`}
         >
           <div className="flex justify-between">
             <h1 className="text-text font-heading font-body text-3xl">
@@ -46,7 +46,7 @@ const Appointment = ({ user, appointment, children, className, Message }) => {
               {children}
               <Button
                 children="Manage appointment"
-                className="p-3 text-white font-body font-bold"
+                className="p-3 text-text font-body font-bold"
                 onClick={() =>
                   navigate(`/donor/manageappointment/${appointment.ID}`)
                 }

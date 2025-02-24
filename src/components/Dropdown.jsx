@@ -38,7 +38,7 @@ const Dropdown = ({
           opacity: isActiveDropdown ? "1" : "0",
           visibility: isActiveDropdown ? "visible" : "hidden",
         }}
-        className={`absolute left-0 z-10  border-2 border-black rounded-base bg-white text-black font-bold transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] ${dropdownClassName}`}
+        className={`absolute left-0 z-10  border-2 no-scrollbar border-black rounded-base bg-white text-black font-bold transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] ${dropdownClassName}`}
       >
         {items.map((item, index) =>
           item.href ? (
@@ -46,7 +46,7 @@ const Dropdown = ({
               key={index}
               to={item.href}
               aria-label={item.ariaLabel}
-              className={`block w-full border-b-2 border-black bg-main px-7 py-3 no-underline first:rounded-t-md last:rounded-base hover:bg-mainAccent ${itemClassName}`}
+              className={`block w-full border-b-2 border-black bg-main px-7 py-3 no-underline  hover:bg-mainAccent ${itemClassName}`}
             >
               <h3 className="text-center">{item.label}</h3>
             </Link>
@@ -56,7 +56,7 @@ const Dropdown = ({
               role="button"
               aria-label={item.ariaLabel}
               onClick={item.onClick}
-              className={`block border-b-2 border-black bg-main px-2 py-2 no-underline first:rounded-t-md last:rounded-base hover:bg-mainAccent ${itemClassName}`}
+              className={`block border-b-2 border-black bg-main px-2 py-2 no-underline hover:bg-mainAccent ${itemClassName}`}
             >
               <h3 className="text-center">{item.label}</h3>
             </button>

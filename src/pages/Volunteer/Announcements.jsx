@@ -1,9 +1,13 @@
-import React from 'react'
+import { lazy } from "react";
 
+const Header = lazy(() => import("../../components/VolunteerHeader"));
 const Announcements = () => {
   return (
-    <div>Announcements</div>
-  )
-}
+    <div>
+      <Header />
+      Announcements
+    </div>
+  );
+};
 
-export default Announcements
+export default Announcements;

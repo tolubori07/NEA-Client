@@ -79,10 +79,11 @@ const Vsignup = lazy(() => import("./pages/Auth/Vsignup"));
 const Dsignup = lazy(() => import("./pages/Auth/Dsignup"));
 const Welcome = lazy(() => import("./pages/Welcome"));
 const Yes = lazy(() => import("./pages/Donors/Eligibility_Quiz/Yes"));
+const Announcements = lazy(() => import("./pages/Volunteer/Announcements"));
 const App = () => {
   return (
     <Router>
-      <main className="min-h-screen bg-bg pb-12">
+      <main className="min-h-screen bg-bg pb-12 no-scrollbar">
         <Suspense fallback={<Loading />}>
           <Routes>
             <Route
@@ -94,7 +95,7 @@ const App = () => {
               }
             />
             <Route
-              path="donor/manageappointment/:id"
+              path="/donor/manageappointment/:id"
               element={
                 <ProtectedRoute>
                   <Manageappointments />
@@ -102,7 +103,7 @@ const App = () => {
               }
             />
             <Route
-              path="donor/profile"
+              path="/donor/profile"
               element={
                 <ProtectedRoute>
                   <Profile />
@@ -110,7 +111,7 @@ const App = () => {
               }
             />
             <Route
-              path="donor/bookappointment"
+              path="/donor/bookappointment"
               element={
                 <ProtectedRoute>
                   <SearchAppointment />
@@ -118,7 +119,7 @@ const App = () => {
               }
             />
             <Route
-              path="donor/appointments"
+              path="/donor/appointments"
               element={
                 <ProtectedRoute>
                   <Allappointments />
@@ -134,7 +135,7 @@ const App = () => {
               }
             />
             <Route
-              path="donor/book/:id"
+              path="/donor/book/:id"
               element={
                 <ProtectedRoute>
                   <BookAppointments />
@@ -149,6 +150,16 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="/volunteer/announcements"
+              element={
+                <ProtectedRoute>
+                  <Announcements />
+                </ProtectedRoute>
+              }
+            />
+
+            {/*      AUTH ROUTES      */}
             <Route path="/dlogin" element={<Dlogin />} />
             <Route path="/dsignup" element={<Dsignup />} />
             <Route path="/vlogin" element={<Vlogin />} />

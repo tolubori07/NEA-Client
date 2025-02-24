@@ -7,6 +7,8 @@ export default function Input({
   name,
   min,
   max,
+  checked,
+  onClick,
 }) {
   return (
     <input
@@ -15,12 +17,14 @@ export default function Input({
         className
       }
       type={type}
+      checked={checked}
       name={name}
       min={min}
       max={max}
       placeholder={placeholder}
       value={value}
       onChange={onChange}
+      onClick={onClick}
       aria-label={placeholder}
     />
   );

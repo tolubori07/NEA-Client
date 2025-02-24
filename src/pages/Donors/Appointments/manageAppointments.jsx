@@ -210,13 +210,13 @@ const ManageAppointments = () => {
             <div className="flex flex-col items-center px-48 gap-12">
               <Button
                 onClick={() => setIsModal2Active(true)}
-                className="text-white text-center justify-center font-heading w-[30rem] text-xl py-5"
+                className="text-text text-center justify-center font-heading w-[30rem] text-xl py-5"
               >
                 Reschedule this appointment
               </Button>
               <Button
                 onClick={() => setIsModal1Active(true)}
-                className="text-white text-center justify-center font-heading font-body w-[30rem] text-xl bg-mainAccent py-5"
+                className="text-text text-center justify-center font-heading font-body w-[30rem] text-xl bg-mainAccent py-5"
               >
                 Cancel this appointment
               </Button>

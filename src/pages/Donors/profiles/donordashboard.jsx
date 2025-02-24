@@ -3,13 +3,14 @@ import { AuthContext } from "../../../api/Authcontext";
 import { getNextAppointment } from "../../../api/appointmentService";
 import Loading from "../../../components/Loading";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../hooks/useAuth";
 
 const Header = lazy(() => import("../../../components/DonorHeader"));
 const Appointment = lazy(() => import("../../../components/Appointment"));
 
 const DonorDashboard = () => {
   // Correct way to use AuthContext
-  const { user } = useContext(AuthContext);
+  const { user } = useAuth();
   const [appointment, setAppointment] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

@@ -1,7 +1,7 @@
 // src/api/authservice.js
 import axios from "axios";
-
-const API_URL = process.env.DEV
+const DEV = false;
+const API_URL = DEV
   ? "http://localhost:3000"
   : "https://onehealthapi.koyeb.app";
 //const API_URL = "http://localhost:3000";
@@ -47,7 +47,7 @@ export const dsignup = async (userData) => {
 
 export const vsignup = async (userData) => {
   try {
-    const response = await axios.post(`${API_URL}/dsignup`, userData);
+    const response = await axios.post(`${API_URL}/vsignup`, userData);
     if (response.data) {
       localStorage.setItem("user", JSON.stringify(response.data));
     }
@@ -57,11 +57,11 @@ export const vsignup = async (userData) => {
   }
 };
 
-export const updatePassword = async (token, newPassword) => {
+export const updatePassword = async (token, current, newpassword) => {
   try {
     const response = await axios.put(
-      `${API_URL}/update-password`,
-      { password: newPassword },
+      `${API_URL}/updatepassword`,
+      { current, newpassword },
       {
         headers: {
           Authorization: `Bearer ${token}`,

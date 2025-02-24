@@ -1,13 +1,24 @@
 import { lazy, useContext, useState } from "react";
 import { AuthContext } from "../../api/Authcontext";
 import checkPasswordRequirements from "../../utils/checkpass";
-import { dsignup } from "../../api/authservice";
+import { vsignup } from "../../api/authservice";
 import { useNavigate } from "react-router-dom";
 
 const Header = lazy(() => import("../../components/DonorHeader"));
 const Input = lazy(() => import("../../components/Input"));
 const Button = lazy(() => import("../../components/Button"));
 const Select = lazy(() => import("../../components/Select2"));
+const services = [
+  "Photography/videography",
+  "Outreach Volunteer",
+  "Social Media Management",
+  "Web development",
+  "Graphic Design",
+  "Content creation",
+  "Others",
+];
+
+const occupations = ["Employed", "Self-employed", "Student"];
 
 const Vsignup = () => {
   const navigate = useNavigate();
@@ -25,6 +36,7 @@ const Vsignup = () => {
     postcode: "",
     bloodgroup: "",
     genotype: "",
+    skills: [],
   });
   const [missing, setMissing] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -70,6 +82,12 @@ const Vsignup = () => {
       title: selectedTitle,
     }));
   };
+  const handleSelectOccupation = (selectedOccupation) => {
+    setFormdata((prevState) => ({
+      ...prevState,
+      occupation: selectedOccupation,
+    }));
+  };
   const handleSelectGroup = (selectedGroup) => {
     setFormdata((prevState) => ({
       ...prevState,
@@ -95,6 +113,22 @@ const Vsignup = () => {
     return errors.length === 0;
   };
 
+  const handleCheck = (skill) => {
+    setFormdata((prevState) => {
+      const newSkills = prevState.skills.includes(skill)
+        ? prevState.skills.filter((s) => s !== skill) // Remove if already checked
+        : [...prevState.skills, skill]; // Add if not checked
+      console.log({
+        ...prevState,
+        skills: newSkills,
+      });
+      return {
+        ...prevState,
+        skills: newSkills,
+      };
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(""); // Reset error message
@@ -103,11 +137,12 @@ const Vsignup = () => {
     if (validatePass()) {
       setLoading(true);
       try {
-        const response = await dsignup(formData);
+        const response = await vsignup(formData);
         setUser(response);
         navigate("/");
       } catch (err) {
         setError("Registration failed. Please try again.");
+        alert(error);
         console.error(err);
       } finally {
         setLoading(false);
@@ -198,12 +233,11 @@ const Vsignup = () => {
             />
           </div>
           <div className="flex justify-center w-full px-12">
-            <Input
-              name="occupation"
-              placeholder={"Occupation"}
+            <Select
+              placeholder={"Select your Occupation"}
+              items={occupations}
               className={"w-full"}
-              value={occupation}
-              onChange={onChange}
+              onSelect={handleSelectOccupation}
             />
           </div>
 
@@ -222,6 +256,23 @@ const Vsignup = () => {
               className={"w-full"}
               onSelect={handleSelectGenotype}
             />
+          </div>
+
+          <div className="flex flex-col justify-center w-full px-12">
+            <h1 className="text-text font-heading text-2xl">
+              How will you like to volunteer your skill?
+            </h1>
+            {services.map((service) => (
+              <div key={service}>
+                <Input
+                  type="checkbox"
+                  className="accent-mainAccent mr-3"
+                  checked={formData.skills.includes(service)}
+                  onChange={() => handleCheck(service)}
+                />
+                <label className="text-text font-body text-lg">{service}</label>
+              </div>
+            ))}
           </div>
           <div className="flex justify-center w-full px-12">
             <Input
