@@ -139,7 +139,7 @@ const Vsignup = () => {
       try {
         const response = await vsignup(formData);
         setUser(response);
-        navigate("/");
+        navigate("/volunteer/announcements");
       } catch (err) {
         setError("Registration failed. Please try again.");
         alert(error);

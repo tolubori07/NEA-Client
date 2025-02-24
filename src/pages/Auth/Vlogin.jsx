@@ -57,7 +57,7 @@ const Vlogin = () => {
       if (user.id.startsWith("V")) {
         navigate("/");
       } else if (user.id.startsWith("D")) {
-        navigate("/announcements");
+        navigate("volunteer/announcements");
       }
     }
   }, []);
