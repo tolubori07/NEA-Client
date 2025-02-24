@@ -44,7 +44,7 @@ const Vlogin = () => {
       const userData = { email, password };
       const response = await vlogin(userData);
       setUser(response);
-      navigate("/announcements");
+      navigate("/volunteer/announcements");
     } catch (err) {
       setError(err.message);
     } finally {
