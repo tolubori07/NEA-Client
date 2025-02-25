@@ -78,6 +78,7 @@ const Vlogin = lazy(() => import("./pages/Auth/Vlogin"));
 const Vsignup = lazy(() => import("./pages/Auth/Vsignup"));
 const Dsignup = lazy(() => import("./pages/Auth/Dsignup"));
 const Welcome = lazy(() => import("./pages/Welcome"));
+const VolunteerDashboard = lazy(() => import("./pages/Volunteer/Dashboard"));
 const Yes = lazy(() => import("./pages/Donors/Eligibility_Quiz/Yes"));
 const Announcements = lazy(() => import("./pages/Volunteer/Announcements"));
 const App = () => {
@@ -155,6 +156,14 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <Announcements />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/volunteer/dashboard"
+              element={
+                <ProtectedRoute>
+                  <VolunteerDashboard />
                 </ProtectedRoute>
               }
             />

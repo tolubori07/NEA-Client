@@ -41,7 +41,7 @@ const AllAppointments = () => {
   return (
     <Suspense fallback={<Loading />}>
       <Header />
-      {appointments.length > 0 ? (
+      {appointments.length == undefined ? (
         appointments.map((appointment) => (
           <Appointment key={appointment.ID} user={user} appointment={appointment} />
         ))

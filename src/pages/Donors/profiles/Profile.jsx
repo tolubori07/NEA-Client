@@ -33,7 +33,7 @@ const Profile = () => {
     if (!isAuthenticated) {
       navigate("/");
     }
-  }, [user, navigate]);
+  }, [navigate]);
 
   // Handle password form input
   const onChange = (e) => {
