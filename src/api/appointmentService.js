@@ -1,8 +1,7 @@
 import axios from "axios";
 
-const DEV = true;
+const DEV = false;
 const url = DEV ? "http://localhost:3000" : "https://onehealthapi.koyeb.app";
-//const url = "http://localhost:3000";
 
 export const getUserAppointments = async (token) => {
   try {
@@ -123,13 +122,14 @@ export const cancelAppointment = async (token, id) => {
   try {
     console.log(id);
     if (!token || !id) throw new Error("Missing required parameters");
-    /*const config = {
+    const config = {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    };*/
+    };
     const response = await axios.delete(
-      `${url}/cancelappointment?id=${id}` /*config*/,
+      `${url}/cancelappointment?id=${id}`,
+      config,
     );
     return response.data;
   } catch (error) {

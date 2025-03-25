@@ -81,6 +81,13 @@ const Welcome = lazy(() => import("./pages/Welcome"));
 const VolunteerDashboard = lazy(() => import("./pages/Volunteer/Dashboard"));
 const Yes = lazy(() => import("./pages/Donors/Eligibility_Quiz/Yes"));
 const Announcements = lazy(() => import("./pages/Volunteer/Announcements"));
+const Allevents = lazy(() => import("./pages/Volunteer/Allevents"));
+const Bookevent = lazy(() => import("./pages/Volunteer/Bookevent"));
+const ConfirmEvent = lazy(() => import("./pages/Volunteer/Confirm"));
+const SendMessage = lazy(() => import("./pages/Volunteer/SendMessage"));
+const Vprofile = lazy(() => import("./pages/Volunteer/Profile"));
+const Manageevent = lazy(() => import("./pages/Volunteer/ManageEvent"));
+
 const App = () => {
   return (
     <Router>
@@ -103,6 +110,15 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="/volunteer/manageevent/:id"
+              element={
+                <ProtectedRoute>
+                  <Manageevent />
+                </ProtectedRoute>
+              }
+            />
+
             <Route
               path="/donor/profile"
               element={
@@ -127,6 +143,15 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="/volunteer/events"
+              element={
+                <ProtectedRoute>
+                  <Allevents />
+                </ProtectedRoute>
+              }
+            />
+
             <Route
               path="*"
               element={
@@ -164,6 +189,38 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <VolunteerDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/volunteer/book"
+              element={
+                <ProtectedRoute>
+                  <Bookevent />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/volunteer/confirm/:id"
+              element={
+                <ProtectedRoute>
+                  <ConfirmEvent />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/volunteer/message"
+              element={
+                <ProtectedRoute>
+                  <SendMessage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/volunteer/profile"
+              element={
+                <ProtectedRoute>
+                  <Vprofile />
                 </ProtectedRoute>
               }
             />
