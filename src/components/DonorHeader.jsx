@@ -86,12 +86,13 @@ const DonorHeader = () => {
         className="lg:inline xl:inline md:hidden sm:hidden"
       />
       
+     {isAuthenticated &&(
       <Dropdown
         items={appointments}
         label="Appointments"
         icon={Calendar}
-        className={`${isAuthenticated ? "" : "hidden "} sm:hidden lg:inline xl:inline md:hidden`}
-      />
+        className={`sm:hidden lg:inline xl:inline md:hidden`}
+      />)}
 
       <Menu className="h-10 w-10 xl:hidden lg:hidden sm:inline md:inline bg-main shadow-dark rounded-base transition-all hover:translate-x-boxShadowX hover:translate-y-boxShadowY hover:shadow-none dark:hover:shadow-none border-border border-2" />
     </header>
