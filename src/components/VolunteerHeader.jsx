@@ -1,11 +1,8 @@
 import {
   Calendar,
-  LogIn,
-  Map,
   Megaphone,
   Menu,
   PersonStandingIcon,
-  Phone,
 } from "lucide-react";
 import { lazy } from "react";
 import { Link, useNavigate } from "react-router-dom";
