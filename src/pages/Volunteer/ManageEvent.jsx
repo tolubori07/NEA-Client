@@ -1,4 +1,4 @@
-import { Suspense, lazy, useContext, useState, useEffect } from "react";
+import { Suspense, lazy, useState, useEffect } from "react";
 import Loading from "../../components/Loading";
 import { useParams, useNavigate } from "react-router-dom";
 import { days, months } from "../../utils/daysandmonths";
@@ -25,7 +25,7 @@ const Manageevents = () => {
   // Check authentication
   useEffect(() => {
     if (!user || user.id.startsWith("D")) {
-      navigate("/vlogin");
+      navigate("/donor/dashboard");
       return;
     }
   }, [user, navigate]);
@@ -39,8 +39,8 @@ const Manageevents = () => {
         const res = await getEvent(id);
         setEvent(res);
       } catch (err) {
-        setError(err.message || "Failed to fetch appointment");
-        console.error("Failed to fetch appointment:", err);
+        setError(err.message || "Failed to fetch event");
+        console.error("Failed to fetch event:", err);
       } finally {
         setLoading(false);
       }
@@ -101,13 +101,23 @@ const Manageevents = () => {
           <div className="bg-white shadow-dark rounded-base w-[70%] border-2 border-black p-5">
             <h2 className="text-text font-heading font-body text-2xl text-center mb-5">
               Date:{" "}
-              {`${days[eventDate.getDay()]}, ${eventDate.getDate()} ${months[eventDate.getMonth()]
-                } ${eventDate.getFullYear()}`}
+              {`${days[eventDate.getDay()]}, ${eventDate.getDate()} ${
+                months[eventDate.getMonth()]
+              } ${eventDate.getFullYear()}`}
             </h2>
 
             <h2 className="text-text font-heading font-body text-2xl text-center mb-5">
-              Time:{" "}
+              Start:{" "}
               {`${startTime.getUTCHours().toString().padStart(2, "0")}:${startTime
+                .getMinutes()
+                .toString()
+                .padStart(2, "0")}`}{" "}
+              (24-Hour time)
+            </h2>
+
+            <h2 className="text-text font-heading font-body text-2xl text-center mb-5">
+              Start:{" "}
+              {`${endTime.getUTCHours().toString().padStart(2, "0")}:${endTime
                 .getMinutes()
                 .toString()
                 .padStart(2, "0")}`}{" "}

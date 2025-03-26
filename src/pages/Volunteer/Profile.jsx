@@ -14,7 +14,7 @@ const Profile = () => {
   // Context and Navigation
   const { user, logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
-  const skills = user.skills
+  const services = user.service;
 
   // States
   const [isModalActive, setIsModalActive] = useState(false);
@@ -27,14 +27,12 @@ const Profile = () => {
     confirmPassword: "",
   });
 
-  const { curr, newpass, newpasscon } = passwordData;
-
   // Check authentication
   useEffect(() => {
     if (!isAuthenticated) {
       navigate("/");
     }
-  }, [navigate]);
+  }, [isAuthenticated, navigate]);
 
   // Handle password form input
   const onChange = (e) => {
@@ -49,12 +47,12 @@ const Profile = () => {
     e.preventDefault();
 
     // Validate passwords
-    if (newpass !== newpasscon) {
+    if (passwordData.newPassword !== passwordData.confirmPassword) {
       setError("Passwords do not match");
       return;
     }
 
-    if (newpass.length < 8) {
+    if (passwordData.newPassword.length < 8) {
       setError("Password must be at least 8 characters long");
       return;
     }
@@ -63,9 +61,14 @@ const Profile = () => {
       setLoading(true);
       setError(null);
 
-      await updatePassword(user.token, curr, newpass);
+      await updatePassword(
+        user.token,
+        passwordData.currentPassword,
+        passwordData.newPassword,
+      );
 
       setSuccess("Password updated successfully");
+      alert("Password Updated successfully")
       setPasswordData({
         newPassword: "",
         confirmPassword: "",
@@ -138,97 +141,99 @@ const Profile = () => {
             <h3 className="text-text font-body font-bold text-xl mt-5">
               Phone Number: {user.phone}
             </h3>
-            <h2 className="text-text text-2xl font-body mt-5 font-bold">Services Offered</h2>
+            <h2 className="text-text text-2xl font-body mt-5 font-bold">
+              Services Offered
+            </h2>
             <div>
-            {skills.map((skill) => 
-              <p key={user.skills.indexOf(skill)} className="mb-2 text-text font-bold"> 
-                { skill }
-              </p>
-            )}
+              {services.map((service, index) => (
+                <p key={index} className="mb-2 text-text font-bold">
+                  {service}
+                </p>
+              ))}
             </div>
-          <div className="w-full flex justify-center">
-            <Button
-              onClick={() => {
-                logout();
-                navigate("/vlogin");
-              }}
-              className={"w-1/3"}
-            >
-              <p className="w-full text-center text-lg flex">
-                Logout <LogOut />
-              </p>
-            </Button>
-          </div>
-          {/* Password Section */}
-          <div className="flex flex-row justify-center mt-8 gap-8">
-            <h3 className="text-text font-body font-bold text-xl mt-5">
-              Password: •••••••••••
-            </h3>
-            <Button
-              onClick={() => setIsModalActive(true)}
-              disabled={loading}
-              className="hover:bg-main-dark transition-colors"
-            >
-              Update Password
-            </Button>
+            <div className="w-full flex justify-center">
+              <Button
+                onClick={() => {
+                  logout();
+                  navigate("/vlogin");
+                }}
+                className={"w-1/3"}
+              >
+                <p className="w-full text-center text-lg flex">
+                  Logout <LogOut />
+                </p>
+              </Button>
+            </div>
+            {/* Password Section */}
+            <div className="flex flex-row justify-center mt-8 gap-8">
+              <h3 className="text-text font-body font-bold text-xl mt-5">
+                Password: •••••••••••
+              </h3>
+              <Button
+                onClick={() => setIsModalActive(true)}
+                disabled={loading}
+                className="hover:bg-main-dark transition-colors"
+              >
+                Update Password
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Password Update Modal */}
-      <Modal active={isModalActive} setActive={setIsModalActive}>
-        <form
-          onSubmit={handleUpdatePassword}
-          className="flex flex-col space-y-4"
-        >
-          <label className="text-text font-body font-[700] text-left">
-            Input your current password
-          </label>
-          <Input
-            type={"password"}
-            name="currentPassword"
-            value={curr}
-            onChange={onChange}
-            className={"bg-white"}
-            placeholder={"Current password"}
-            required
-          />
+        {/* Password Update Modal */}
+        <Modal active={isModalActive} setActive={setIsModalActive}>
+          <form
+            onSubmit={handleUpdatePassword}
+            className="flex flex-col space-y-4"
+          >
+            <label className="text-text font-body font-[700] text-left">
+              Input your current password
+            </label>
+            <Input
+              type={"password"}
+              name="currentPassword"
+              value={passwordData.currentPassword}
+              onChange={onChange}
+              className={"bg-white"}
+              placeholder={"Current password"}
+              required
+            />
 
-          <label className="text-text font-body font-[700] text-left">
-            Input your new password
-          </label>
-          <Input
-            type={"password"}
-            name="newPassword"
-            value={newpass}
-            onChange={onChange}
-            className={"bg-white"}
-            placeholder={"New password"}
-            required
-          />
+            <label className="text-text font-body font-[700] text-left">
+              Input your new password
+            </label>
+            <Input
+              type={"password"}
+              name="newPassword"
+              value={passwordData.newPassword}
+              onChange={onChange}
+              className={"bg-white"}
+              placeholder={"New password"}
+              required
+            />
 
-          <label className="text-text font-body font-[700] text-left">
-            Confirm new password
-          </label>
-          <Input
-            type={"password"}
-            name="confirmPassword"
-            value={newpasscon}
-            onChange={onChange}
-            className={"bg-white"}
-            placeholder={"Confirm password"}
-            required
-          />
+            <label className="text-text font-body font-[700] text-left">
+              Confirm new password
+            </label>
+            <Input
+              type={"password"}
+              name="confirmPassword"
+              value={passwordData.confirmPassword}
+              onChange={onChange}
+              className={"bg-white"}
+              placeholder={"Confirm password"}
+              required
+            />
 
-          {error && <p className="text-red-500 text-sm">{error}</p>}
+            {error && <p className="text-red-500 text-sm">{error}</p>}
 
-          <Button type="submit" disabled={loading} className="w-full mt-4">
-            {loading ? "Updating..." : "Update Password"}
-          </Button>
-        </form>
-      </Modal>
-    </>
-    </Suspense >
+            <Button type="submit" disabled={loading} className="w-full mt-4">
+              {loading ? "Updating..." : "Update Password"}
+            </Button>
+          </form>
+        </Modal>
+      </>
+    </Suspense>
   );
 };
 

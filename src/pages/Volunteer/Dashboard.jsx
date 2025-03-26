@@ -41,10 +41,24 @@ const Dashboard = () => {
   }
 
   return (
-    <>
+    <div>
       <Header />
-      <Event event={event} Message={"Your next event..."}/>
-    </>
+      <h1 className="text-3xl font-body font-heading text-text ml-14 mt-12">
+        Welcome, {user.firstname}
+      </h1>
+      {!event || event === 1 ? (
+        <div>
+          <h1 className="font-body text-center text-2xl font-bold text-main">
+            You have no upcoming events.
+          </h1>
+        </div>
+      ) : (
+        <Event
+          event={event}
+          Message={"Your next event..."}
+        />
+      )}
+    </div>
   );
 };
 

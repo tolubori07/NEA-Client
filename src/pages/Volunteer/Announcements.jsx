@@ -45,7 +45,7 @@ const Announcements = () => {
     <div>
       <Header />
       <h1 className="text-text font-bold font-display text-4xl ml-4">
-        Appointments
+        Announcements
       </h1>
       {announcements.map((announcement) => (
         <Announcement

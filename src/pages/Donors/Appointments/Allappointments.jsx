@@ -1,17 +1,17 @@
 import { Suspense, lazy, useContext, useState, useEffect } from "react";
 import { getUserAppointments } from "../../../api/appointmentService";
 import { AuthContext } from "../../../api/Authcontext";
-import Loading from '../../../components/Loading';
+import Loading from "../../../components/Loading";
 import { useNavigate } from "react-router-dom";
 
-const Appointment = lazy(() => import('../../../components/Appointment'));
-const Header = lazy(() => import('../../../components/DonorHeader'));
+const Appointment = lazy(() => import("../../../components/Appointment"));
+const Header = lazy(() => import("../../../components/DonorHeader"));
 
 const AllAppointments = () => {
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true); // State to handle loading
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const getAppointment = async () => {
     try {
@@ -25,14 +25,14 @@ const AllAppointments = () => {
   };
 
   useEffect(() => {
-    if(!user){ 
-      navigate('/dlogin')
+    if (!user) {
+      navigate("/dlogin");
     }
-  }, [navigate,user]); // Empty dependency array to run the effect only once
+  }, [navigate, user]); // Empty dependency array to run the effect only once
 
-  useEffect(()=>{ 
+  useEffect(() => {
     getAppointment();
-  },[])
+  }, []);
 
   if (loading) {
     return <Loading />;
@@ -41,12 +41,19 @@ const AllAppointments = () => {
   return (
     <Suspense fallback={<Loading />}>
       <Header />
-      {appointments.length == undefined ? (
+      {Array.isArray(appointments) && appointments.length !== 0 ? (
         appointments.map((appointment) => (
-          <Appointment key={appointment.ID} user={user} appointment={appointment} />
+          <Appointment
+            key={appointment.ID}
+            user={user}
+            appointment={appointment}
+          />
         ))
       ) : (
-        <div className="text-center text-gray-500 mt-12">No appointments found.</div>
+        <div className="text-center text-text mt-12 font-bold">
+          Looks like your appointment list is feeling a bit lonely... 🥲 Why not
+          book one and give it some company?
+        </div>
       )}
     </Suspense>
   );

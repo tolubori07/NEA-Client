@@ -1,31 +1,37 @@
 import { X } from "lucide-react";
-import ReactDom from "react-dom";
+import ReactDOM from "react-dom";
 import { useEffect, useState } from "react";
 
-export default function Modal({ active, setActive, children, onClick }) {
+export default function Modal({ active, setActive, children }) {
   const [isVisible, setIsVisible] = useState(false);
 
-  const closeModal = (e) => {
-    e.stopPropagation(); // Prevent the click event from bubbling up
-    setIsVisible(false);
-    setTimeout(() => {
-      setActive(false);
-    }, 300);
-  };
+  useEffect(() => {
+    // Ensure the modal root exists only once
+    let modalRoot = document.getElementById("modal");
+    if (!modalRoot) {
+      modalRoot = document.createElement("div");
+      modalRoot.id = "modal";
+      document.body.appendChild(modalRoot);
+    }
+  }, []);
+
   useEffect(() => {
     if (active) {
       setIsVisible(true);
+    } else {
+      setIsVisible(false);
     }
   }, [active]);
 
-  // Always have a reference to the modal root
-  const modalRoot =
-    document.getElementById("modal") ||
-    document.body.appendChild(document.createElement("div"));
+  const closeModal = (e) => {
+    e.stopPropagation();
+    setIsVisible(false);
+    setTimeout(() => setActive(false), 300);
+  };
 
   if (!active) return null;
 
-  return ReactDom.createPortal(
+  return ReactDOM.createPortal(
     <div
       role="dialog"
       aria-modal="true"
@@ -35,21 +41,14 @@ export default function Modal({ active, setActive, children, onClick }) {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative flex w-[300px] group-data-[visible=true]:opacity-100 group-data-[visible=true]:visible group-data-[visible=false]:opacity-0 group-data-[visible=false]:invisible flex-col items-center justify-center rounded-base border-2 border-border dark:border-darkBorder bg-main p-10 pt-12 font-base shadow-light dark:shadow-dark transition-all duration-300"
+        className="relative flex w-[300px] data-[visible=true]:opacity-100 data-[visible=true]:visible data-[visible=false]:opacity-0 data-[visible=false]:invisible flex-col items-center justify-center rounded-base border-2 border-border dark:border-darkBorder bg-main p-10 pt-12 font-base shadow-light dark:shadow-dark transition-all duration-300"
       >
         <button onClick={closeModal}>
           <X className="absolute right-3 top-3 h-6 w-6" />
         </button>
         {children}
-        {/*<button
-          className="mt-5 cursor-pointer rounded-base border-2 border-border dark:border-darkBorder bg-white px-4 py-1.5 font-base shadow-light dark:shadow-dark transition-all hover:translate-x-boxShadowX hover:translate-y-boxShadowY hover:shadow-none dark:hover:shadow-none"
-          onClick={closeModal}
-        >
-          Ok
-        </button>
-        */}
       </div>
     </div>,
-    modalRoot,
+    document.getElementById("modal"),
   );
 }

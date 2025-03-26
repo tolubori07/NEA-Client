@@ -41,7 +41,7 @@ const Allevents = () => {
   return (
     <Suspense fallback={<Loading />}>
       <Header />
-      {events.length > 0 ? (
+      {Array.isArray(events) && events.length > 0 ? (
         events.map((event) => (
           <Event key={event.ID} user={user} event={event} />
         ))
