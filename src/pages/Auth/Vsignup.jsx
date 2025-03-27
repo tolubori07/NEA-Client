@@ -3,6 +3,7 @@ import { AuthContext } from "../../api/Authcontext";
 import checkPasswordRequirements from "../../utils/checkpass";
 import { vsignup } from "../../api/authservice";
 import { useNavigate } from "react-router-dom";
+import useDocumentTitle from "../../hooks/useDocumentTitles";
 
 const Header = lazy(() => import("../../components/DonorHeader"));
 const Input = lazy(() => import("../../components/Input"));
@@ -41,6 +42,7 @@ const Vsignup = () => {
   const [missing, setMissing] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  useDocumentTitle("Volunteer Sign Up");
 
   const {
     email,

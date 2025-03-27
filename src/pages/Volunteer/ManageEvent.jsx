@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { days, months } from "../../utils/daysandmonths";
 import { useAuth } from "../../hooks/useAuth";
 import { cancelEvent, getEvent } from "../../api/event";
+import useDocumentTitle from "../../hooks/useDocumentTitles";
 
 const Alert = lazy(() => import("../../components/Alerts"));
 const Header = lazy(() => import("../../components/VolunteerHeader"));
@@ -29,6 +30,7 @@ const Manageevents = () => {
       return;
     }
   }, [user, navigate]);
+  useDocumentTitle("Manage event")
 
   // Fetch appointment details
   useEffect(() => {

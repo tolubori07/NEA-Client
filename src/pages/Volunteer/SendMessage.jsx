@@ -3,6 +3,7 @@ import { lazy, useState } from "react";
 import { sendMessage } from "../../api/sendmessage";
 import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import useDocumentTitle from "../../hooks/useDocumentTitles";
 
 const Input = lazy(() => import("../../components/Input"));
 const Header = lazy(() => import("../../components/VolunteerHeader"));
@@ -18,6 +19,8 @@ const SendMessage = () => {
     await sendMessage(message, subject, user.token);
     navigate("/volunteer/dashboard");
   };
+
+  useDocumentTitle("Send a message");
 
   return (
     <div>

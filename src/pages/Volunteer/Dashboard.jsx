@@ -3,6 +3,7 @@ import { getNextEvent } from "../../api/event";
 import Loading from "../../components/Loading";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import useDocumentTitle from "../../hooks/useDocumentTitles";
 const Header = lazy(() => import("../../components/VolunteerHeader"));
 const Event = lazy(() => import("../../components/Event"));
 
@@ -12,6 +13,7 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  useDocumentTitle("Volunteer Dashboard");
 
   useEffect(() => {
     // If no user, redirect to login
@@ -33,7 +35,7 @@ const Dashboard = () => {
         setLoading(false);
       }
     };
-    fetchNextEvent()
+    fetchNextEvent();
   }, [navigate, user]);
 
   if (loading) {
@@ -53,10 +55,7 @@ const Dashboard = () => {
           </h1>
         </div>
       ) : (
-        <Event
-          event={event}
-          Message={"Your next event..."}
-        />
+        <Event event={event} Message={"Your next event..."} />
       )}
     </div>
   );

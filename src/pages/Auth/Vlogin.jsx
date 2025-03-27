@@ -4,6 +4,7 @@ import { lazy, useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { vlogin } from "../../api/authservice";
 import { AuthContext } from "../../api/Authcontext";
+import useDocumentTitle from "../../hooks/useDocumentTitles";
 
 const Input = lazy(() => import("../../components/Input"));
 const Header = lazy(() => import("../../components/DonorHeader"));
@@ -11,6 +12,8 @@ const Button = lazy(() => import("../../components/Button"));
 
 const Vlogin = () => {
   const { setUser, user } = useContext(AuthContext);
+
+  useDocumentTitle("Volunteer Login");
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
   const [error, setError] = useState("");

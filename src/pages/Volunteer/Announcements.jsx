@@ -3,6 +3,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { getAnnouncements } from "../../api/announcements";
 import Loading from "../../components/Loading";
+import useDocumentTitle from "../../hooks/useDocumentTitles";
 
 const Header = lazy(() => import("../../components/VolunteerHeader"));
 const Announcement = lazy(() => import("../../components/Announcement"));
@@ -17,6 +18,7 @@ const Announcements = () => {
     if (!isAuthenticated) {
       navigate("/vlogin");
     }
+    useDocumentTitle("Announcements");
     const fetchAnnouncements = async () => {
       try {
         setLoading(true);

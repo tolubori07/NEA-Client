@@ -3,6 +3,7 @@ import { getSignedEvents } from "../../api/event";
 import Loading from "../../components/Loading";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import useDocumentTitle from "../../hooks/useDocumentTitles";
 
 const Event = lazy(() => import("../../components/Event"));
 const Header = lazy(() => import("../../components/VolunteerHeader"));
@@ -12,7 +13,7 @@ const Allevents = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true); // State to handle loading
   const navigate = useNavigate();
-
+useDocumentTitle("My events")
   const getEvents = async () => {
     try {
       const res = await getSignedEvents(user.token);

@@ -1,5 +1,5 @@
 import axios from "axios";
-const DEV = true;
+const DEV = false;
 const API_URL = DEV
   ? "http://localhost:3000"
   : "https://onehealthapi.koyeb.app";
@@ -59,14 +59,18 @@ export const getEvent = async (id) => {
   }
 };
 
-export const bookEvent = async (Event,token) => {
+export const bookEvent = async (Event, token) => {
   try {
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     };
-    const res = await axios.post(`${API_URL}/bookevent`,{Event:Event},config);
+    const res = await axios.post(
+      `${API_URL}/bookevent`,
+      { Event: Event },
+      config,
+    );
     return res.data;
   } catch (error) {
     console.error(error);
@@ -91,5 +95,3 @@ export const cancelEvent = async (token, id) => {
     console.error(error);
   }
 };
-
-

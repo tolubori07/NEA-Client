@@ -4,6 +4,7 @@ import checkPasswordRequirements from "../../utils/checkpass";
 import { dsignup } from "../../api/authservice";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import useDocumentTitle from "../../hooks/useDocumentTitles";
 
 const Header = lazy(() => import("../../components/DonorHeader"));
 const Input = lazy(() => import("../../components/Input"));
@@ -12,6 +13,7 @@ const Select = lazy(() => import("../../components/Select2"));
 
 const Dsignup = () => {
   const navigate = useNavigate();
+  useDocumentTitle("Donor Sign up");
   const [formData, setFormdata] = useState({
     email: "",
     password: "",

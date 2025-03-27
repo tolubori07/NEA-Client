@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading";
 import { LogOut } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth";
+import useDocumentTitle from "../../hooks/useDocumentTitles";
 
 const Input = lazy(() => import("../../components/Input"));
 const Modal = lazy(() => import("../../components/Modal"));
@@ -26,7 +27,7 @@ const Profile = () => {
     newPassword: "",
     confirmPassword: "",
   });
-
+  useDocumentTitle("Volunteer profile");
   // Check authentication
   useEffect(() => {
     if (!isAuthenticated) {
@@ -68,7 +69,7 @@ const Profile = () => {
       );
 
       setSuccess("Password updated successfully");
-      alert("Password Updated successfully")
+      alert("Password Updated successfully");
       setPasswordData({
         newPassword: "",
         confirmPassword: "",

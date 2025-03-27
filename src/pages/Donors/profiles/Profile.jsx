@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Loading from "../../../components/Loading";
 import { LogOut } from "lucide-react";
 import { useAuth } from "../../../hooks/useAuth";
+import useDocumentTitle from "../../../hooks/useDocumentTitles";
 
 const Input = lazy(() => import("../../../components/Input"));
 const Modal = lazy(() => import("../../../components/Modal"));
@@ -14,6 +15,7 @@ const Profile = () => {
   // Context and Navigation
   const { user, logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+  useDocumentTitle("Donor Profile")
 
   // States
   const [isModalActive, setIsModalActive] = useState(false);

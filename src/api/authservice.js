@@ -1,6 +1,6 @@
 // src/api/authservice.js
 import axios from "axios";
-const DEV = true;
+const DEV = false;
 const API_URL = DEV
   ? "http://localhost:3000"
   : "https://onehealthapi.koyeb.app";

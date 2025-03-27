@@ -3,6 +3,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { getUnsignedEvents } from "../../api/event";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading";
+import useDocumentTitle from "../../hooks/useDocumentTitles";
 const EventCard = lazy(() => import("../../components/EventCard"));
 const Header = lazy(() => import("../../components/VolunteerHeader"));
 
@@ -28,6 +29,7 @@ const Bookevent = () => {
       navigate("/");
     }
   }, [navigate, isAuthenticated]);
+  useDocumentTitle("Book Event")
 
   useEffect(() => {
     fetchEvents();

@@ -4,6 +4,7 @@ import { getNextAppointment } from "../../../api/appointmentService";
 import Loading from "../../../components/Loading";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
+import useDocumentTitle from "../../../hooks/useDocumentTitles";
 
 const Header = lazy(() => import("../../../components/DonorHeader"));
 const Appointment = lazy(() => import("../../../components/Appointment"));
@@ -18,10 +19,11 @@ const DonorDashboard = () => {
 
   useEffect(() => {
     // If no user, redirect to login
-    if (!user || user.id.startsWith('V')) {
+    if (!user || user.id.startsWith("V")) {
       navigate("/");
       return;
     }
+    useDocumentTitle("Donor dashboard");
 
     const fetchAppointment = async () => {
       try {
