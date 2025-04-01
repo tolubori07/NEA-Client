@@ -23,7 +23,6 @@ const DonorDashboard = () => {
       navigate("/");
       return;
     }
-    useDocumentTitle("Donor dashboard");
 
     const fetchAppointment = async () => {
       try {
@@ -42,6 +41,7 @@ const DonorDashboard = () => {
     fetchAppointment();
   }, [user, navigate]); // Add dependencies
 
+  useDocumentTitle("Donor dashboard");
   if (loading) {
     return <Loading />;
   }

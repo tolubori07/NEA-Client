@@ -144,7 +144,7 @@ const Manageevents = () => {
               {/* Cancel Modal */}
               <Modal active={isModal1Active} setActive={setIsModal1Active}>
                 <h1 className="text-text font-body text-3xl text-center">
-                  Attention! You're about to cancel an appointment, this action
+                  Attention! You're about to cancel an event, this action
                   is irreversible!
                 </h1>
                 <button
