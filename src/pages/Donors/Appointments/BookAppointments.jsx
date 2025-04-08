@@ -1,23 +1,23 @@
-import { lazy, useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { getAvailableTimes, getCentre } from '../../../api/appointmentService';
+import { lazy, useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { getAvailableTimes, getCentre } from "../../../api/appointmentService";
 
-const Header = lazy(() => import('../../../components/DonorHeader'));
-const Input = lazy(() => import('../../../components/Input'));
-const Select = lazy(() => import('../../../components/Select'));
-const Button = lazy(() => import('../../../components/Button'));
+const Header = lazy(() => import("../../../components/DonorHeader"));
+const Input = lazy(() => import("../../../components/Input"));
+const Select = lazy(() => import("../../../components/Select"));
+const Button = lazy(() => import("../../../components/Button"));
 
 const BookAppointments = () => {
   const { id } = useParams();
   const [centre, setCentre] = useState({});
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState("");
   const [times, setTimes] = useState([]);
-  const [minDate, setMinDate] = useState('');
-  const [selectedTime, setSelectedTime] = useState('');  // State to hold the selected time
+  const [minDate, setMinDate] = useState("");
+  const [selectedTime, setSelectedTime] = useState(""); // State to hold the selected time
 
   // Set the minimum date to today
   const setMinDateHandler = () => {
-    const minimum = new Date(Date.now()).toISOString().split('T')[0];
+    const minimum = new Date(Date.now()).toISOString().split("T")[0];
     setMinDate(minimum);
   };
 
@@ -33,6 +33,8 @@ const BookAppointments = () => {
       }
     }
   };
+
+  const navigate = useNavigate()
 
   // Fetches centre details based on ID
   const getPlace = async () => {
@@ -55,6 +57,14 @@ const BookAppointments = () => {
     setSelectedTime(time);
   };
 
+  //check date and time selected
+  const presenceCheck = () => {
+    if (!date || !selectedTime) {
+      alert("Please select a date and a time")
+    } else {
+      navigate(`/donor/confirm/${centre.ID}/${date}/${date.split("T")[0] + "T" + selectedTime + ":00" + "Z"}`)
+    }
+  }
   // Fetch times whenever the date or centre changes
   useEffect(() => {
     getTimes();
@@ -69,25 +79,41 @@ const BookAppointments = () => {
   return (
     <div>
       <Header />
-      <h1 className='text-text font-body font-heading text-4xl mt-12 ml-12'>{centre.Name}</h1>
-      <div className='flex justify-center'>
-        <div className='bg-white shadow-dark border-2 border-black w-[50%] p-5 h-[70%] rounded-base'>
+      <h1 className="text-text font-body font-heading text-4xl mt-12 ml-12">
+        {centre.Name}
+      </h1>
+      <div className="flex justify-center">
+        <div className="bg-white shadow-dark border-2 border-black w-[50%] p-5 h-[70%] rounded-base">
           <div className="flex flex-col">
-            <h1 className='text-text text-center font-body font-heading text-3xl mt-12'>Pick a date</h1>
-            <Input type={"date"} className={"mt-12"} onChange={onChange} min={minDate} max="2027-12-31" />
+            <h1 className="text-text text-center font-body font-heading text-3xl mt-12">
+              Pick a date
+            </h1>
+            <Input
+              type={"date"}
+              className={"mt-12"}
+              onChange={onChange}
+              min={minDate}
+              max="2027-12-31"
+            />
           </div>
-          <h1 className='text-text font-body font-heading text-3xl mt-12 text-center'>Pick a time</h1>
-          <div className='flex justify-center mb-24'>
-            <Select 
-              items={times.length > 0 ? times : ["Sorry, there are no available slots for this date"]} 
-              className={'w-32'} 
+          <h1 className="text-text font-body font-heading text-3xl mt-12 text-center">
+            Pick a time
+          </h1>
+          <div className="flex justify-center mb-24">
+            <Select
+              items={
+                times.length > 0
+                  ? times
+                  : ["Sorry, there are no available slots for this date"]
+              }
+              className={"w-32"}
               onSelect={handleTimeSelect} // Capture the selected time
             />
           </div>
-          <div className='flex justify-center w-full'>
-            <Link to={`/donor/confirm/${centre.ID}/${date}/${date.split('T')[0]+'T'+selectedTime+':00'+'Z'}`}>
-              <Button disabled={!selectedTime || !date}>Confirm your appointment details</Button>
-            </Link>
+          <div className="flex justify-center w-full">
+              <Button disabled={!selectedTime || !date} onClick={presenceCheck}>
+                Confirm your appointment details
+              </Button>
           </div>
         </div>
       </div>

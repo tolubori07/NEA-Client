@@ -1,10 +1,5 @@
 import { Suspense, lazy } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useLocation,
-} from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import ErrorPage from "./components/error-page";
 import Loading from "./components/Loading";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -95,6 +90,7 @@ const ConfirmEvent = lazy(() => import("./pages/Volunteer/Confirm"));
 const SendMessage = lazy(() => import("./pages/Volunteer/SendMessage"));
 const Vprofile = lazy(() => import("./pages/Volunteer/Profile"));
 const Manageevent = lazy(() => import("./pages/Volunteer/ManageEvent"));
+const Request = lazy(() => import("./pages/Donors/Request"));
 
 const App = () => {
   const location = useLocation(); // Get the current location
@@ -256,6 +252,14 @@ const App = () => {
                 element={
                   <ProtectedRoute>
                     <Vprofile />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/donor/request"
+                element={
+                  <ProtectedRoute>
+                    <Request />
                   </ProtectedRoute>
                 }
               />

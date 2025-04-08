@@ -14,11 +14,11 @@ const Announcements = () => {
   const [announcements, setAnnouncements] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  useDocumentTitle("Announcements");
   useEffect(() => {
     if (!isAuthenticated) {
       navigate("/vlogin");
     }
-    useDocumentTitle("Announcements");
     const fetchAnnouncements = async () => {
       try {
         setLoading(true);
