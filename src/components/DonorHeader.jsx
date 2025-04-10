@@ -70,6 +70,13 @@ const DonorHeader = () => {
           <Dropdown items={appointments} label="Appointments" icon={Calendar} />
         )}
       </div>
+      <Button
+        onClick={toggleMobileMenu}
+        className="md:hidden text-black"
+        aria-label="Open mobile menu"
+      >
+        <Menu size={32} />
+      </Button>
 
       {!isAuthenticated && (
         <Link to="/dlogin">
@@ -84,24 +91,59 @@ const DonorHeader = () => {
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-50"
           onClick={toggleMobileMenu}
-        ></div>
+        >
+          <Menu />
+        </div>
       )}
       <div
-        className={`fixed top-0 right-0 w-64 h-full bg-white z-50 transform transition-transform ${mobileMenuOpen ? "translate-x-0" : "translate-x-full"
-          }`}
+        className={`fixed top-0 right-0 w-64 h-full bg-white z-50 transform transition-transform ${
+          mobileMenuOpen ? "translate-x-0" : "translate-x-full"
+        }`}
       >
-        <div className="flex flex-col p-4 space-y-6">
-          <Dropdown items={profiles} label="Profile" icon={User} />
-          <Dropdown items={items} label="Guidance" icon={HelpCircle} />
-          {isAuthenticated && (
-            <Dropdown
-              items={appointments}
-              label="Appointments"
-              icon={Calendar}
-            />
-          )}
+        <div className="flex flex-col p-4 space-y-4">
+          {profiles.map((item) => (
+            <Link
+              key={item.href}
+              to={item.href}
+              aria-label={item.ariaLabel}
+              className="flex items-center gap-2 text-lg text-black font-medium"
+              onClick={toggleMobileMenu}
+            >
+              <item.icon size={20} />
+              {item.label}
+            </Link>
+          ))}
+
+          {items.map((item) => (
+            <Link
+              key={item.href}
+              to={item.href}
+              aria-label={item.ariaLabel}
+              className="flex items-center gap-2 text-lg text-black font-medium"
+              onClick={toggleMobileMenu}
+            >
+              <item.icon size={20} />
+              {item.label}
+            </Link>
+          ))}
+
+          {/* Appointments Links (only if authenticated) */}
+          {isAuthenticated &&
+            appointments.map((item) => (
+              <Link
+                key={item.href}
+                to={item.href}
+                aria-label={item.ariaLabel}
+                className="flex items-center gap-2 text-lg text-black font-medium"
+                onClick={toggleMobileMenu}
+              >
+                <item.icon size={20} />
+                {item.label}
+              </Link>
+            ))}
+
           {!isAuthenticated && (
-            <Link to="/dlogin" className="mt-auto">
+            <Link to="/dlogin" className="mt-4">
               <Button className="w-full text-text font-display font-bold text-xl">
                 Login
                 <LogIn />
