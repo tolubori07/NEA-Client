@@ -25,6 +25,9 @@ const SendMessage = () => {
   return (
     <div>
       <Header />
+      <h1 className="font-display text-3xl py-5 text-center">
+        Send us a message
+      </h1>
       <div className="flex justify-center items-center">
         <div className="bg-white border-border border-2 shadow-dark rounded-base w-1/2 h-fit p-12 flex flex-col">
           <Input

@@ -1,5 +1,5 @@
 import { lazy, useState, useEffect, Suspense } from "react";
-import { updatePassword } from "../../api/authservice";
+import { vupdatePassword } from "../../api/authservice";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading";
 import { LogOut } from "lucide-react";
@@ -31,7 +31,7 @@ const Profile = () => {
   // Check authentication
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate("/");
+      navigate("/vlogin");
     }
   }, [isAuthenticated, navigate]);
 
@@ -62,7 +62,7 @@ const Profile = () => {
       setLoading(true);
       setError(null);
 
-      await updatePassword(
+      await vupdatePassword(
         user.token,
         passwordData.currentPassword,
         passwordData.newPassword,
@@ -83,25 +83,10 @@ const Profile = () => {
     }
   };
 
-  if (!user) {
-    return <Loading />;
-  }
-
   return (
     <Suspense fallback={<Loading />}>
       <>
         <Header />
-        {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-4 mx-12">
-            {error}
-          </div>
-        )}
-        {success && (
-          <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mt-4 mx-12">
-            {success}
-          </div>
-        )}
-
         <h1 className="text-text font-heading font-body text-4xl ml-12 mt-12">
           Your details...
         </h1>
@@ -153,23 +138,22 @@ const Profile = () => {
               ))}
             </div>
             <div className="w-full flex justify-center">
-              <Button
-                onClick={() => {
-                  logout();
-                  navigate("/vlogin");
-                }}
-                className={"w-1/3"}
-              >
-                <p className="w-full text-center text-lg flex">
-                  Logout <LogOut />
-                </p>
-              </Button>
+              <div className="w-full flex justify-center">
+                <Button
+                  onClick={() => {
+                    logout();
+                    navigate("/vlogin");
+                  }}
+                  className={" w-1/4 flex justify-center"}
+                >
+                  <p className="text-center flex text-xl font-bold font-display">
+                    Logout <LogOut />
+                  </p>{" "}
+                </Button>
+              </div>
             </div>
             {/* Password Section */}
             <div className="flex flex-row justify-center mt-8 gap-8">
-              <h3 className="text-text font-body font-bold text-xl mt-5">
-                Password: •••••••••••
-              </h3>
               <Button
                 onClick={() => setIsModalActive(true)}
                 disabled={loading}

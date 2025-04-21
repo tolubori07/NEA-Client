@@ -1,13 +1,13 @@
 const Announcement = ({ body, title, by, className, time }) => {
   const date = new Date(time);
-  const hour = date.getUTCHours();
-  const minute = date.getUTCMinutes();
-  const day = date.getUTCDate();
-  const month = date.getUTCMonth();
+  const hour = date.getHours();
+  const minute = date.getMinutes();
+  const day = date.getDate();
+  const month = date.getMonth();
   const year = date.getFullYear();
   return (
     <div>
-      <div className="flex justify-center">
+      <div className="flex justify-center font-display">
         <div
           className={`nextappointment bg-white p-10  mt-12 w-[70%] rounded-base border-2 border-black ${className}`}
         >
@@ -25,7 +25,7 @@ const Announcement = ({ body, title, by, className, time }) => {
             {`${hour < 10 ? "0" + hour : hour}:${minute < 10 ? "0" + minute : minute}`}
           </p>
 
-          <p className="text-[#5A5959]">On: {`${day}/${month}/${year}`}</p>
+          <p className="text-[#5A5959]">On: {`${day}/${month+1}/${year}`}</p>
         </div>
       </div>
     </div>

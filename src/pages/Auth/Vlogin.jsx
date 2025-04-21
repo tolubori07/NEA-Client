@@ -3,15 +3,15 @@ import { Eye, EyeOff } from "lucide-react";
 import { lazy, useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { vlogin } from "../../api/authservice";
-import { AuthContext } from "../../api/Authcontext";
 import useDocumentTitle from "../../hooks/useDocumentTitles";
+import { useAuth } from "../../hooks/useAuth";
 
 const Input = lazy(() => import("../../components/Input"));
-const Header = lazy(() => import("../../components/DonorHeader"));
+const Header = lazy(() => import("../../components/VolunteerHeader"));
 const Button = lazy(() => import("../../components/Button"));
 
 const Vlogin = () => {
-  const { setUser, user } = useContext(AuthContext);
+  const { setUser, user } = useAuth();
 
   useDocumentTitle("Volunteer Login");
   const navigate = useNavigate();
@@ -116,6 +116,11 @@ const Vlogin = () => {
         <Link to={"/vsignup"}>
           <span className="text-main font-bold font-body cursor-pointer">
             Sign Up
+          </span>
+        </Link>
+        <Link to={"/volunteer/forgot-password"}>
+          <span className="text-main ml-2 font-bold font-body cursor-pointer">
+            Forgot Password?
           </span>
         </Link>
       </p>

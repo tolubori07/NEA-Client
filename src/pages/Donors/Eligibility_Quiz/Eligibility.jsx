@@ -17,8 +17,7 @@ const Eligibility = () => {
         <div className="py-12">
           <p className="font-base font-body">
             Answer this series of short questions to help you check if you can
-            donate blood, plasma or platelets. This could save you time, or even
-            a wasted journey.
+            donate blood. This could save you time, or even a wasted journey.
           </p>
           <Alert
             message={
@@ -57,7 +56,10 @@ const Eligibility = () => {
             </li>
           </ul>
         </div>
-        <Button className={"mt-12 text-text font-bold font-xl"} onClick={() => navigate("/quiz/heart")}>
+        <Button
+          className={"mt-12 text-text font-bold font-xl"}
+          onClick={() => navigate("/quiz/heart")}
+        >
           Start Now
         </Button>
       </main>

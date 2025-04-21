@@ -30,7 +30,7 @@ const Manageevents = () => {
       return;
     }
   }, [user, navigate]);
-  useDocumentTitle("Manage event")
+  useDocumentTitle("Manage event");
 
   // Fetch appointment details
   useEffect(() => {
@@ -83,7 +83,7 @@ const Manageevents = () => {
   const eventDate = new Date(event.Date);
   const startTime = new Date(event.Start_Time);
   const endTime = new Date(event.End_Time);
-  const location = event.Location;
+  const location = event.Center;
 
   return (
     <Suspense fallback={<Loading />}>
@@ -91,11 +91,11 @@ const Manageevents = () => {
         <Header />
 
         <h1 className="text-text font-heading text-center text-4xl">
-          Manage your upcoming appointments
+          Manage your upcoming events
         </h1>
 
         <Alert
-          message="If you want to reschedule or cancel your appointment, please try to give us at least 3 days notice"
+          message="If you want to cancel your events, please try to give us at least 3 days notice"
           className="w-[40%] mt-12 ml-5"
         />
 
@@ -110,7 +110,7 @@ const Manageevents = () => {
 
             <h2 className="text-text font-heading font-body text-2xl text-center mb-5">
               Start:{" "}
-              {`${startTime.getUTCHours().toString().padStart(2, "0")}:${startTime
+              {`${startTime.getHours().toString().padStart(2, "0")}:${startTime
                 .getMinutes()
                 .toString()
                 .padStart(2, "0")}`}{" "}
@@ -119,7 +119,7 @@ const Manageevents = () => {
 
             <h2 className="text-text font-heading font-body text-2xl text-center mb-5">
               Start:{" "}
-              {`${endTime.getUTCHours().toString().padStart(2, "0")}:${endTime
+              {`${endTime.getHours().toString().padStart(2, "0")}:${endTime
                 .getMinutes()
                 .toString()
                 .padStart(2, "0")}`}{" "}
@@ -139,13 +139,13 @@ const Manageevents = () => {
                 onClick={() => setIsModal1Active(true)}
                 className="text-text text-center justify-center font-heading font-body w-[30rem] text-xl bg-mainAccent py-5"
               >
-                Cancel this appointment
+                Cancel Your attendance
               </Button>
               {/* Cancel Modal */}
               <Modal active={isModal1Active} setActive={setIsModal1Active}>
                 <h1 className="text-text font-body text-3xl text-center">
-                  Attention! You're about to cancel an event, this action
-                  is irreversible!
+                  Attention! You're about to cancel an event, this action is
+                  irreversible!
                 </h1>
                 <button
                   className="mt-5 cursor-pointer rounded-base border-2 border-border dark:border-darkBorder bg-white px-4 py-1.5 font-base shadow-light dark:shadow-dark transition-all hover:translate-x-boxShadowX hover:translate-y-boxShadowY hover:shadow-none dark:hover:shadow-none"

@@ -12,10 +12,9 @@ export const sendMessage = async (message, subject, token) => {
       },
     };
     const emailData = { message: message, subject: subject };
-    const res = axios
+    await axios
       .post(`${API_URL}/sendmessage`, emailData, config)
       .then(alert("Message sent succesfully"));
-    alert(res.data);
   } catch (error) {
     alert(error);
   }

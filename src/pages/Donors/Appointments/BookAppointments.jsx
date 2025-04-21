@@ -19,6 +19,7 @@ const BookAppointments = () => {
   const setMinDateHandler = () => {
     const minimum = new Date(Date.now()).toISOString().split("T")[0];
     setMinDate(minimum);
+    console.log(minimum);
   };
 
   // Fetches available times for the selected date and centre
@@ -34,7 +35,7 @@ const BookAppointments = () => {
     }
   };
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // Fetches centre details based on ID
   const getPlace = async () => {
@@ -58,13 +59,28 @@ const BookAppointments = () => {
   };
 
   //check date and time selected
-  const presenceCheck = () => {
+  const ValidationCheck = () => {
     if (!date || !selectedTime) {
-      alert("Please select a date and a time")
-    } else {
-      navigate(`/donor/confirm/${centre.ID}/${date}/${date.split("T")[0] + "T" + selectedTime + ":00" + "Z"}`)
+      alert("Please select a date and a time");
+      return;
     }
-  }
+
+    // Custom validation: ensure selected date is not less than today
+    const selectedDate = new Date(date);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // normalize to midnight
+
+    if (selectedDate < today) {
+      alert("The selected date cannot be in the past.");
+      return;
+    }
+
+    // Proceed to navigate
+    navigate(
+      `/donor/confirm/${centre.ID}/${date}/${date.split("T")[0] + "T" + selectedTime + ":00Z"}`,
+    );
+  };
+
   // Fetch times whenever the date or centre changes
   useEffect(() => {
     getTimes();
@@ -84,18 +100,20 @@ const BookAppointments = () => {
       </h1>
       <div className="flex justify-center">
         <div className="bg-white shadow-dark border-2 border-black w-[50%] p-5 h-[70%] rounded-base">
-          <div className="flex flex-col">
-            <h1 className="text-text text-center font-body font-heading text-3xl mt-12">
-              Pick a date
-            </h1>
-            <Input
-              type={"date"}
-              className={"mt-12"}
-              onChange={onChange}
-              min={minDate}
-              max="2027-12-31"
-            />
-          </div>
+          <form className="w-full">
+            <div className="flex flex-col">
+              <h1 className="text-text text-center font-body font-heading text-3xl mt-12">
+                Pick a date
+              </h1>
+
+              <Input
+                type={"date"}
+                className={"mt-12"}
+                onChange={onChange}
+                min={minDate}
+              />
+            </div>
+          </form>
           <h1 className="text-text font-body font-heading text-3xl mt-12 text-center">
             Pick a time
           </h1>
@@ -111,9 +129,9 @@ const BookAppointments = () => {
             />
           </div>
           <div className="flex justify-center w-full">
-              <Button disabled={!selectedTime || !date} onClick={presenceCheck}>
-                Confirm your appointment details
-              </Button>
+            <Button disabled={!selectedTime || !date} onClick={ValidationCheck}>
+              Confirm your appointment details
+            </Button>
           </div>
         </div>
       </div>

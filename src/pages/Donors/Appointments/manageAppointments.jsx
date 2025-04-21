@@ -5,10 +5,10 @@ import {
   getAvailableTimes,
   rescheduleAppointment,
 } from "../../../api/appointmentService";
-import { AuthContext } from "../../../api/Authcontext";
 import Loading from "../../../components/Loading";
 import { useParams, useNavigate } from "react-router-dom";
 import { days, months } from "../../../utils/daysandmonths";
+import { useAuth } from "../../../hooks/useAuth";
 
 const Alert = lazy(() => import("../../../components/Alerts"));
 const Header = lazy(() => import("../../../components/DonorHeader"));
@@ -31,12 +31,7 @@ const ManageAppointments = () => {
   // Hooks
   const { id } = useParams();
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext);
-
-  // Log selectedTime whenever it changes
-  useEffect(() => {
-    console.log("Selected Time:", selectedTime);
-  }, [selectedTime]);
+  const { user, isAuthenticated } = useAuth();
 
   // Set the minimum date to today
   useEffect(() => {
@@ -46,11 +41,11 @@ const ManageAppointments = () => {
 
   // Check authentication
   useEffect(() => {
-    if (!user) {
+    if (!isAuthenticated) {
       navigate("/dlogin");
       return;
     }
-  }, [user, navigate]);
+  }, [isAuthenticated, navigate]);
 
   // Fetch appointment details
   useEffect(() => {
@@ -93,26 +88,26 @@ const ManageAppointments = () => {
       return;
     }
 
-    const fields = ["Date", "Time"]; // Fields to update
+    const selected = new Date(selectedDate);
+    const min = new Date(minDate);
+
+    if (selected < min) {
+      alert("You cannot select a date in the past.");
+      return;
+    }
+
+    const fields = ["Date", "Time"];
     const values = [
-      `${selectedDate}T00:00:00Z`, // Format date correctly
-      `${selectedDate}T${selectedTime}:00Z`, // Format time correctly
+      `${selectedDate}T00:00:00Z`,
+      `${selectedDate}T${selectedTime}:00Z`,
     ];
-    const appointmentId = appointment.ID; // Assuming the appointment object has an ID field
+    const appointmentId = appointment.ID;
 
     try {
       setLoading(true);
-      const response = await rescheduleAppointment(
-        user?.token, // User's token
-        fields, // Array of fields to update
-        values, // Array of values for the fields
-        appointmentId, // Appointment ID
-      );
+      await rescheduleAppointment(user?.token, fields, values, appointmentId);
 
-      console.log("Appointment Rescheduled:", response.data);
       alert("Appointment rescheduled successfully!");
-
-      // Optionally, navigate to a different page or update the UI
       navigate("/donor/appointments");
     } catch (error) {
       console.error(
@@ -122,7 +117,7 @@ const ManageAppointments = () => {
       alert("Failed to reschedule appointment. Please try again.");
     } finally {
       setLoading(false);
-      setIsModal2Active(false); // Close the reschedule modal
+      setIsModal2Active(false);
     }
   };
   // Handlers
@@ -186,8 +181,9 @@ const ManageAppointments = () => {
           <div className="bg-white shadow-dark rounded-base w-[70%] border-2 border-black p-5">
             <h2 className="text-text font-heading font-body text-2xl text-center mb-5">
               Date:{" "}
-              {`${days[appointmentDate.getDay()]}, ${appointmentDate.getDate()} ${months[appointmentDate.getMonth()]
-                } ${appointmentDate.getFullYear()}`}
+              {`${days[appointmentDate.getDay()]}, ${appointmentDate.getDate()} ${
+                months[appointmentDate.getMonth()]
+              } ${appointmentDate.getFullYear()}`}
             </h2>
 
             <h2 className="text-text font-heading font-body text-2xl text-center mb-5">
@@ -252,10 +248,11 @@ const ManageAppointments = () => {
                         <Button
                           key={time}
                           onClick={() => handleTimeSelect(time)}
-                          className={`p-2 ${selectedTime === time
+                          className={`p-2 ${
+                            selectedTime === time
                               ? "bg-slate-800 text-white"
                               : " "
-                            }`}
+                          }`}
                         >
                           {time}
                         </Button>

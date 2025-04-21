@@ -1,4 +1,10 @@
-import { Calendar, Megaphone, Menu, PersonStandingIcon, X } from "lucide-react";
+import {
+  Calendar,
+  Megaphone,
+  Menu,
+  PersonStandingIcon,
+  Shield,
+} from "lucide-react";
 import { lazy, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
@@ -6,7 +12,7 @@ import { useAuth } from "../hooks/useAuth";
 const Dropdown = lazy(() => import("./Dropdown"));
 
 const VolunteerHeader = () => {
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
@@ -30,6 +36,16 @@ const VolunteerHeader = () => {
       href: "/volunteer/announcements",
       icon: Megaphone,
     },
+    {
+      label: "Create Announcements",
+      href: "/volunteer/admin/announcements",
+      icon: Shield,
+    },
+    {
+      label: "Create Events",
+      href: "/volunteer/admin/event",
+      icon: Shield,
+    },
   ];
 
   return (
@@ -43,6 +59,15 @@ const VolunteerHeader = () => {
       </Link>
       {/* Desktop Navigation */}
       <div className="hidden md:flex gap-12">
+        {isAuthenticated ? (
+          user?.admin == true ? (
+            <Dropdown
+              items={navLinks.slice(6, 8)}
+              label={"Admin"}
+              icon={Shield}
+            />
+          ) : null
+        ) : null}
         <Dropdown
           items={navLinks.slice(0, 2)}
           label={"Profile"}
@@ -66,28 +91,44 @@ const VolunteerHeader = () => {
           className="h-10 w-10 bg-main shadow-dark rounded-base transition-all hover:translate-x-boxShadowX hover:translate-y-boxShadowY hover:shadow-none dark:hover:shadow-none border-border border-2 cursor-pointer"
         />
       </div>
-      {/* Mobile Menu */}
+
       {mobileMenuOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex flex-col items-end transform transition-transform border-black border-border border-l-2">
-          <div className="bg-white w-64 h-full shadow-lg p-4">
-            <X
-              onClick={toggleMobileMenu}
-              className="h-8 w-8 cursor-pointer mb-6"
-            />
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                to={link.href}
-                className="flex items-center gap-3 text-lg py-2 hover:bg-gray-100 rounded"
-                onClick={toggleMobileMenu}
-              >
-                <link.icon className="w-5 h-5" />
-                {link.label}
-              </Link>
-            ))}
-          </div>
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-50"
+          onClick={toggleMobileMenu}
+        >
+          <Menu />
         </div>
       )}
+      <div
+        className={`fixed top-0 right-0 w-64 h-full bg-white z-50 transform transition-transform ${
+          mobileMenuOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="flex flex-col p-4 space-y-4">
+          {navLinks.map((item) => (
+            <Link
+              key={item.href}
+              to={item.href}
+              aria-label={item.ariaLabel}
+              className="flex items-center gap-2 text-lg text-black font-medium"
+              onClick={toggleMobileMenu}
+            >
+              <item.icon size={20} />
+              {item.label}
+            </Link>
+          ))}
+
+          {!isAuthenticated && (
+            <Link to="/vlogin" className="mt-4">
+              <Button className="w-full text-text font-display font-bold text-xl">
+                Login
+                <LogIn />
+              </Button>
+            </Link>
+          )}
+        </div>
+      </div>
     </header>
   );
 };

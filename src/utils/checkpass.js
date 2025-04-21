@@ -1,4 +1,4 @@
-function checkPasswordRequirements(password) {
+const checkPasswordRequirements = (password) => {
   const requirements = {
     length: password.length >= 8,
     lowercase: /[a-z]/.test(password),
@@ -18,6 +18,6 @@ function checkPasswordRequirements(password) {
   );
   const errorMessages = missingRequirements.map((key) => messages[key]);
   return errorMessages;
-}
+};
 
 export default checkPasswordRequirements;

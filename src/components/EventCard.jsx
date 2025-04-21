@@ -10,7 +10,7 @@ const EventCard = ({ user, event, children, className }) => {
 
   const start_time = new Date(event.Start_Time);
   const end_time = new Date(event.End_Time);
-  const location = event.Location;
+  const location = event.Center;
   const days = [
     "Sunday",
     "Monday",
@@ -52,19 +52,19 @@ const EventCard = ({ user, event, children, className }) => {
             Start:
             {start_time.getUTCHours() == "0"
               ? "00"
-              : `${start_time.getUTCHours()}`}
+              : `${start_time.getHours()}`}
             :
             {start_time.getMinutes() < 10
-              ? `0${start_time.getUTCMinutes()}`
+              ? `0${start_time.getMinutes()}`
               : `${start_time.getMinutes()}`}{" "}
             <br />
             End:
-            {end_time.getUTCHours() == "0"
+            {end_time.getHours() == "0"
               ? "00"
-              : `${end_time.getUTCHours()}`}
+              : `${end_time.getHours()}`}
             :
             {end_time.getMinutes() < 10
-              ? `0${end_time.getUTCMinutes()}`
+              ? `0${end_time.getMinutes()}`
               : `${end_time.getMinutes()}`}{" "}
           </h3>
           <h3 className="font-body text-main font-heading text-2xl mt-6 text-center">
@@ -81,7 +81,7 @@ const EventCard = ({ user, event, children, className }) => {
               (Click to view on map)
             </h3>
           </a>
-          <Button onClick={()=>navigate(`/volunteer/confirm/${event.ID}`)}>Book Appointment</Button>
+          <Button onClick={()=>navigate(`/volunteer/confirm/${event.ID}`)}>Book Event</Button>
 
         </div>
       </div>

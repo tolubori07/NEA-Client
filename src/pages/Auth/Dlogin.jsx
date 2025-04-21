@@ -11,7 +11,7 @@ const Header = lazy(() => import("../../components/DonorHeader"));
 const Button = lazy(() => import("../../components/Button"));
 
 const Dlogin = () => {
-  const { setUser, user } = useContext(AuthContext);
+  const { setUser, isAuthenticated } = useContext(AuthContext);
   useDocumentTitle("Donor Login");
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
@@ -55,7 +55,7 @@ const Dlogin = () => {
   };
 
   useEffect(() => {
-    if (user) {
+    if (isAuthenticated) {
       navigate("/donor/dashboard");
     }
   }, []);
@@ -111,6 +111,11 @@ const Dlogin = () => {
         <Link to={"/dsignup"}>
           <span className="text-main font-bold font-body cursor-pointer">
             Sign Up
+          </span>
+        </Link>
+        <Link to={"/donor/forgot-password"}>
+          <span className="text-main ml-2 font-bold font-body cursor-pointer">
+            Forgot Password?
           </span>
         </Link>
       </p>

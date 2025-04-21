@@ -94,7 +94,7 @@ const Confirm = () => {
         <div className="bg-white border-2 border-black w-[50%] p-5 rounded-base shadow-dark">
           <h3 className="text-text font-heading font-body text-lg mb-4">
             <span className="flex items-center">Location📍:</span>{" "}
-            {`${event.Location.Name}, ${event.Location.Address}, ${event.Location.Postcode}`}
+            {`${event.Center.Name}, ${event.Center.Address}, ${event.Center.Postcode}`}
           </h3>
           <h3 className="text-text font-heading font-body text-lg mb-4">
             <span>Date:</span>{" "}
@@ -102,12 +102,12 @@ const Confirm = () => {
           </h3>
           <h3 className="text-text font-heading font-body text-xl">
             <span>Start</span>{" "}
-            {`${startTime.getUTCHours()}:${startTime.getUTCMinutes().toString().padStart(2, "0")}`}{" "}
+            {`${startTime.getHours()}:${startTime.getMinutes().toString().padStart(2, "0")}`}{" "}
             (24-hour time)
           </h3>
           <h3 className="text-text font-heading font-body text-xl">
             <span>End</span>{" "}
-            {`${endTime.getUTCHours()}:${endTime.getUTCMinutes().toString().padStart(2, "0")}`}{" "}
+            {`${endTime.getHours()}:${endTime.getMinutes().toString().padStart(2, "0")}`}{" "}
             (24-hour time)
           </h3>
 

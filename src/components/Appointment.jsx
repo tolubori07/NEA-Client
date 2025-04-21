@@ -34,7 +34,7 @@ const Appointment = ({ user, appointment, children, className, Message }) => {
   ];
   return (
     <div>
-      <div className="flex justify-center">
+      <div className="flex justify-center font-display">
         <div
           className={`nextappointment bg-white p-10  mt-12 w-[70%] rounded-base border-2 border-black ${className}`}
         >

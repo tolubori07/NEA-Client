@@ -1,9 +1,10 @@
-import { lazy, useContext, useState } from "react";
+import { lazy, useEffect, useState } from "react";
 import { AuthContext } from "../../api/Authcontext";
 import checkPasswordRequirements from "../../utils/checkpass";
 import { vsignup } from "../../api/authservice";
 import { useNavigate } from "react-router-dom";
 import useDocumentTitle from "../../hooks/useDocumentTitles";
+import { useAuth } from "../../hooks/useAuth";
 
 const Header = lazy(() => import("../../components/DonorHeader"));
 const Input = lazy(() => import("../../components/Input"));
@@ -50,21 +51,16 @@ const Vsignup = () => {
     lastname,
     password,
     confirmPassword,
-    occupation,
-    title,
-    bloodgroup,
-    genotype,
     postcode,
     city,
     phoneNumber,
     DOB,
   } = formData;
 
-  const { setUser } = useContext(AuthContext);
-  const genotypes = ["AA", "AS", "SS"];
+  const { setUser, user, isAuthenticated } = useAuth()
+  const genotypes = ["AA", "AS", "SS", "AC", "SC"];
   const titles = ["Mr", "Ms", "Mrs"];
-  const bloodGroups = ["A", "AB", "B", "O"];
-
+  const bloodGroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
   const onChange = (e) => {
     setFormdata((prevState) => ({
       ...prevState,
@@ -151,6 +147,14 @@ const Vsignup = () => {
       }
     }
   };
+
+  useEffect(() => {
+    if (isAuthenticated && user && user.ID.startsWith("D")) {
+      navigate("/donor/dashboard");
+    } else if (isAuthenticated && user && user.ID.startsWith("V")) {
+      navigate("/volunterr/dashboard");
+    }
+  }, []);
 
   return (
     <div>

@@ -1,13 +1,12 @@
-import { Calendar, LogIn, User, HelpCircle, Menu } from "lucide-react";
+import { Calendar, LogIn, User, HelpCircle, Menu, AlertTriangleIcon } from "lucide-react";
 import { lazy, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
 const Button = lazy(() => import("./Button"));
 const Dropdown = lazy(() => import("./Dropdown"));
 
 const DonorHeader = () => {
-  const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -19,6 +18,12 @@ const DonorHeader = () => {
       href: "/quiz",
       ariaLabel: "Click to navigate to Eligibility Quiz",
       icon: HelpCircle,
+    },
+    {
+      label: "Request A blood donation",
+      href: "/donor/request",
+      ariaLabel:"Click to navigate to request an emergency donation",
+      icon: AlertTriangleIcon
     },
   ];
 
@@ -92,7 +97,6 @@ const DonorHeader = () => {
           className="fixed inset-0 bg-black bg-opacity-50 z-50"
           onClick={toggleMobileMenu}
         >
-          <Menu />
         </div>
       )}
       <div

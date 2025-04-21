@@ -11,19 +11,18 @@ const Appointment = lazy(() => import("../../../components/Appointment"));
 
 const DonorDashboard = () => {
   // Correct way to use AuthContext
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const [appointment, setAppointment] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // If no user, redirect to login
-    if (!user || user.id.startsWith("V")) {
-      navigate("/");
-      return;
+    if (!isAuthenticated) {
+      navigate("/dlogin");
+    } else if (isAuthenticated && user.id.startsWith("V")) {
+      navigate("/volunteer/dashboard");
     }
-
     const fetchAppointment = async () => {
       try {
         setLoading(true);

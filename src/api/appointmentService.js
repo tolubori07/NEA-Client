@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const DEV = false;
+const DEV = true;
 const url = DEV ? "http://localhost:3000" : "https://onehealthapi.koyeb.app";
 
 export const getUserAppointments = async (token) => {
@@ -33,7 +33,7 @@ export const getNextAppointment = async (token) => {
   }
 };
 
-export const getCentres = async (city) => {
+export const getCentres = async () => {
   try {
     const response = await axios.get(`${url}/getcentres`, {
       crossDomain: true,

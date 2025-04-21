@@ -5,7 +5,7 @@ export default function Alert({ className, message }) {
     <div
       role="alert"
       className={
-        "flex items-center justify-center text-text rounded-base border-2 border-border dark:border-darkBorder bg-main py-4 sm:px-8 sm:py-5 px-4 font-heading text-sm md:text-base  " +
+        "flex items-center justify-center text-text rounded-base border-2 border-border dark:border-darkBorder bg-main py-4 sm:px-8 sm:py-5 px-4 font-heading text-sm md:text-base font-display" +
         className
       }
     >

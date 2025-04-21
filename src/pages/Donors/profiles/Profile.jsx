@@ -5,6 +5,7 @@ import Loading from "../../../components/Loading";
 import { LogOut } from "lucide-react";
 import { useAuth } from "../../../hooks/useAuth";
 import useDocumentTitle from "../../../hooks/useDocumentTitles";
+import checkPasswordRequirements from "../../../utils/checkpass";
 
 const Input = lazy(() => import("../../../components/Input"));
 const Modal = lazy(() => import("../../../components/Modal"));
@@ -15,7 +16,7 @@ const Profile = () => {
   // Context and Navigation
   const { user, logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
-  useDocumentTitle("Donor Profile")
+  useDocumentTitle("Donor Profile");
 
   // States
   const [isModalActive, setIsModalActive] = useState(false);
@@ -28,12 +29,14 @@ const Profile = () => {
     confirmPassword: "",
   });
 
-  const { curr, newpass, newpasscon } = passwordData;
+  const { currentPassword, newPassword, confirmPassword } = passwordData;
 
   // Check authentication
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate("/");
+      navigate("/dlogin");
+    } else if (isAuthenticated && user.id.startsWith("V")) {
+      navigate("/volunteer/dashboard");
     }
   }, [navigate]);
 
@@ -50,12 +53,12 @@ const Profile = () => {
     e.preventDefault();
 
     // Validate passwords
-    if (newpass !== newpasscon) {
+    if (newPassword !== confirmPassword) {
       setError("Passwords do not match");
       return;
     }
 
-    if (newpass.length < 8) {
+    if (newPassword.length < 8) {
       setError("Password must be at least 8 characters long");
       return;
     }
@@ -64,9 +67,9 @@ const Profile = () => {
       setLoading(true);
       setError(null);
 
-      await updatePassword(user.token, curr, newpass);
+      await updatePassword(user.token, currentPassword, newPassword);
 
-      setSuccess("Password updated successfully");
+      alert("Password updated successfully");
       setPasswordData({
         newPassword: "",
         confirmPassword: "",
@@ -79,10 +82,6 @@ const Profile = () => {
       setLoading(false);
     }
   };
-
-  if (!user) {
-    return <Loading />;
-  }
 
   return (
     <Suspense fallback={<Loading />}>
@@ -139,21 +138,22 @@ const Profile = () => {
             <h3 className="text-text font-body font-bold text-xl mt-5">
               Phone Number: {user.phone}
             </h3>
-            <Button
-              onClick={() => {
-                logout();
-                navigate("/dlogin");
-              }}
-              className={""}
-            >
-              Logout <LogOut />
-            </Button>
+            <div className="w-full flex justify-center">
+              <Button
+                onClick={() => {
+                  logout();
+                  navigate("/dlogin");
+                }}
+                className={" w-1/4 flex justify-center"}
+              >
+                <p className="text-center flex text-xl font-bold font-display">
+                  Logout <LogOut />
+                </p>{" "}
+              </Button>
+            </div>
 
             {/* Password Section */}
             <div className="flex flex-row justify-center mt-8 gap-8">
-              <h3 className="text-text font-body font-bold text-xl mt-5">
-                Password: •••••••••••
-              </h3>
               <Button
                 onClick={() => setIsModalActive(true)}
                 disabled={loading}
@@ -177,7 +177,7 @@ const Profile = () => {
             <Input
               type={"password"}
               name="currentPassword"
-              value={curr}
+              value={currentPassword}
               onChange={onChange}
               className={"bg-white"}
               placeholder={"Current password"}
@@ -190,7 +190,7 @@ const Profile = () => {
             <Input
               type={"password"}
               name="newPassword"
-              value={newpass}
+              value={newPassword}
               onChange={onChange}
               className={"bg-white"}
               placeholder={"New password"}
@@ -203,7 +203,7 @@ const Profile = () => {
             <Input
               type={"password"}
               name="confirmPassword"
-              value={newpasscon}
+              value={confirmPassword}
               onChange={onChange}
               className={"bg-white"}
               placeholder={"Confirm password"}

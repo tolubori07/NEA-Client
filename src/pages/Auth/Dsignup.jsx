@@ -1,5 +1,4 @@
-import { lazy, useContext, useState } from "react";
-import { AuthContext } from "../../api/Authcontext";
+import { lazy, useEffect, useState } from "react";
 import checkPasswordRequirements from "../../utils/checkpass";
 import { dsignup } from "../../api/authservice";
 import { useNavigate } from "react-router-dom";
@@ -40,19 +39,16 @@ const Dsignup = () => {
     password,
     confirmPassword,
     occupation,
-    title,
-    bloodgroup,
-    genotype,
     postcode,
     city,
     phoneNumber,
     DOB,
   } = formData;
 
-  const { setUser } = useAuth();
-  const genotypes = ["AA", "AS", "SS"];
+  const { setUser, isAuthenticated, user } = useAuth();
+  const genotypes = ["AA", "AS", "SS", "AC", "SC"];
   const titles = ["Mr", "Ms", "Mrs"];
-  const bloodGroups = ["A", "AB", "B", "O"];
+  const bloodGroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 
   const onChange = (e) => {
     setFormdata((prevState) => ({
@@ -117,6 +113,14 @@ const Dsignup = () => {
       }
     }
   };
+
+  useEffect(() => {
+    if (isAuthenticated && user.id.startsWith("D")) {
+      navigate("/donor/dashboard");
+    } else if (isAuthenticated && user.id.startsWith("V")) {
+      navigate("/volunteer/dashboard");
+    }
+  }, []);
 
   return (
     <div>
@@ -246,9 +250,7 @@ const Dsignup = () => {
               onChange={onChange}
             />
           </div>
-          {error && (
-            <div className="text-red-500 text-center">{error}</div>
-          )}
+          {error && <div className="text-red-500 text-center">{error}</div>}
           <div>
             <ul>
               {missing.length > 0 ? (
@@ -270,7 +272,11 @@ const Dsignup = () => {
               )}
             </ul>
             <div className="flex justify-center">
-              <Button type="submit" className={"text-center"} disabled={loading}>
+              <Button
+                type="submit"
+                className={"text-center"}
+                disabled={loading}
+              >
                 {loading ? "Signing Up..." : "Sign Up"}
               </Button>
             </div>

@@ -25,7 +25,7 @@ const Yes = () => {
         <p className="text-lg text-text font-body">
           If you have more questions you can email us at
           <span className="text-main font-display font-bold ml-2">
-            onehealthlifesavers@gmail.com
+            <a href="mailto:olifesavers@gmail.com">olifesavers@gmail.com</a>
           </span>
         </p>
         <h3 className="font-bold text-text font-display text-2xl mt-8">

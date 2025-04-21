@@ -1,6 +1,6 @@
 // src/api/authservice.js
 import axios from "axios";
-const DEV = false;
+const DEV = true;
 const API_URL = DEV
   ? "http://localhost:3000"
   : "https://onehealthapi.koyeb.app";
@@ -73,6 +73,47 @@ export const updatePassword = async (token, current, newpassword) => {
     throw new Error(
       error.response?.data?.message || "Failed to update password",
     );
+  }
+};
+
+export const vupdatePassword = async (token, current, newpassword) => {
+  try {
+    const response = await axios.put(
+      `${API_URL}/vupdatepassword`,
+      { current, newpassword },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message || "Failed to update password",
+    );
+  }
+};
+
+export const dresetPassword = async (email, password) => {
+  try {
+    await axios.put(`${API_URL}/dforgotpassword`, {
+      email,
+      password,
+    });
+  } catch (error) {
+    alert("error");
+  }
+};
+
+export const vresetPassword = async (email, password) => {
+  try {
+    await axios.put(`${API_URL}/vforgotpassword`, {
+      email,
+      password,
+    });
+  } catch (error) {
+    alert("error");
   }
 };
 
