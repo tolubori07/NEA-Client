@@ -48,8 +48,8 @@ export default {
       },
     },
     fontFamily: {
-      display: ["false"],
-      body: ["sf-compact"],
+      display: ["'False'", "sans-serif"],
+      body: ["'SF Compact'", "sans-serif"],
     },
   },
   plugins: [],

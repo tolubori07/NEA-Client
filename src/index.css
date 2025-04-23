@@ -36,3 +36,16 @@
   transition: opacity 300ms ease-in-out;
 }
 
+@font-face {
+  font-family: "False";
+  src: url("/fonts/False.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SF Compact";
+  src: url("/fonts/SF-Compact.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
