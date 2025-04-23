@@ -5,6 +5,7 @@ import Loading from "../../components/Loading";
 import { LogOut } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth";
 import useDocumentTitle from "../../hooks/useDocumentTitles";
+import checkPasswordRequirements from "../../utils/checkpass";
 
 const Input = lazy(() => import("../../components/Input"));
 const Modal = lazy(() => import("../../components/Modal"));
@@ -47,20 +48,23 @@ const Profile = () => {
   const handleUpdatePassword = async (e) => {
     e.preventDefault();
 
+    setError(null);
+    setSuccess(null);
+
     // Validate passwords
+    const passwordErrors = checkPasswordRequirements(passwordData.newPassword);
+
     if (passwordData.newPassword !== passwordData.confirmPassword) {
-      setError("Passwords do not match");
-      return;
+      passwordErrors.push("Passwords do not match");
     }
 
-    if (passwordData.newPassword.length < 8) {
-      setError("Password must be at least 8 characters long");
+    if (passwordErrors.length > 0) {
+      setError(passwordErrors.join("\n"));
       return;
     }
 
     try {
       setLoading(true);
-      setError(null);
 
       await vupdatePassword(
         user.token,
@@ -210,7 +214,11 @@ const Profile = () => {
               required
             />
 
-            {error && <p className="text-red-500 text-sm">{error}</p>}
+            {error && (
+              <p className="text-text whitespace-pre-line text-sm">
+                {error}
+              </p>
+            )}
 
             <Button type="submit" disabled={loading} className="w-full mt-4">
               {loading ? "Updating..." : "Update Password"}

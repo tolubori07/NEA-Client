@@ -1,5 +1,5 @@
 import { lazy, useState, useEffect, Suspense } from "react";
-import { updatePassword } from "../../../api/authservice";
+import { dupdatePassword } from "../../../api/authservice";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../../components/Loading";
 import { LogOut } from "lucide-react";
@@ -13,12 +13,10 @@ const Header = lazy(() => import("../../../components/DonorHeader"));
 const Button = lazy(() => import("../../../components/Button"));
 
 const Profile = () => {
-  // Context and Navigation
   const { user, logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   useDocumentTitle("Donor Profile");
 
-  // States
   const [isModalActive, setIsModalActive] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -31,19 +29,18 @@ const Profile = () => {
 
   const { currentPassword, newPassword, confirmPassword } = passwordData;
 
-  // Check authentication
+  // Redirect unauthenticated users
   useEffect(() => {
     if (!isAuthenticated) {
       navigate("/dlogin");
-    } else if (isAuthenticated && user.id.startsWith("V")) {
+    } else if (user?.id?.startsWith("V")) {
       navigate("/volunteer/dashboard");
     }
-  }, [navigate]);
+  }, [isAuthenticated, user, navigate]);
 
-  // Handle password form input
   const onChange = (e) => {
-    setPasswordData((prevState) => ({
-      ...prevState,
+    setPasswordData((prev) => ({
+      ...prev,
       [e.target.name]: e.target.value,
     }));
   };
@@ -52,24 +49,32 @@ const Profile = () => {
   const handleUpdatePassword = async (e) => {
     e.preventDefault();
 
+    setError(null);
+    setSuccess(null);
+
     // Validate passwords
-    if (newPassword !== confirmPassword) {
-      setError("Passwords do not match");
-      return;
+    const passwordErrors = checkPasswordRequirements(passwordData.newPassword);
+
+    if (passwordData.newPassword !== passwordData.confirmPassword) {
+      passwordErrors.push("Passwords do not match");
     }
 
-    if (newPassword.length < 8) {
-      setError("Password must be at least 8 characters long");
+    if (passwordErrors.length > 0) {
+      setError(passwordErrors.join("\n"));
       return;
     }
 
     try {
       setLoading(true);
-      setError(null);
 
-      await updatePassword(user.token, currentPassword, newPassword);
+      await dupdatePassword(
+        user.token,
+        passwordData.currentPassword,
+        passwordData.newPassword,
+      );
 
-      alert("Password updated successfully");
+      setSuccess("Password updated successfully");
+      alert("Password Updated successfully");
       setPasswordData({
         newPassword: "",
         confirmPassword: "",
@@ -87,11 +92,13 @@ const Profile = () => {
     <Suspense fallback={<Loading />}>
       <>
         <Header />
+
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-4 mx-12">
             {error}
           </div>
         )}
+
         {success && (
           <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mt-4 mx-12">
             {success}
@@ -102,7 +109,7 @@ const Profile = () => {
           Your details...
         </h1>
 
-        {/* Donor Details Card */}
+        {/* Donor Details */}
         <div className="flex justify-center mt-12">
           <div className="bg-white text-center shadow-dark rounded-base py-8 border-2 border-black w-[50%]">
             <h1 className="text-text font-heading font-body text-2xl mb-3">
@@ -120,7 +127,7 @@ const Profile = () => {
           </div>
         </div>
 
-        {/* Personal Information Card */}
+        {/* Personal Info */}
         <div className="flex justify-center mt-12">
           <div className="bg-white text-center shadow-dark rounded-base py-8 border-2 border-black w-[60%]">
             <h1 className="text-text font-heading font-body text-center text-4xl">
@@ -138,22 +145,22 @@ const Profile = () => {
             <h3 className="text-text font-body font-bold text-xl mt-5">
               Phone Number: {user.phone}
             </h3>
-            <div className="w-full flex justify-center">
+
+            <div className="w-full flex justify-center mt-5">
               <Button
                 onClick={() => {
                   logout();
                   navigate("/dlogin");
                 }}
-                className={" w-1/4 flex justify-center"}
+                className="w-1/4 flex justify-center"
               >
                 <p className="text-center flex text-xl font-bold font-display">
                   Logout <LogOut />
-                </p>{" "}
+                </p>
               </Button>
             </div>
 
-            {/* Password Section */}
-            <div className="flex flex-row justify-center mt-8 gap-8">
+            <div className="flex justify-center mt-8 gap-8">
               <Button
                 onClick={() => setIsModalActive(true)}
                 disabled={loading}
@@ -165,7 +172,7 @@ const Profile = () => {
           </div>
         </div>
 
-        {/* Password Update Modal */}
+        {/* Password Modal */}
         <Modal active={isModalActive} setActive={setIsModalActive}>
           <form
             onSubmit={handleUpdatePassword}
@@ -175,12 +182,12 @@ const Profile = () => {
               Input your current password
             </label>
             <Input
-              type={"password"}
+              type="password"
               name="currentPassword"
               value={currentPassword}
               onChange={onChange}
-              className={"bg-white"}
-              placeholder={"Current password"}
+              className="bg-white"
+              placeholder="Current password"
               required
             />
 
@@ -188,12 +195,12 @@ const Profile = () => {
               Input your new password
             </label>
             <Input
-              type={"password"}
+              type="password"
               name="newPassword"
               value={newPassword}
               onChange={onChange}
-              className={"bg-white"}
-              placeholder={"New password"}
+              className="bg-white"
+              placeholder="New password"
               required
             />
 
@@ -201,12 +208,12 @@ const Profile = () => {
               Confirm new password
             </label>
             <Input
-              type={"password"}
+              type="password"
               name="confirmPassword"
               value={confirmPassword}
               onChange={onChange}
-              className={"bg-white"}
-              placeholder={"Confirm password"}
+              className="bg-white"
+              placeholder="Confirm password"
               required
             />
 

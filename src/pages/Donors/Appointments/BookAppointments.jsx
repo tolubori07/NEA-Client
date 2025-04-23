@@ -27,7 +27,25 @@ const BookAppointments = () => {
     if (date && centre.ID) {
       try {
         const response = await getAvailableTimes(date, centre.ID);
-        setTimes(response);
+
+        const selectedDate = new Date(date);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        let filteredTimes = response;
+
+        // If selected date is today, filter out past times
+        if (selectedDate.toDateString() === today.toDateString()) {
+          const now = new Date();
+          const currentTime = `${now.getHours().toString().padStart(2, "0")}:${now
+            .getMinutes()
+            .toString()
+            .padStart(2, "0")}`;
+
+          filteredTimes = response.filter((time) => time > currentTime);
+        }
+
+        setTimes(filteredTimes);
       } catch (error) {
         console.error("Failed to fetch available times:", error);
         setTimes([]);

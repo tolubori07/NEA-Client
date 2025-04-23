@@ -9,7 +9,7 @@ const Select = ({ items, className, onSelect }) => {
     setSelectedItem(itemName);
     setIsActiveSelect(false);
     if (onSelect) {
-      onSelect(itemName); // Invoke the callback with the selected item
+      onSelect(itemName);
     }
   };
 
@@ -20,12 +20,9 @@ const Select = ({ items, className, onSelect }) => {
       aria-expanded={isActiveSelect}
     >
       <button
-        onClick={() => {
-          setIsActiveSelect(!isActiveSelect);
-        }}
-        onBlur={() => {
-          setIsActiveSelect(false);
-        }}
+        type="button"
+        onClick={() => setIsActiveSelect(!isActiveSelect)}
+        onBlur={() => setIsActiveSelect(false)}
         aria-haspopup="listbox"
         aria-labelledby="select-label"
         className="flex min-w-[160px] w-max cursor-pointer items-center rounded-base border-2 border-border dark:border-darkBorder bg-main px-10 py-3 font-base shadow-light dark:shadow-dark transition-all hover:translate-x-boxShadowX hover:translate-y-boxShadowY hover:shadow-none dark:hover:shadow-none"
@@ -48,9 +45,8 @@ const Select = ({ items, className, onSelect }) => {
           return (
             <button
               key={index}
-              onClick={() => {
-                handleItemClick(item);
-              }}
+              type="button"
+              onMouseDown={() => handleItemClick(item)}
               className="block w-full border-b-2 border-border dark:border-darkBorder bg-main px-5 py-3 first:rounded-t-base last:rounded-b-base hover:bg-mainAccent"
             >
               {item}

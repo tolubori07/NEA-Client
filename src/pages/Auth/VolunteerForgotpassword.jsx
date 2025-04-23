@@ -5,7 +5,7 @@ import { vresetPassword } from "../../api/authservice";
 
 const Button = lazy(() => import("../../components/Button"));
 const Input = lazy(() => import("../../components/Input"));
-const Header = lazy(() => import("../../components/VolunteerHeader"));
+const Header = lazy(() => import("../../components/WelcomeHeader"));
 
 const VolunteerForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -53,7 +53,7 @@ const VolunteerForgotPassword = () => {
     try {
       // Try to reset the password
       await vresetPassword(email, newPassword);
-      alert("Successfully reset password")
+      alert("Successfully reset password");
       navigate("/vlogin");
     } catch (err) {
       alert("Failed to reset password. Please try again.");

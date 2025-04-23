@@ -6,7 +6,8 @@ import { useNavigate } from "react-router-dom";
 import useDocumentTitle from "../../hooks/useDocumentTitles";
 import { useAuth } from "../../hooks/useAuth";
 
-const Header = lazy(() => import("../../components/DonorHeader"));
+
+const Header = lazy(() => import("../../components/WelcomeHeader"));
 const Input = lazy(() => import("../../components/Input"));
 const Button = lazy(() => import("../../components/Button"));
 const Select = lazy(() => import("../../components/Select2"));

@@ -57,7 +57,7 @@ export const vsignup = async (userData) => {
   }
 };
 
-export const updatePassword = async (token, current, newpassword) => {
+export const dupdatePassword = async (token, current, newpassword) => {
   try {
     const response = await axios.put(
       `${API_URL}/updatepassword`,
@@ -123,7 +123,8 @@ const authService = {
   logout,
   dsignup,
   vsignup,
-  updatePassword,
+  dupdatePassword,
+  vupdatePassword,
 };
 
 export default authService;

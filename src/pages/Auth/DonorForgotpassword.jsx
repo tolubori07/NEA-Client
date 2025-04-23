@@ -6,7 +6,8 @@ import { useAuth } from "../../hooks/useAuth";
 
 const Button = lazy(() => import("../../components/Button"));
 const Input = lazy(() => import("../../components/Input"));
-const Header = lazy(() => import("../../components/DonorHeader"));
+const Header = lazy(() => import("../../components/WelcomeHeader"));
+
 
 const DonorForgotPassword = () => {
   const [email, setEmail] = useState("");
