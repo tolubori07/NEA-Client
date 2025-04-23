@@ -115,10 +115,8 @@ const Dsignup = () => {
   };
 
   useEffect(() => {
-    if (isAuthenticated && user.id.startsWith("D")) {
+    if (isAuthenticated) {
       navigate("/donor/dashboard");
-    } else if (isAuthenticated && user.id.startsWith("V")) {
-      navigate("/volunteer/dashboard");
     }
   }, []);
 

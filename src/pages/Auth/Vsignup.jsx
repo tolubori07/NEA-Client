@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import useDocumentTitle from "../../hooks/useDocumentTitles";
 import { useAuth } from "../../hooks/useAuth";
 
-
 const Header = lazy(() => import("../../components/WelcomeHeader"));
 const Input = lazy(() => import("../../components/Input"));
 const Button = lazy(() => import("../../components/Button"));
@@ -58,7 +57,7 @@ const Vsignup = () => {
     DOB,
   } = formData;
 
-  const { setUser, user, isAuthenticated } = useAuth()
+  const { setUser, user, isAuthenticated } = useAuth();
   const genotypes = ["AA", "AS", "SS", "AC", "SC"];
   const titles = ["Mr", "Ms", "Mrs"];
   const bloodGroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
@@ -150,10 +149,8 @@ const Vsignup = () => {
   };
 
   useEffect(() => {
-    if (isAuthenticated && user && user.ID.startsWith("D")) {
+    if (isAuthenticated) {
       navigate("/donor/dashboard");
-    } else if (isAuthenticated && user && user.ID.startsWith("V")) {
-      navigate("/volunterr/dashboard");
     }
   }, []);
 
