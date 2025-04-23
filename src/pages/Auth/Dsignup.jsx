@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import useDocumentTitle from "../../hooks/useDocumentTitles";
 
-const Header = lazy(() => import("../../components/WelcomeHeader"));
+const Header = lazy(() => import("../../components/DonorHeader"));
 const Input = lazy(() => import("../../components/Input"));
 const Button = lazy(() => import("../../components/Button"));
 const Select = lazy(() => import("../../components/Select2"));
@@ -115,8 +115,11 @@ const Dsignup = () => {
   };
 
   useEffect(() => {
-    if (isAuthenticated) {
+      if (!isAuthenticated || !user) return;
+    if (isAuthenticated && user.id.startsWith("D")) {
       navigate("/donor/dashboard");
+    } else if (isAuthenticated && user.id.startsWith("V")) {
+      navigate("/volunteer/dashboard");
     }
   }, []);
 

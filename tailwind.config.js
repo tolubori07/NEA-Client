@@ -49,7 +49,7 @@ export default {
     },
     fontFamily: {
       display: ["False"],
-      body: ["SF Compact Display"],
+      body: ["SF-Compact"],
     },
   },
   plugins: [],
