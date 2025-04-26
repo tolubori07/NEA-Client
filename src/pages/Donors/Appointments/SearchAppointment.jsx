@@ -1,6 +1,7 @@
 import { lazy, useState, useEffect } from "react";
 import { getCentres } from "../../../api/appointmentService";
 import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../../../hooks/useAuth";
 
 const Header = lazy(() => import("../../../components/DonorHeader"));
 const Loading = lazy(() => import("../../../components/Loading"));
@@ -8,8 +9,8 @@ const Loading = lazy(() => import("../../../components/Loading"));
 const SearchAppointment = () => {
   const [centres, setCentres] = useState([]);
   const [loading, setLoading] = useState(false); // Changed to false initially
-  const [searched, setSearched] = useState(false);
-
+  const { isAuthenticated, user } = useAuth();
+  const navigate = useNavigate();
   const fetchCentres = async () => {
     try {
       setLoading(true);
@@ -30,6 +31,15 @@ const SearchAppointment = () => {
   if (loading) {
     return <Loading />;
   }
+
+  useEffect(() => {
+    if (!isAuthenticated || !user) navigate("/dlogin");
+    if (isAuthenticated && user && user.id.startsWith("D")) {
+      navigate("/donor/dashboard");
+    } else if (isAuthenticated && user && user.id.startsWith("V")) {
+      navigate("/volunteer/dashboard");
+    }
+  }, []);
 
   return (
     <div className="w-full">

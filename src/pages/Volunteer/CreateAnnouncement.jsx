@@ -17,10 +17,14 @@ export default function CreateAnnouncement() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    await createAnnouncement(title, body, user.token);
-    navigate("/volunteer/announcements");
+    if (title == "" || body == "") {
+      alert("please fill all fields");
+    } else {
+      await createAnnouncement(title, body, user.token);
+      navigate("/volunteer/announcements");
+    }
   }
-  useDocumentTitle("Post an Announcement")
+  useDocumentTitle("Post an Announcement");
   useEffect(() => {
     if (!user) {
       navigate("/dlogin");
@@ -38,7 +42,9 @@ export default function CreateAnnouncement() {
   return (
     <>
       <Header />
-      <h1 className="font-display text-3xl text-center">Post An announcement</h1>
+      <h1 className="font-display text-3xl text-center">
+        Post An announcement
+      </h1>
       <div className="min-h-screen bg-bg text-text  flex justify-center items-center px-4">
         <form
           onSubmit={handleSubmit}

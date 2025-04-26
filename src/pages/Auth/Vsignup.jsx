@@ -150,10 +150,10 @@ const Vsignup = () => {
 
   useEffect(() => {
     if(!isAuthenticated||!user) return
-    if (isAuthenticated && user && user.ID.startsWith("D")) {
+    if (isAuthenticated && user && user.id.startsWith("D")) {
       navigate("/donor/dashboard");
-    } else if (isAuthenticated && user && user.ID.startsWith("V")) {
-      navigate("/volunterr/dashboard");
+    } else if (isAuthenticated && user && user.id.startsWith("V")) {
+      navigate("/volunteer/dashboard");
     }
   }, []);
 
