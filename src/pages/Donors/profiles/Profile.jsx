@@ -145,6 +145,15 @@ const Profile = () => {
             <h3 className="text-text font-body font-bold text-xl mt-5">
               Phone Number: {user.phone}
             </h3>
+            <h3 className="text-text font-body font-bold text-xl mt-5">
+              City/Town of residence: {user.city}
+            </h3>
+            <h3 className="text-text font-body font-bold text-xl mt-5">
+              Postcode: {user.postcode}
+            </h3>
+            <h3 className="text-text font-body font-bold text-xl mt-5">
+              Date of Birth: {user.dob}
+            </h3>
 
             <div className="w-full flex justify-center mt-5">
               <Button
