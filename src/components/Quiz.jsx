@@ -22,13 +22,11 @@ const Quiz = ({ question, next }) => {
       <Header />
       <div className="">
         <div className="flex flex-row">
-          <Link to={".."} className="grow">
-            <Button className={"flex ml-32"}>
-              <span className="flex font-display text-2xl">
-                <ChevronLeft /> Go Back
-              </span>
-            </Button>
-          </Link>
+          <Button className={"flex ml-32"} onClick={() => navigate(-1)}>
+            <span className="flex font-display text-2xl">
+              <ChevronLeft /> Go Back
+            </span>
+          </Button>
 
           {unfilled && (
             <Alert
