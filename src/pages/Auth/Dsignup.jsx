@@ -4,6 +4,7 @@ import { dsignup } from "../../api/authservice";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import useDocumentTitle from "../../hooks/useDocumentTitles";
+import regmatch from "../../utils/regexmatcher";
 
 const Header = lazy(() => import("../../components/DonorHeader"));
 const Input = lazy(() => import("../../components/Input"));
@@ -94,12 +95,25 @@ const Dsignup = () => {
     return errors.length === 0;
   };
 
+  const phoneRegex =
+    "^((((\+44\s?([0–6]|[8–9])\d{3} | \(?0([0–6]|[8–9])\d{3}\)?)\s?\d{3}\s?(\d{2}|\d{3}))|((\+44\s?([0–6]|[8–9])\d{3}|\(?0([0–6]|[8–9])\d{3}\)?)\s?\d{3}\s?(\d{4}|\d{3}))|((\+44\s?([0–6]|[8–9])\d{1}|\(?0([0–6]|[8–9])\d{1}\)?)\s?\d{4}\s?(\d{4}|\d{3}))|((\+44\s?\d{4}|\(?0\d{4}\)?)\s?\d{3}\s?\d{3})|((\+44\s?\d{3}|\(?0\d{3}\)?)\s?\d{3}\s?\d{4})|((\+44\s?\d{2}|\(?0\d{2}\)?)\s?\d{4}\s?\d{4})))(?:[\s-]?(?:x|ext\.?|\#)\d{3,4})?$";
+  const postRegex =
+    "^(([A-Z]{1,2}\d[A-Z\d]?|ASCN|STHL|TDCU|BBND|[BFS]IQQ|PCRN|TKCA) ?\d[A-Z]{2}|BFPO ?\d{1,4}|(KY\d|MSR|VG|AI)[ -]?\d{4}|[A-Z]{2} ?\d{2}|GE ?CX|GIR ?0A{2}|SAN ?TA1)$";
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(""); // Reset error message
     setMissing([]); // Reset missing requirements
 
     if (validatePass()) {
+      if (!regmatch(phoneRegex, phoneNumber)) {
+        alert("please ensure that your phone number is in the right format");
+        return;
+      }
+      if (!regmatch(postRegex, postcode)) {
+        alert("please ensure that your post code is in the right format");
+        return;
+      }
       setLoading(true);
       try {
         const response = await dsignup(formData);
@@ -115,7 +129,7 @@ const Dsignup = () => {
   };
 
   useEffect(() => {
-      if (!isAuthenticated || !user) return;
+    if (!isAuthenticated || !user) return;
     if (isAuthenticated && user.id.startsWith("D")) {
       navigate("/donor/dashboard");
     } else if (isAuthenticated && user.id.startsWith("V")) {
@@ -151,6 +165,9 @@ const Dsignup = () => {
             />
           </div>
           <div className="flex justify-center w-full px-12">
+            <label className="text-text font-display text-xl">
+              Date Of Birth
+            </label>
             <Input
               name="DOB"
               type={"date"}
@@ -158,6 +175,7 @@ const Dsignup = () => {
               className={"w-full"}
               value={DOB}
               onChange={onChange}
+              max={new Date().toISOString().split("T")[0]}
             />
           </div>
           <div className="flex justify-center w-full px-12">

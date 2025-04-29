@@ -57,7 +57,7 @@ const Vsignup = () => {
     DOB,
   } = formData;
 
-  const { setUser, user, isAuthenticated } = useAuth()
+  const { setUser, user, isAuthenticated } = useAuth();
   const genotypes = ["AA", "AS", "SS", "AC", "SC"];
   const titles = ["Mr", "Ms", "Mrs"];
   const bloodGroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
@@ -133,6 +133,15 @@ const Vsignup = () => {
     setMissing([]); // Reset missing requirements
 
     if (validatePass()) {
+      if (!regmatch(phoneRegex, phoneNumber)) {
+        alert("please ensure that your phone number is in the right format");
+        return;
+      }
+      if (!regmatch(postRegex, postcode)) {
+        alert("please ensure that your post code is in the right format");
+        return;
+      }
+
       setLoading(true);
       try {
         const response = await vsignup(formData);
@@ -149,7 +158,7 @@ const Vsignup = () => {
   };
 
   useEffect(() => {
-    if(!isAuthenticated||!user) return
+    if (!isAuthenticated || !user) return;
     if (isAuthenticated && user && user.id.startsWith("D")) {
       navigate("/donor/dashboard");
     } else if (isAuthenticated && user && user.id.startsWith("V")) {
@@ -185,6 +194,9 @@ const Vsignup = () => {
             />
           </div>
           <div className="flex justify-center w-full px-12">
+            <label className="text-text font-display text-xl">
+              Date Of Birth
+            </label>
             <Input
               name="DOB"
               type={"date"}
@@ -192,6 +204,7 @@ const Vsignup = () => {
               className={"w-full"}
               value={DOB}
               onChange={onChange}
+              max={new Date().toISOString().split("T")[0]}
             />
           </div>
           <div className="flex justify-center w-full px-12">
