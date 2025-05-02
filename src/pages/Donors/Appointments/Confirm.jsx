@@ -2,6 +2,7 @@ import { lazy, useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { createAppointment, getCentre } from "../../../api/appointmentService";
 import { AuthContext } from "../../../api/Authcontext";
+import { useAuth } from "../../../hooks/useAuth";
 
 const Header = lazy(() => import("../../../components/DonorHeader"));
 const Button = lazy(() => import("../../../components/Button"));
@@ -10,7 +11,7 @@ const Alert = lazy(() => import("../../../components/Alerts"));
 const Confirm = () => {
   const { centre, date, time } = useParams(); // Extract centre, date, and time from the URL parameters
   const [Centre, setCentre] = useState({});
-  const {user} = useContext(AuthContext); // Directly using useContext without parsing
+  const {user} = useAuth(); // Directly using useContext without parsing
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const navigate = useNavigate();

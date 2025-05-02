@@ -1,6 +1,7 @@
 import { lazy, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { getAvailableTimes, getCentre } from "../../../api/appointmentService";
+import { useAuth } from "../../../hooks/useAuth";
 
 const Header = lazy(() => import("../../../components/DonorHeader"));
 const Input = lazy(() => import("../../../components/Input"));
@@ -14,7 +15,7 @@ const BookAppointments = () => {
   const [times, setTimes] = useState([]);
   const [minDate, setMinDate] = useState("");
   const [selectedTime, setSelectedTime] = useState(""); // State to hold the selected time
-
+  const {user,isAuthenticated} = useAuth()
   // Set the minimum date to today
   const setMinDateHandler = () => {
     const minimum = new Date(Date.now()).toISOString().split("T")[0];
@@ -109,6 +110,14 @@ const BookAppointments = () => {
   useEffect(() => {
     getPlace();
   }, []);
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/");
+    }
+    if (isAuthenticated && user.id.startsWith("V"))
+      navigate("/volunteer/dashboard");
+  }, [isAuthenticated,user]);
 
   return (
     <div>

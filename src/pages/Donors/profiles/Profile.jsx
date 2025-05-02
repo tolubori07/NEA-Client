@@ -33,7 +33,7 @@ const Profile = () => {
   useEffect(() => {
     if (!isAuthenticated) {
       navigate("/dlogin");
-    } else if (user?.id?.startsWith("V")) {
+    } else if (isAuthenticated && user?.id?.startsWith("V")) {
       navigate("/volunteer/dashboard");
     }
   }, [isAuthenticated, user, navigate]);

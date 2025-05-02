@@ -28,8 +28,10 @@ const Bookevent = () => {
     if (!isAuthenticated) {
       navigate("/");
     }
+    if (isAuthenticated && user.id.startsWith("D"))
+      navigate("/volunteer/announcements");
   }, [navigate, isAuthenticated]);
-  useDocumentTitle("Book Event")
+  useDocumentTitle("Book Event");
 
   useEffect(() => {
     fetchEvents();

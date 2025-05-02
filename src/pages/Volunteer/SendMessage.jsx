@@ -12,13 +12,20 @@ const Button = lazy(() => import("../../components/Button"));
 const SendMessage = () => {
   const [message, setMessage] = useState("");
   const [subject, setSubject] = useState("");
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   const handleSendMessage = async () => {
     await sendMessage(message, subject, user.token);
     navigate("/volunteer/dashboard");
   };
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/");
+    }
+    if (isAuthenticated && user.id.startsWith("D"))
+      navigate("/volunteer/announcements");
+  }, [navigate, isAuthenticated]);
 
   useDocumentTitle("Send a message");
 

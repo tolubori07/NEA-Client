@@ -42,7 +42,7 @@ const Confirm = () => {
   const book = async () => {
     try {
       const token = user.token;
-      const response = await bookEvent(id,token);
+      const response = await bookEvent(id, token);
       if (response) {
         setSuccess(true);
         navigate("/volunteer/dashboard");
@@ -69,6 +69,13 @@ const Confirm = () => {
 
     fetchEvent();
   }, [id]);
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/");
+    }
+    if (isAuthenticated && user.id.startsWith("D"))
+      navigate("/volunteer/announcements");
+  });
 
   if (!event) return <div>Loading...</div>;
 

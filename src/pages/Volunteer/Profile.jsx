@@ -32,8 +32,10 @@ const Profile = () => {
   // Check authentication
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate("/vlogin");
+      navigate("/");
     }
+    if (isAuthenticated && user.id.startsWith("D"))
+      navigate("/donor/dashboard");
   }, [isAuthenticated, navigate]);
 
   // Handle password form input
@@ -215,9 +217,7 @@ const Profile = () => {
             />
 
             {error && (
-              <p className="text-text whitespace-pre-line text-sm">
-                {error}
-              </p>
+              <p className="text-text whitespace-pre-line text-sm">{error}</p>
             )}
 
             <Button type="submit" disabled={loading} className="w-full mt-4">

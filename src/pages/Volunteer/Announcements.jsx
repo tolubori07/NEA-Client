@@ -17,8 +17,10 @@ const Announcements = () => {
   useDocumentTitle("Announcements");
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate("/vlogin");
+      navigate("/");
     }
+    if (isAuthenticated && user.id.startsWith("D"))
+      navigate("/volunteer/announcements");
     const fetchAnnouncements = async () => {
       try {
         setLoading(true);

@@ -45,6 +45,9 @@ const ManageAppointments = () => {
       navigate("/dlogin");
       return;
     }
+    if(isAuthenticated&&user.id.startsWith('V')) { 
+      navigate('/volunteer/dashboard')
+    }
   }, [isAuthenticated, navigate]);
 
   // Fetch appointment details

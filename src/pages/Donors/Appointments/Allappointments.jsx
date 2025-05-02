@@ -8,7 +8,7 @@ const Appointment = lazy(() => import("../../../components/Appointment"));
 const Header = lazy(() => import("../../../components/DonorHeader"));
 
 const AllAppointments = () => {
-  const { user } = useContext(AuthContext);
+  const { user,isAuthenticated } = useContext(AuthContext);
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true); // State to handle loading
   const navigate = useNavigate();
@@ -25,9 +25,10 @@ const AllAppointments = () => {
   };
 
   useEffect(() => {
-    if (!user) {
-      navigate("/dlogin");
+    if (!isAuthenticated) {
+      navigate("/");
     }
+    if(isAuthenticated && user.id.startsWith('V')) navigate("/volunteer/dashboard")
   }, [navigate, user]); // Empty dependency array to run the effect only once
 
   useEffect(() => {

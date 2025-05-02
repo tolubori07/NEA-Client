@@ -21,14 +21,16 @@ const Manageevents = () => {
   // Hooks
   const { id } = useParams();
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { isAuthenticated,user } = useAuth();
 
   // Check authentication
   useEffect(() => {
-    if (!user || user.id.startsWith("D")) {
+
+    if (isAuthenticated && user.id.startsWith("D")) {
       navigate("/donor/dashboard");
       return;
     }
+    if(!isAuthenticated) navigate("/")
   }, [user, navigate]);
   useDocumentTitle("Manage event");
 
