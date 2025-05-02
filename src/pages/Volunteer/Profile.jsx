@@ -135,7 +135,7 @@ const Profile = () => {
               Services Offered
             </h2>
             <div>
-              {services.map((service, index) => (
+              {user.services.map((service, index) => (
                 <p key={index} className="mb-2 text-text font-bold">
                   {service}
                 </p>

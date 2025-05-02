@@ -154,7 +154,7 @@ const Vsignup = () => {
         navigate("/volunteer/announcements");
       } catch (err) {
         setError("Registration failed. Please try again.");
-        alert(error);
+        alert("Registration failed, please fill in the form properly");
         console.error(err);
       } finally {
         setLoading(false);

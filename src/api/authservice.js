@@ -1,12 +1,16 @@
 // src/api/authservice.js
 import axios from "axios";
-const DEV = false;
+const DEV = true;
 const API_URL = DEV
   ? "http://localhost:3000"
   : "https://onehealthapi.koyeb.app";
 //const API_URL = "http://localhost:3000";
 export const dlogin = async (userData) => {
   try {
+    if (userData.email == "" || userData.password == "") {
+      alert("Please fill all fields");
+      throw new Error("Please fill all fields")
+    }
     const response = await axios.post(`${API_URL}/dlogin`, userData);
     if (response.data) {
       localStorage.setItem("user", JSON.stringify(response.data));
@@ -41,7 +45,8 @@ export const dsignup = async (userData) => {
     }
     return response.data;
   } catch (error) {
-    throw new Error(error.response?.data?.message || "Registration failed");
+    alert("registration failed, please ensure the field is filled out correctly")
+    throw new Error(error.response?.data?.message || "registration failed, please ensure the field is filled out correctly");
   }
 };
 
