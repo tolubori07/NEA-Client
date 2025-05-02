@@ -59,7 +59,7 @@ const DonorHeader = () => {
 
   return (
     <header className="bg-white h-24 border-b-4 border-b-black flex justify-between items-center mb-3 px-8">
-      <Link to={isAuthenticated ? "/donor/dashboard" : "/"}>
+      <Link to={"/"}>
         <img
           src="/logo.png"
           alt="Logo"

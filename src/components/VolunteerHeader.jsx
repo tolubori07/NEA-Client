@@ -50,7 +50,7 @@ const VolunteerHeader = () => {
 
   return (
     <header className="bg-white h-24 border-b-4 border-b-black flex justify-between items-center px-8 mb-3">
-      <Link to={user ? "/volunteer/dashboard" : "/"}>
+      <Link to={"/"}>
         <img
           src="/logo.png"
           alt="Volunteer Logo"

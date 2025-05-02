@@ -29,7 +29,7 @@ const Bookevent = () => {
       navigate("/");
     }
     if (isAuthenticated && user.id.startsWith("D"))
-      navigate("/volunteer/announcements");
+      navigate("/donor/dashboard");
   }, [navigate, isAuthenticated]);
   useDocumentTitle("Book Event");
 

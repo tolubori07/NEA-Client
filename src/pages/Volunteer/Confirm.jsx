@@ -74,7 +74,7 @@ const Confirm = () => {
       navigate("/");
     }
     if (isAuthenticated && user.id.startsWith("D"))
-      navigate("/volunteer/announcements");
+      navigate("/donor/dashboard");
   });
 
   if (!event) return <div>Loading...</div>;

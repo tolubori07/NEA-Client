@@ -20,7 +20,7 @@ const Announcements = () => {
       navigate("/");
     }
     if (isAuthenticated && user.id.startsWith("D"))
-      navigate("/volunteer/announcements");
+      navigate("/donor/dashboard");
     const fetchAnnouncements = async () => {
       try {
         setLoading(true);

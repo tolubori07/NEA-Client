@@ -9,11 +9,11 @@ const Event = lazy(() => import("../../components/Event"));
 const Header = lazy(() => import("../../components/VolunteerHeader"));
 
 const Allevents = () => {
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true); // State to handle loading
   const navigate = useNavigate();
-useDocumentTitle("My events")
+  useDocumentTitle("My events");
   const getEvents = async () => {
     try {
       const res = await getSignedEvents(user.token);
@@ -26,9 +26,11 @@ useDocumentTitle("My events")
   };
 
   useEffect(() => {
-    if (!user) {
+    if (!isAuthenticated) {
       navigate("/vlogin");
     }
+    if (isAuthenticated && user.id.startsWith("D"))
+      navigate("/donor/dashboard");
   }, [navigate, user]);
 
   useEffect(() => {

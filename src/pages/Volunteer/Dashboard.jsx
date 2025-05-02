@@ -8,7 +8,7 @@ const Header = lazy(() => import("../../components/VolunteerHeader"));
 const Event = lazy(() => import("../../components/Event"));
 
 const Dashboard = () => {
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -17,10 +17,12 @@ const Dashboard = () => {
 
   useEffect(() => {
     // If no user, redirect to login
-    if (!user || user.id.startsWith("D")) {
-      navigate("/donor/dashboard");
+    if (!isAuthenticated) {
+      navigate("/");
       return;
     }
+    if (isAuthenticated && user.id.startsWith("D"))
+      navigate("/donor/dashboard");
     const fetchNextEvent = async () => {
       try {
         setLoading(true);
